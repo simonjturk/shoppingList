@@ -1,5 +1,8 @@
 @import '~@angular/material/theming';
 
+
+
+
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
@@ -15,3 +18,6 @@ $theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($theme);
+
+@import './scss/vars';
+@import './scss/splash';
