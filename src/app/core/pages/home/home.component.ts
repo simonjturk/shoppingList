@@ -11,7 +11,5 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
   }
-  normalError() {
-    const babies = foo;
-  }
+
 }
