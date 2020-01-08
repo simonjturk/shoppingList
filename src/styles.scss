@@ -1,4 +1,11 @@
-@import './assets/theme.scss';
+/*
+I'm deliberately not globally loading the theme file here because I can't figure out a neat way to 
+include variables for primary colour, for example, that are derived from the material theme.
+
+So, to get the files in components you must import the theme file there.
+
+*/
+//@import './assets/theme.scss';
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
