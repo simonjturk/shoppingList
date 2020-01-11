@@ -12,18 +12,20 @@ import { TemplateComponent } from './template/template.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { ContentComponent } from './content/content.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   declarations: [NavbarComponent, TemplateComponent, FooterComponent, ContentComponent],
   imports: [
     RouterModule,
     CommonModule,
     LayoutModule,
+    FlexLayoutModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule
   ],
-  exports:[NavbarComponent, TemplateComponent]
+  exports:[NavbarComponent, TemplateComponent, FlexLayoutModule]
 })
 export class AppLayoutModule { }

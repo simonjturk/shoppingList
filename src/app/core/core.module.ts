@@ -9,6 +9,7 @@ import { ErrorService } from './services/error.service';
 import { IosInstallComponent } from './components/ios-install/ios-install.component';
 import { MatIconModule } from '@angular/material/icon';
 
+
 @NgModule({
   declarations: [HomeComponent, Error500Component, Error404Component, IosInstallComponent],
   imports: [
