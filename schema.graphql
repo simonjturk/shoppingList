@@ -1,0 +1,2277 @@
+# source: http://localhost:8080/v1/graphql
+# timestamp: Sat Jan 11 2020 13:48:27 GMT+1100 (Australian Eastern Daylight Time)
+
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""
+expression to compare columns of type Boolean. All fields are combined with logical 'AND'.
+"""
+input Boolean_comparison_exp {
+  _eq: Boolean
+  _gt: Boolean
+  _gte: Boolean
+  _in: [Boolean!]
+  _is_null: Boolean
+  _lt: Boolean
+  _lte: Boolean
+  _neq: Boolean
+  _nin: [Boolean!]
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "product_categories"
+  """
+  delete_product_categories(
+    """filter the rows which have to be deleted"""
+    where: product_categories_bool_exp!
+  ): product_categories_mutation_response
+
+  """
+  delete data from the table: "products"
+  """
+  delete_products(
+    """filter the rows which have to be deleted"""
+    where: products_bool_exp!
+  ): products_mutation_response
+
+  """
+  delete data from the table: "shopping_list"
+  """
+  delete_shopping_list(
+    """filter the rows which have to be deleted"""
+    where: shopping_list_bool_exp!
+  ): shopping_list_mutation_response
+
+  """
+  delete data from the table: "shopping_list_items"
+  """
+  delete_shopping_list_items(
+    """filter the rows which have to be deleted"""
+    where: shopping_list_items_bool_exp!
+  ): shopping_list_items_mutation_response
+
+  """
+  delete data from the table: "stores"
+  """
+  delete_stores(
+    """filter the rows which have to be deleted"""
+    where: stores_bool_exp!
+  ): stores_mutation_response
+
+  """
+  delete data from the table: "types"
+  """
+  delete_types(
+    """filter the rows which have to be deleted"""
+    where: types_bool_exp!
+  ): types_mutation_response
+
+  """
+  insert data into the table: "product_categories"
+  """
+  insert_product_categories(
+    """the rows to be inserted"""
+    objects: [product_categories_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: product_categories_on_conflict
+  ): product_categories_mutation_response
+
+  """
+  insert data into the table: "products"
+  """
+  insert_products(
+    """the rows to be inserted"""
+    objects: [products_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: products_on_conflict
+  ): products_mutation_response
+
+  """
+  insert data into the table: "shopping_list"
+  """
+  insert_shopping_list(
+    """the rows to be inserted"""
+    objects: [shopping_list_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: shopping_list_on_conflict
+  ): shopping_list_mutation_response
+
+  """
+  insert data into the table: "shopping_list_items"
+  """
+  insert_shopping_list_items(
+    """the rows to be inserted"""
+    objects: [shopping_list_items_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: shopping_list_items_on_conflict
+  ): shopping_list_items_mutation_response
+
+  """
+  insert data into the table: "stores"
+  """
+  insert_stores(
+    """the rows to be inserted"""
+    objects: [stores_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: stores_on_conflict
+  ): stores_mutation_response
+
+  """
+  insert data into the table: "types"
+  """
+  insert_types(
+    """the rows to be inserted"""
+    objects: [types_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: types_on_conflict
+  ): types_mutation_response
+
+  """
+  update data of the table: "product_categories"
+  """
+  update_product_categories(
+    """sets the columns of the filtered rows to the given values"""
+    _set: product_categories_set_input
+
+    """filter the rows which have to be updated"""
+    where: product_categories_bool_exp!
+  ): product_categories_mutation_response
+
+  """
+  update data of the table: "products"
+  """
+  update_products(
+    """sets the columns of the filtered rows to the given values"""
+    _set: products_set_input
+
+    """filter the rows which have to be updated"""
+    where: products_bool_exp!
+  ): products_mutation_response
+
+  """
+  update data of the table: "shopping_list"
+  """
+  update_shopping_list(
+    """sets the columns of the filtered rows to the given values"""
+    _set: shopping_list_set_input
+
+    """filter the rows which have to be updated"""
+    where: shopping_list_bool_exp!
+  ): shopping_list_mutation_response
+
+  """
+  update data of the table: "shopping_list_items"
+  """
+  update_shopping_list_items(
+    """sets the columns of the filtered rows to the given values"""
+    _set: shopping_list_items_set_input
+
+    """filter the rows which have to be updated"""
+    where: shopping_list_items_bool_exp!
+  ): shopping_list_items_mutation_response
+
+  """
+  update data of the table: "stores"
+  """
+  update_stores(
+    """sets the columns of the filtered rows to the given values"""
+    _set: stores_set_input
+
+    """filter the rows which have to be updated"""
+    where: stores_bool_exp!
+  ): stores_mutation_response
+
+  """
+  update data of the table: "types"
+  """
+  update_types(
+    """sets the columns of the filtered rows to the given values"""
+    _set: types_set_input
+
+    """filter the rows which have to be updated"""
+    where: types_bool_exp!
+  ): types_mutation_response
+}
+
+scalar numeric
+
+"""
+expression to compare columns of type numeric. All fields are combined with logical 'AND'.
+"""
+input numeric_comparison_exp {
+  _eq: numeric
+  _gt: numeric
+  _gte: numeric
+  _in: [numeric!]
+  _is_null: Boolean
+  _lt: numeric
+  _lte: numeric
+  _neq: numeric
+  _nin: [numeric!]
+}
+
+"""column ordering options"""
+enum order_by {
+  """in the ascending order, nulls last"""
+  asc
+
+  """in the ascending order, nulls first"""
+  asc_nulls_first
+
+  """in the ascending order, nulls last"""
+  asc_nulls_last
+
+  """in the descending order, nulls first"""
+  desc
+
+  """in the descending order, nulls first"""
+  desc_nulls_first
+
+  """in the descending order, nulls last"""
+  desc_nulls_last
+}
+
+"""
+columns and relationships of "product_categories"
+"""
+type product_categories {
+  colour: String
+  created_at: timestamptz!
+  favourite: Boolean!
+  id: uuid!
+  name: String!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "product_categories"
+"""
+type product_categories_aggregate {
+  aggregate: product_categories_aggregate_fields
+  nodes: [product_categories!]!
+}
+
+"""
+aggregate fields of "product_categories"
+"""
+type product_categories_aggregate_fields {
+  count(columns: [product_categories_select_column!], distinct: Boolean): Int
+  max: product_categories_max_fields
+  min: product_categories_min_fields
+}
+
+"""
+order by aggregate values of table "product_categories"
+"""
+input product_categories_aggregate_order_by {
+  count: order_by
+  max: product_categories_max_order_by
+  min: product_categories_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "product_categories"
+"""
+input product_categories_arr_rel_insert_input {
+  data: [product_categories_insert_input!]!
+  on_conflict: product_categories_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "product_categories". All fields are combined with a logical 'AND'.
+"""
+input product_categories_bool_exp {
+  _and: [product_categories_bool_exp]
+  _not: product_categories_bool_exp
+  _or: [product_categories_bool_exp]
+  colour: String_comparison_exp
+  created_at: timestamptz_comparison_exp
+  favourite: Boolean_comparison_exp
+  id: uuid_comparison_exp
+  name: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "product_categories"
+"""
+enum product_categories_constraint {
+  """unique or primary key constraint"""
+  product_categories_pkey
+}
+
+"""
+input type for inserting data into table "product_categories"
+"""
+input product_categories_insert_input {
+  colour: String
+  created_at: timestamptz
+  favourite: Boolean
+  id: uuid
+  name: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type product_categories_max_fields {
+  colour: String
+  created_at: timestamptz
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+order by max() on columns of table "product_categories"
+"""
+input product_categories_max_order_by {
+  colour: order_by
+  created_at: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type product_categories_min_fields {
+  colour: String
+  created_at: timestamptz
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+order by min() on columns of table "product_categories"
+"""
+input product_categories_min_order_by {
+  colour: order_by
+  created_at: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "product_categories"
+"""
+type product_categories_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [product_categories!]!
+}
+
+"""
+input type for inserting object relation for remote table "product_categories"
+"""
+input product_categories_obj_rel_insert_input {
+  data: product_categories_insert_input!
+  on_conflict: product_categories_on_conflict
+}
+
+"""
+on conflict condition type for table "product_categories"
+"""
+input product_categories_on_conflict {
+  constraint: product_categories_constraint!
+  update_columns: [product_categories_update_column!]!
+  where: product_categories_bool_exp
+}
+
+"""
+ordering options when selecting data from "product_categories"
+"""
+input product_categories_order_by {
+  colour: order_by
+  created_at: order_by
+  favourite: order_by
+  id: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""
+select columns of table "product_categories"
+"""
+enum product_categories_select_column {
+  """column name"""
+  colour
+
+  """column name"""
+  created_at
+
+  """column name"""
+  favourite
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "product_categories"
+"""
+input product_categories_set_input {
+  colour: String
+  created_at: timestamptz
+  favourite: Boolean
+  id: uuid
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+update columns of table "product_categories"
+"""
+enum product_categories_update_column {
+  """column name"""
+  colour
+
+  """column name"""
+  created_at
+
+  """column name"""
+  favourite
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  updated_at
+}
+
+"""
+columns and relationships of "products"
+"""
+type products {
+  """An object relationship"""
+  category: product_categories
+  category_id: uuid
+  created_at: timestamptz!
+  description: String
+  favourite: Boolean!
+  id: uuid!
+  name: String!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "products"
+"""
+type products_aggregate {
+  aggregate: products_aggregate_fields
+  nodes: [products!]!
+}
+
+"""
+aggregate fields of "products"
+"""
+type products_aggregate_fields {
+  count(columns: [products_select_column!], distinct: Boolean): Int
+  max: products_max_fields
+  min: products_min_fields
+}
+
+"""
+order by aggregate values of table "products"
+"""
+input products_aggregate_order_by {
+  count: order_by
+  max: products_max_order_by
+  min: products_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "products"
+"""
+input products_arr_rel_insert_input {
+  data: [products_insert_input!]!
+  on_conflict: products_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "products". All fields are combined with a logical 'AND'.
+"""
+input products_bool_exp {
+  _and: [products_bool_exp]
+  _not: products_bool_exp
+  _or: [products_bool_exp]
+  category: product_categories_bool_exp
+  category_id: uuid_comparison_exp
+  created_at: timestamptz_comparison_exp
+  description: String_comparison_exp
+  favourite: Boolean_comparison_exp
+  id: uuid_comparison_exp
+  name: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "products"
+"""
+enum products_constraint {
+  """unique or primary key constraint"""
+  products_pkey
+}
+
+"""
+input type for inserting data into table "products"
+"""
+input products_insert_input {
+  category: product_categories_obj_rel_insert_input
+  category_id: uuid
+  created_at: timestamptz
+  description: String
+  favourite: Boolean
+  id: uuid
+  name: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type products_max_fields {
+  created_at: timestamptz
+  description: String
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+order by max() on columns of table "products"
+"""
+input products_max_order_by {
+  created_at: order_by
+  description: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type products_min_fields {
+  created_at: timestamptz
+  description: String
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+order by min() on columns of table "products"
+"""
+input products_min_order_by {
+  created_at: order_by
+  description: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "products"
+"""
+type products_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [products!]!
+}
+
+"""
+input type for inserting object relation for remote table "products"
+"""
+input products_obj_rel_insert_input {
+  data: products_insert_input!
+  on_conflict: products_on_conflict
+}
+
+"""
+on conflict condition type for table "products"
+"""
+input products_on_conflict {
+  constraint: products_constraint!
+  update_columns: [products_update_column!]!
+  where: products_bool_exp
+}
+
+"""
+ordering options when selecting data from "products"
+"""
+input products_order_by {
+  category: product_categories_order_by
+  category_id: order_by
+  created_at: order_by
+  description: order_by
+  favourite: order_by
+  id: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""
+select columns of table "products"
+"""
+enum products_select_column {
+  """column name"""
+  category_id
+
+  """column name"""
+  created_at
+
+  """column name"""
+  description
+
+  """column name"""
+  favourite
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "products"
+"""
+input products_set_input {
+  category_id: uuid
+  created_at: timestamptz
+  description: String
+  favourite: Boolean
+  id: uuid
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+update columns of table "products"
+"""
+enum products_update_column {
+  """column name"""
+  category_id
+
+  """column name"""
+  created_at
+
+  """column name"""
+  description
+
+  """column name"""
+  favourite
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  updated_at
+}
+
+"""query root"""
+type query_root {
+  """
+  fetch data from the table: "product_categories"
+  """
+  product_categories(
+    """distinct select on columns"""
+    distinct_on: [product_categories_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [product_categories_order_by!]
+
+    """filter the rows returned"""
+    where: product_categories_bool_exp
+  ): [product_categories!]!
+
+  """
+  fetch aggregated fields from the table: "product_categories"
+  """
+  product_categories_aggregate(
+    """distinct select on columns"""
+    distinct_on: [product_categories_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [product_categories_order_by!]
+
+    """filter the rows returned"""
+    where: product_categories_bool_exp
+  ): product_categories_aggregate!
+
+  """
+  fetch data from the table: "product_categories" using primary key columns
+  """
+  product_categories_by_pk(id: uuid!): product_categories
+
+  """
+  fetch data from the table: "products"
+  """
+  products(
+    """distinct select on columns"""
+    distinct_on: [products_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [products_order_by!]
+
+    """filter the rows returned"""
+    where: products_bool_exp
+  ): [products!]!
+
+  """
+  fetch aggregated fields from the table: "products"
+  """
+  products_aggregate(
+    """distinct select on columns"""
+    distinct_on: [products_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [products_order_by!]
+
+    """filter the rows returned"""
+    where: products_bool_exp
+  ): products_aggregate!
+
+  """fetch data from the table: "products" using primary key columns"""
+  products_by_pk(id: uuid!): products
+
+  """
+  fetch data from the table: "shopping_list"
+  """
+  shopping_list(
+    """distinct select on columns"""
+    distinct_on: [shopping_list_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shopping_list_order_by!]
+
+    """filter the rows returned"""
+    where: shopping_list_bool_exp
+  ): [shopping_list!]!
+
+  """
+  fetch aggregated fields from the table: "shopping_list"
+  """
+  shopping_list_aggregate(
+    """distinct select on columns"""
+    distinct_on: [shopping_list_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shopping_list_order_by!]
+
+    """filter the rows returned"""
+    where: shopping_list_bool_exp
+  ): shopping_list_aggregate!
+
+  """fetch data from the table: "shopping_list" using primary key columns"""
+  shopping_list_by_pk(id: uuid!): shopping_list
+
+  """
+  fetch data from the table: "shopping_list_items"
+  """
+  shopping_list_items(
+    """distinct select on columns"""
+    distinct_on: [shopping_list_items_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shopping_list_items_order_by!]
+
+    """filter the rows returned"""
+    where: shopping_list_items_bool_exp
+  ): [shopping_list_items!]!
+
+  """
+  fetch aggregated fields from the table: "shopping_list_items"
+  """
+  shopping_list_items_aggregate(
+    """distinct select on columns"""
+    distinct_on: [shopping_list_items_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shopping_list_items_order_by!]
+
+    """filter the rows returned"""
+    where: shopping_list_items_bool_exp
+  ): shopping_list_items_aggregate!
+
+  """
+  fetch data from the table: "shopping_list_items" using primary key columns
+  """
+  shopping_list_items_by_pk(id: uuid!): shopping_list_items
+
+  """
+  fetch data from the table: "stores"
+  """
+  stores(
+    """distinct select on columns"""
+    distinct_on: [stores_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [stores_order_by!]
+
+    """filter the rows returned"""
+    where: stores_bool_exp
+  ): [stores!]!
+
+  """
+  fetch aggregated fields from the table: "stores"
+  """
+  stores_aggregate(
+    """distinct select on columns"""
+    distinct_on: [stores_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [stores_order_by!]
+
+    """filter the rows returned"""
+    where: stores_bool_exp
+  ): stores_aggregate!
+
+  """fetch data from the table: "stores" using primary key columns"""
+  stores_by_pk(id: uuid!): stores
+
+  """
+  fetch data from the table: "types"
+  """
+  types(
+    """distinct select on columns"""
+    distinct_on: [types_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [types_order_by!]
+
+    """filter the rows returned"""
+    where: types_bool_exp
+  ): [types!]!
+
+  """
+  fetch aggregated fields from the table: "types"
+  """
+  types_aggregate(
+    """distinct select on columns"""
+    distinct_on: [types_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [types_order_by!]
+
+    """filter the rows returned"""
+    where: types_bool_exp
+  ): types_aggregate!
+
+  """fetch data from the table: "types" using primary key columns"""
+  types_by_pk(id: uuid!): types
+}
+
+"""
+columns and relationships of "shopping_list"
+"""
+type shopping_list {
+  created_at: timestamptz!
+  favourite: Boolean!
+  id: uuid!
+
+  """An array relationship"""
+  items(
+    """distinct select on columns"""
+    distinct_on: [shopping_list_items_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shopping_list_items_order_by!]
+
+    """filter the rows returned"""
+    where: shopping_list_items_bool_exp
+  ): [shopping_list_items!]!
+
+  """An aggregated array relationship"""
+  items_aggregate(
+    """distinct select on columns"""
+    distinct_on: [shopping_list_items_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shopping_list_items_order_by!]
+
+    """filter the rows returned"""
+    where: shopping_list_items_bool_exp
+  ): shopping_list_items_aggregate!
+  name: String!
+
+  """An object relationship"""
+  store: stores
+  store_id: uuid!
+
+  """An object relationship"""
+  type: types
+  type_id: uuid!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "shopping_list"
+"""
+type shopping_list_aggregate {
+  aggregate: shopping_list_aggregate_fields
+  nodes: [shopping_list!]!
+}
+
+"""
+aggregate fields of "shopping_list"
+"""
+type shopping_list_aggregate_fields {
+  count(columns: [shopping_list_select_column!], distinct: Boolean): Int
+  max: shopping_list_max_fields
+  min: shopping_list_min_fields
+}
+
+"""
+order by aggregate values of table "shopping_list"
+"""
+input shopping_list_aggregate_order_by {
+  count: order_by
+  max: shopping_list_max_order_by
+  min: shopping_list_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "shopping_list"
+"""
+input shopping_list_arr_rel_insert_input {
+  data: [shopping_list_insert_input!]!
+  on_conflict: shopping_list_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "shopping_list". All fields are combined with a logical 'AND'.
+"""
+input shopping_list_bool_exp {
+  _and: [shopping_list_bool_exp]
+  _not: shopping_list_bool_exp
+  _or: [shopping_list_bool_exp]
+  created_at: timestamptz_comparison_exp
+  favourite: Boolean_comparison_exp
+  id: uuid_comparison_exp
+  items: shopping_list_items_bool_exp
+  name: String_comparison_exp
+  store: stores_bool_exp
+  store_id: uuid_comparison_exp
+  type: types_bool_exp
+  type_id: uuid_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "shopping_list"
+"""
+enum shopping_list_constraint {
+  """unique or primary key constraint"""
+  shopping_list_pkey
+}
+
+"""
+input type for inserting data into table "shopping_list"
+"""
+input shopping_list_insert_input {
+  created_at: timestamptz
+  favourite: Boolean
+  id: uuid
+  items: shopping_list_items_arr_rel_insert_input
+  name: String
+  store: stores_obj_rel_insert_input
+  store_id: uuid
+  type: types_obj_rel_insert_input
+  type_id: uuid
+  updated_at: timestamptz
+}
+
+"""
+columns and relationships of "shopping_list_items"
+"""
+type shopping_list_items {
+  complete: Boolean!
+  created_at: timestamptz!
+  id: uuid!
+  product_id: uuid!
+  quantity: numeric!
+  shopping_list_id: uuid!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "shopping_list_items"
+"""
+type shopping_list_items_aggregate {
+  aggregate: shopping_list_items_aggregate_fields
+  nodes: [shopping_list_items!]!
+}
+
+"""
+aggregate fields of "shopping_list_items"
+"""
+type shopping_list_items_aggregate_fields {
+  avg: shopping_list_items_avg_fields
+  count(columns: [shopping_list_items_select_column!], distinct: Boolean): Int
+  max: shopping_list_items_max_fields
+  min: shopping_list_items_min_fields
+  stddev: shopping_list_items_stddev_fields
+  stddev_pop: shopping_list_items_stddev_pop_fields
+  stddev_samp: shopping_list_items_stddev_samp_fields
+  sum: shopping_list_items_sum_fields
+  var_pop: shopping_list_items_var_pop_fields
+  var_samp: shopping_list_items_var_samp_fields
+  variance: shopping_list_items_variance_fields
+}
+
+"""
+order by aggregate values of table "shopping_list_items"
+"""
+input shopping_list_items_aggregate_order_by {
+  avg: shopping_list_items_avg_order_by
+  count: order_by
+  max: shopping_list_items_max_order_by
+  min: shopping_list_items_min_order_by
+  stddev: shopping_list_items_stddev_order_by
+  stddev_pop: shopping_list_items_stddev_pop_order_by
+  stddev_samp: shopping_list_items_stddev_samp_order_by
+  sum: shopping_list_items_sum_order_by
+  var_pop: shopping_list_items_var_pop_order_by
+  var_samp: shopping_list_items_var_samp_order_by
+  variance: shopping_list_items_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "shopping_list_items"
+"""
+input shopping_list_items_arr_rel_insert_input {
+  data: [shopping_list_items_insert_input!]!
+  on_conflict: shopping_list_items_on_conflict
+}
+
+"""aggregate avg on columns"""
+type shopping_list_items_avg_fields {
+  quantity: Float
+}
+
+"""
+order by avg() on columns of table "shopping_list_items"
+"""
+input shopping_list_items_avg_order_by {
+  quantity: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "shopping_list_items". All fields are combined with a logical 'AND'.
+"""
+input shopping_list_items_bool_exp {
+  _and: [shopping_list_items_bool_exp]
+  _not: shopping_list_items_bool_exp
+  _or: [shopping_list_items_bool_exp]
+  complete: Boolean_comparison_exp
+  created_at: timestamptz_comparison_exp
+  id: uuid_comparison_exp
+  product_id: uuid_comparison_exp
+  quantity: numeric_comparison_exp
+  shopping_list_id: uuid_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "shopping_list_items"
+"""
+enum shopping_list_items_constraint {
+  """unique or primary key constraint"""
+  shopping_list_items_pkey
+}
+
+"""
+input type for inserting data into table "shopping_list_items"
+"""
+input shopping_list_items_insert_input {
+  complete: Boolean
+  created_at: timestamptz
+  id: uuid
+  product_id: uuid
+  quantity: numeric
+  shopping_list_id: uuid
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type shopping_list_items_max_fields {
+  created_at: timestamptz
+  quantity: numeric
+  updated_at: timestamptz
+}
+
+"""
+order by max() on columns of table "shopping_list_items"
+"""
+input shopping_list_items_max_order_by {
+  created_at: order_by
+  quantity: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type shopping_list_items_min_fields {
+  created_at: timestamptz
+  quantity: numeric
+  updated_at: timestamptz
+}
+
+"""
+order by min() on columns of table "shopping_list_items"
+"""
+input shopping_list_items_min_order_by {
+  created_at: order_by
+  quantity: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "shopping_list_items"
+"""
+type shopping_list_items_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [shopping_list_items!]!
+}
+
+"""
+input type for inserting object relation for remote table "shopping_list_items"
+"""
+input shopping_list_items_obj_rel_insert_input {
+  data: shopping_list_items_insert_input!
+  on_conflict: shopping_list_items_on_conflict
+}
+
+"""
+on conflict condition type for table "shopping_list_items"
+"""
+input shopping_list_items_on_conflict {
+  constraint: shopping_list_items_constraint!
+  update_columns: [shopping_list_items_update_column!]!
+  where: shopping_list_items_bool_exp
+}
+
+"""
+ordering options when selecting data from "shopping_list_items"
+"""
+input shopping_list_items_order_by {
+  complete: order_by
+  created_at: order_by
+  id: order_by
+  product_id: order_by
+  quantity: order_by
+  shopping_list_id: order_by
+  updated_at: order_by
+}
+
+"""
+select columns of table "shopping_list_items"
+"""
+enum shopping_list_items_select_column {
+  """column name"""
+  complete
+
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  product_id
+
+  """column name"""
+  quantity
+
+  """column name"""
+  shopping_list_id
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "shopping_list_items"
+"""
+input shopping_list_items_set_input {
+  complete: Boolean
+  created_at: timestamptz
+  id: uuid
+  product_id: uuid
+  quantity: numeric
+  shopping_list_id: uuid
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type shopping_list_items_stddev_fields {
+  quantity: Float
+}
+
+"""
+order by stddev() on columns of table "shopping_list_items"
+"""
+input shopping_list_items_stddev_order_by {
+  quantity: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type shopping_list_items_stddev_pop_fields {
+  quantity: Float
+}
+
+"""
+order by stddev_pop() on columns of table "shopping_list_items"
+"""
+input shopping_list_items_stddev_pop_order_by {
+  quantity: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type shopping_list_items_stddev_samp_fields {
+  quantity: Float
+}
+
+"""
+order by stddev_samp() on columns of table "shopping_list_items"
+"""
+input shopping_list_items_stddev_samp_order_by {
+  quantity: order_by
+}
+
+"""aggregate sum on columns"""
+type shopping_list_items_sum_fields {
+  quantity: numeric
+}
+
+"""
+order by sum() on columns of table "shopping_list_items"
+"""
+input shopping_list_items_sum_order_by {
+  quantity: order_by
+}
+
+"""
+update columns of table "shopping_list_items"
+"""
+enum shopping_list_items_update_column {
+  """column name"""
+  complete
+
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  product_id
+
+  """column name"""
+  quantity
+
+  """column name"""
+  shopping_list_id
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type shopping_list_items_var_pop_fields {
+  quantity: Float
+}
+
+"""
+order by var_pop() on columns of table "shopping_list_items"
+"""
+input shopping_list_items_var_pop_order_by {
+  quantity: order_by
+}
+
+"""aggregate var_samp on columns"""
+type shopping_list_items_var_samp_fields {
+  quantity: Float
+}
+
+"""
+order by var_samp() on columns of table "shopping_list_items"
+"""
+input shopping_list_items_var_samp_order_by {
+  quantity: order_by
+}
+
+"""aggregate variance on columns"""
+type shopping_list_items_variance_fields {
+  quantity: Float
+}
+
+"""
+order by variance() on columns of table "shopping_list_items"
+"""
+input shopping_list_items_variance_order_by {
+  quantity: order_by
+}
+
+"""aggregate max on columns"""
+type shopping_list_max_fields {
+  created_at: timestamptz
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+order by max() on columns of table "shopping_list"
+"""
+input shopping_list_max_order_by {
+  created_at: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type shopping_list_min_fields {
+  created_at: timestamptz
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+order by min() on columns of table "shopping_list"
+"""
+input shopping_list_min_order_by {
+  created_at: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "shopping_list"
+"""
+type shopping_list_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [shopping_list!]!
+}
+
+"""
+input type for inserting object relation for remote table "shopping_list"
+"""
+input shopping_list_obj_rel_insert_input {
+  data: shopping_list_insert_input!
+  on_conflict: shopping_list_on_conflict
+}
+
+"""
+on conflict condition type for table "shopping_list"
+"""
+input shopping_list_on_conflict {
+  constraint: shopping_list_constraint!
+  update_columns: [shopping_list_update_column!]!
+  where: shopping_list_bool_exp
+}
+
+"""
+ordering options when selecting data from "shopping_list"
+"""
+input shopping_list_order_by {
+  created_at: order_by
+  favourite: order_by
+  id: order_by
+  items_aggregate: shopping_list_items_aggregate_order_by
+  name: order_by
+  store: stores_order_by
+  store_id: order_by
+  type: types_order_by
+  type_id: order_by
+  updated_at: order_by
+}
+
+"""
+select columns of table "shopping_list"
+"""
+enum shopping_list_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  favourite
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  store_id
+
+  """column name"""
+  type_id
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "shopping_list"
+"""
+input shopping_list_set_input {
+  created_at: timestamptz
+  favourite: Boolean
+  id: uuid
+  name: String
+  store_id: uuid
+  type_id: uuid
+  updated_at: timestamptz
+}
+
+"""
+update columns of table "shopping_list"
+"""
+enum shopping_list_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  favourite
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  store_id
+
+  """column name"""
+  type_id
+
+  """column name"""
+  updated_at
+}
+
+"""
+columns and relationships of "stores"
+"""
+type stores {
+  created_at: timestamptz!
+  id: uuid!
+  name: String!
+
+  """An object relationship"""
+  type: types
+  type_id: uuid!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "stores"
+"""
+type stores_aggregate {
+  aggregate: stores_aggregate_fields
+  nodes: [stores!]!
+}
+
+"""
+aggregate fields of "stores"
+"""
+type stores_aggregate_fields {
+  count(columns: [stores_select_column!], distinct: Boolean): Int
+  max: stores_max_fields
+  min: stores_min_fields
+}
+
+"""
+order by aggregate values of table "stores"
+"""
+input stores_aggregate_order_by {
+  count: order_by
+  max: stores_max_order_by
+  min: stores_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "stores"
+"""
+input stores_arr_rel_insert_input {
+  data: [stores_insert_input!]!
+  on_conflict: stores_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "stores". All fields are combined with a logical 'AND'.
+"""
+input stores_bool_exp {
+  _and: [stores_bool_exp]
+  _not: stores_bool_exp
+  _or: [stores_bool_exp]
+  created_at: timestamptz_comparison_exp
+  id: uuid_comparison_exp
+  name: String_comparison_exp
+  type: types_bool_exp
+  type_id: uuid_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "stores"
+"""
+enum stores_constraint {
+  """unique or primary key constraint"""
+  stores_pkey
+}
+
+"""
+input type for inserting data into table "stores"
+"""
+input stores_insert_input {
+  created_at: timestamptz
+  id: uuid
+  name: String
+  type: types_obj_rel_insert_input
+  type_id: uuid
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type stores_max_fields {
+  created_at: timestamptz
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+order by max() on columns of table "stores"
+"""
+input stores_max_order_by {
+  created_at: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type stores_min_fields {
+  created_at: timestamptz
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+order by min() on columns of table "stores"
+"""
+input stores_min_order_by {
+  created_at: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "stores"
+"""
+type stores_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [stores!]!
+}
+
+"""
+input type for inserting object relation for remote table "stores"
+"""
+input stores_obj_rel_insert_input {
+  data: stores_insert_input!
+  on_conflict: stores_on_conflict
+}
+
+"""
+on conflict condition type for table "stores"
+"""
+input stores_on_conflict {
+  constraint: stores_constraint!
+  update_columns: [stores_update_column!]!
+  where: stores_bool_exp
+}
+
+"""
+ordering options when selecting data from "stores"
+"""
+input stores_order_by {
+  created_at: order_by
+  id: order_by
+  name: order_by
+  type: types_order_by
+  type_id: order_by
+  updated_at: order_by
+}
+
+"""
+select columns of table "stores"
+"""
+enum stores_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  type_id
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "stores"
+"""
+input stores_set_input {
+  created_at: timestamptz
+  id: uuid
+  name: String
+  type_id: uuid
+  updated_at: timestamptz
+}
+
+"""
+update columns of table "stores"
+"""
+enum stores_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  type_id
+
+  """column name"""
+  updated_at
+}
+
+"""
+expression to compare columns of type String. All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+"""subscription root"""
+type subscription_root {
+  """
+  fetch data from the table: "product_categories"
+  """
+  product_categories(
+    """distinct select on columns"""
+    distinct_on: [product_categories_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [product_categories_order_by!]
+
+    """filter the rows returned"""
+    where: product_categories_bool_exp
+  ): [product_categories!]!
+
+  """
+  fetch aggregated fields from the table: "product_categories"
+  """
+  product_categories_aggregate(
+    """distinct select on columns"""
+    distinct_on: [product_categories_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [product_categories_order_by!]
+
+    """filter the rows returned"""
+    where: product_categories_bool_exp
+  ): product_categories_aggregate!
+
+  """
+  fetch data from the table: "product_categories" using primary key columns
+  """
+  product_categories_by_pk(id: uuid!): product_categories
+
+  """
+  fetch data from the table: "products"
+  """
+  products(
+    """distinct select on columns"""
+    distinct_on: [products_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [products_order_by!]
+
+    """filter the rows returned"""
+    where: products_bool_exp
+  ): [products!]!
+
+  """
+  fetch aggregated fields from the table: "products"
+  """
+  products_aggregate(
+    """distinct select on columns"""
+    distinct_on: [products_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [products_order_by!]
+
+    """filter the rows returned"""
+    where: products_bool_exp
+  ): products_aggregate!
+
+  """fetch data from the table: "products" using primary key columns"""
+  products_by_pk(id: uuid!): products
+
+  """
+  fetch data from the table: "shopping_list"
+  """
+  shopping_list(
+    """distinct select on columns"""
+    distinct_on: [shopping_list_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shopping_list_order_by!]
+
+    """filter the rows returned"""
+    where: shopping_list_bool_exp
+  ): [shopping_list!]!
+
+  """
+  fetch aggregated fields from the table: "shopping_list"
+  """
+  shopping_list_aggregate(
+    """distinct select on columns"""
+    distinct_on: [shopping_list_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shopping_list_order_by!]
+
+    """filter the rows returned"""
+    where: shopping_list_bool_exp
+  ): shopping_list_aggregate!
+
+  """fetch data from the table: "shopping_list" using primary key columns"""
+  shopping_list_by_pk(id: uuid!): shopping_list
+
+  """
+  fetch data from the table: "shopping_list_items"
+  """
+  shopping_list_items(
+    """distinct select on columns"""
+    distinct_on: [shopping_list_items_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shopping_list_items_order_by!]
+
+    """filter the rows returned"""
+    where: shopping_list_items_bool_exp
+  ): [shopping_list_items!]!
+
+  """
+  fetch aggregated fields from the table: "shopping_list_items"
+  """
+  shopping_list_items_aggregate(
+    """distinct select on columns"""
+    distinct_on: [shopping_list_items_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shopping_list_items_order_by!]
+
+    """filter the rows returned"""
+    where: shopping_list_items_bool_exp
+  ): shopping_list_items_aggregate!
+
+  """
+  fetch data from the table: "shopping_list_items" using primary key columns
+  """
+  shopping_list_items_by_pk(id: uuid!): shopping_list_items
+
+  """
+  fetch data from the table: "stores"
+  """
+  stores(
+    """distinct select on columns"""
+    distinct_on: [stores_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [stores_order_by!]
+
+    """filter the rows returned"""
+    where: stores_bool_exp
+  ): [stores!]!
+
+  """
+  fetch aggregated fields from the table: "stores"
+  """
+  stores_aggregate(
+    """distinct select on columns"""
+    distinct_on: [stores_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [stores_order_by!]
+
+    """filter the rows returned"""
+    where: stores_bool_exp
+  ): stores_aggregate!
+
+  """fetch data from the table: "stores" using primary key columns"""
+  stores_by_pk(id: uuid!): stores
+
+  """
+  fetch data from the table: "types"
+  """
+  types(
+    """distinct select on columns"""
+    distinct_on: [types_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [types_order_by!]
+
+    """filter the rows returned"""
+    where: types_bool_exp
+  ): [types!]!
+
+  """
+  fetch aggregated fields from the table: "types"
+  """
+  types_aggregate(
+    """distinct select on columns"""
+    distinct_on: [types_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [types_order_by!]
+
+    """filter the rows returned"""
+    where: types_bool_exp
+  ): types_aggregate!
+
+  """fetch data from the table: "types" using primary key columns"""
+  types_by_pk(id: uuid!): types
+}
+
+scalar timestamptz
+
+"""
+expression to compare columns of type timestamptz. All fields are combined with logical 'AND'.
+"""
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}
+
+"""
+columns and relationships of "types"
+"""
+type types {
+  created_at: timestamptz!
+  id: uuid!
+  name: String!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "types"
+"""
+type types_aggregate {
+  aggregate: types_aggregate_fields
+  nodes: [types!]!
+}
+
+"""
+aggregate fields of "types"
+"""
+type types_aggregate_fields {
+  count(columns: [types_select_column!], distinct: Boolean): Int
+  max: types_max_fields
+  min: types_min_fields
+}
+
+"""
+order by aggregate values of table "types"
+"""
+input types_aggregate_order_by {
+  count: order_by
+  max: types_max_order_by
+  min: types_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "types"
+"""
+input types_arr_rel_insert_input {
+  data: [types_insert_input!]!
+  on_conflict: types_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "types". All fields are combined with a logical 'AND'.
+"""
+input types_bool_exp {
+  _and: [types_bool_exp]
+  _not: types_bool_exp
+  _or: [types_bool_exp]
+  created_at: timestamptz_comparison_exp
+  id: uuid_comparison_exp
+  name: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "types"
+"""
+enum types_constraint {
+  """unique or primary key constraint"""
+  types_pkey
+}
+
+"""
+input type for inserting data into table "types"
+"""
+input types_insert_input {
+  created_at: timestamptz
+  id: uuid
+  name: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type types_max_fields {
+  created_at: timestamptz
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+order by max() on columns of table "types"
+"""
+input types_max_order_by {
+  created_at: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type types_min_fields {
+  created_at: timestamptz
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+order by min() on columns of table "types"
+"""
+input types_min_order_by {
+  created_at: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "types"
+"""
+type types_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [types!]!
+}
+
+"""
+input type for inserting object relation for remote table "types"
+"""
+input types_obj_rel_insert_input {
+  data: types_insert_input!
+  on_conflict: types_on_conflict
+}
+
+"""
+on conflict condition type for table "types"
+"""
+input types_on_conflict {
+  constraint: types_constraint!
+  update_columns: [types_update_column!]!
+  where: types_bool_exp
+}
+
+"""
+ordering options when selecting data from "types"
+"""
+input types_order_by {
+  created_at: order_by
+  id: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""
+select columns of table "types"
+"""
+enum types_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "types"
+"""
+input types_set_input {
+  created_at: timestamptz
+  id: uuid
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+update columns of table "types"
+"""
+enum types_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  updated_at
+}
+
+scalar uuid
+
+"""
+expression to compare columns of type uuid. All fields are combined with logical 'AND'.
+"""
+input uuid_comparison_exp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _is_null: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
+}
