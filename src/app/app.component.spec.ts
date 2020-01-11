@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'angularStarter'`, () => {
+  it(`should have as title 'angularStarterPWAGraphQL'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('angularStarter');
+    expect(app.title).toEqual('angularStarterPWAGraphQL');
   });
 
   it('should render title in a h1 tag', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to angularStarter!');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to angularStarterPWAGraphQL!');
   });
 });

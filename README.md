@@ -1,4 +1,4 @@
-# angularStarter
+# angularStarterPWAGraphQL
 
 TODO: Add documentartion
 
