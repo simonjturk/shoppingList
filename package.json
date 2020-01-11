@@ -12,7 +12,6 @@
     "gql:update-schema": "graphql get-schema -e dev",
     "gql:codegen": "graphql-codegen --config codegen.yml",
     "gql:codegen:watch": "graphql-codegen --watch"
-    
   },
   "private": true,
   "dependencies": {

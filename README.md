@@ -1,4 +1,4 @@
-# angularStarterPWAGraphQL
+# OA ShoppingList
 
 TODO: Add documentartion
 
