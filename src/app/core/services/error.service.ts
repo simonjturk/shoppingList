@@ -13,7 +13,7 @@ export class ErrorService implements ErrorHandler{
   }
   else {
    console.error(error);
-   router.navigate(['error500']);
+   //DISABLE FOR DEVrouter.navigate(['error500']);
   }
   
   }
