@@ -8,7 +8,7 @@ import { IosInstallComponent } from './core/components/ios-install/ios-install.c
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'OA ShoppingList';
+  title = 'OAShoppingList';
 
   constructor( private toast: MatSnackBar){
 

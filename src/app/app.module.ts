@@ -14,10 +14,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     AppComponent
   ],
   imports: [
-    BrowserModule,
+   // BrowserModule,
     //AppRoutingModule,
     CoreModule,
-    BrowserAnimationsModule,
+    //BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MatSnackBarModule
   ],

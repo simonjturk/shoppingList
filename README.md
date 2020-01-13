@@ -1,4 +1,4 @@
-# OA ShoppingList
+# OAShoppingList
 
 TODO: Add documentartion
 

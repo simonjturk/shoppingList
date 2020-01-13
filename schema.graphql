@@ -1,5 +1,5 @@
 # source: http://localhost:8080/v1/graphql
-# timestamp: Sat Jan 11 2020 13:48:27 GMT+1100 (Australian Eastern Daylight Time)
+# timestamp: Mon Jan 13 2020 12:42:41 GMT+1100 (Australian Eastern Daylight Time)
 
 schema {
   query: query_root
@@ -1001,11 +1001,11 @@ type shopping_list {
 
   """An object relationship"""
   store: stores
-  store_id: uuid!
+  store_id: uuid
 
   """An object relationship"""
   type: types
-  type_id: uuid!
+  type_id: uuid
   updated_at: timestamptz!
 }
 

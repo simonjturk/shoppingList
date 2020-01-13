@@ -1,6 +1,6 @@
 {
-  "name": "OA ShoppingList",
-  "short_name": "OA ShoppingList",
+  "name": "OAShoppingList",
+  "short_name": "OAShoppingList",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
