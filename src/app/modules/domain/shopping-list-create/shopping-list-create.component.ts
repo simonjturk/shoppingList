@@ -29,7 +29,9 @@ export class ShoppingListCreateComponent implements OnInit, OnDestroy {
       templateOptions: {
         label: 'List Name',
         placeholder: 'Name your shopping list',
-       
+        addonLeft: {
+          class: 'fa fa-dashboard',
+        },
         required: true,
       },
     },

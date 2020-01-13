@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material.module';
-import {ReactiveFormsModule} from '@angular/forms';
-import {FormlyModule} from '@ngx-formly/core';
-import {FormlyMaterialModule} from '@ngx-formly/material';
+import { ReactiveFormsModule} from '@angular/forms';
+import { FormlyModule} from '@ngx-formly/core';
+import { FormlyMaterialModule} from '@ngx-formly/material';
+import { FlexModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [],
@@ -17,11 +18,13 @@ import {FormlyMaterialModule} from '@ngx-formly/material';
       ],
     }),
     FormlyMaterialModule,
+    FlexModule
 
   ],
   exports:[MaterialModule, ReactiveFormsModule,
     FormlyModule,
-    FormlyMaterialModule,]
+    FormlyMaterialModule,
+    FlexModule]
 
 })
 export class SharedModule { }
