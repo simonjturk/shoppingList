@@ -45,8 +45,12 @@ export class ItemViewComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  delete() {
-    this.deleted.emit("Item successfully deleted")
+  delete(frm: FormGroup) {
+    this.service.deleteShoppingListItem(this.item.id)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(s => {
+        this.saved.emit("Item successfully deleted");
+      });
   }
 
 

@@ -1,0 +1,11 @@
+#import "./item.fragment.graphql"
+mutation DeleteShoppingListItem($id: uuid) {
+  __typename
+  delete_shopping_list_items(where: {id: {_eq: $id}}) {
+    affected_rows
+    returning {
+      ...ShoppingListItemFields
+    }
+  }
+}
+

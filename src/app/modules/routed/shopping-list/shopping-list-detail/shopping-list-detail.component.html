@@ -1,3 +1,10 @@
-<app-shopping-list-detail-view [shoppingListId] = "shoppingListId$ | async"></app-shopping-list-detail-view>
-<app-shopping-list-item-create  [shoppingListId] = "shoppingListId$ | async" ></app-shopping-list-item-create>
-<app-shopping-list-item-list  [shoppingListId] = "shoppingListId$ | async"></app-shopping-list-item-list>
+<div class="background">
+  <app-shopping-list-detail-view [shoppingListId]="shoppingListId$ | async"></app-shopping-list-detail-view>
+  <div class="p-8">
+    <app-shopping-list-item-create [shoppingListId]="shoppingListId$ | async"></app-shopping-list-item-create>
+  </div>
+
+
+</div>
+
+<app-shopping-list-item-list [shoppingListId]="shoppingListId$ | async"></app-shopping-list-item-list>

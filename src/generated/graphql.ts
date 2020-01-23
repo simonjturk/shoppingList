@@ -1355,6 +1355,23 @@ export type Uuid_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['uuid']>>,
 };
 
+export type CreateProductMutationVariables = {
+  product: Array<Products_Insert_Input>
+};
+
+
+export type CreateProductMutation = (
+  { __typename: 'mutation_root' }
+  & { insert_products: Maybe<(
+    { __typename?: 'products_mutation_response' }
+    & Pick<Products_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename?: 'products' }
+      & ProductFieldsFragment
+    )> }
+  )> }
+);
+
 export type GetProductsQueryVariables = {};
 
 
@@ -1365,8 +1382,17 @@ export type GetProductsQuery = (
     & Pick<Products, 'id' | 'name' | 'favourite'>
     & { category: Maybe<(
       { __typename?: 'product_categories' }
-      & Pick<Product_Categories, 'name' | 'colour'>
+      & Pick<Product_Categories, 'id' | 'name' | 'colour'>
     )> }
+  )> }
+);
+
+export type ProductFieldsFragment = (
+  { __typename?: 'products' }
+  & Pick<Products, 'id' | 'name' | 'favourite'>
+  & { category: Maybe<(
+    { __typename?: 'product_categories' }
+    & Pick<Product_Categories, 'id' | 'name' | 'colour'>
   )> }
 );
 
@@ -1461,6 +1487,23 @@ export type CreateShoppingListItemMutation = (
   )> }
 );
 
+export type DeleteShoppingListItemMutationVariables = {
+  id?: Maybe<Scalars['uuid']>
+};
+
+
+export type DeleteShoppingListItemMutation = (
+  { __typename: 'mutation_root' }
+  & { delete_shopping_list_items: Maybe<(
+    { __typename?: 'shopping_list_items_mutation_response' }
+    & Pick<Shopping_List_Items_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename?: 'shopping_list_items' }
+      & ShoppingListItemFieldsFragment
+    )> }
+  )> }
+);
+
 export type GetShoppingListItemsQueryVariables = {
   shoppingListId?: Maybe<Scalars['uuid']>
 };
@@ -1505,6 +1548,18 @@ export type UpdateShopingListItemMutation = (
   )> }
 );
 
+export const ProductFieldsFragmentDoc = gql`
+    fragment ProductFields on products {
+  id
+  name
+  category {
+    id
+    name
+    colour
+  }
+  favourite
+}
+    `;
 export const ShoppingListFieldsFragmentDoc = gql`
     fragment ShoppingListFields on shopping_list {
   id
@@ -1532,6 +1587,25 @@ export const ShoppingListItemFieldsFragmentDoc = gql`
   shopping_list_id
 }
     `;
+export const CreateProductDocument = gql`
+    mutation CreateProduct($product: [products_insert_input!]!) {
+  __typename
+  insert_products(objects: $product) {
+    affected_rows
+    returning {
+      ...ProductFields
+    }
+  }
+}
+    ${ProductFieldsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateProductGQL extends Apollo.Mutation<CreateProductMutation, CreateProductMutationVariables> {
+    document = CreateProductDocument;
+    
+  }
 export const GetProductsDocument = gql`
     query GetProducts {
   __typename
@@ -1539,6 +1613,7 @@ export const GetProductsDocument = gql`
     id
     name
     category {
+      id
       name
       colour
     }
@@ -1658,6 +1733,25 @@ export const CreateShoppingListItemDocument = gql`
   })
   export class CreateShoppingListItemGQL extends Apollo.Mutation<CreateShoppingListItemMutation, CreateShoppingListItemMutationVariables> {
     document = CreateShoppingListItemDocument;
+    
+  }
+export const DeleteShoppingListItemDocument = gql`
+    mutation DeleteShoppingListItem($id: uuid) {
+  __typename
+  delete_shopping_list_items(where: {id: {_eq: $id}}) {
+    affected_rows
+    returning {
+      ...ShoppingListItemFields
+    }
+  }
+}
+    ${ShoppingListItemFieldsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class DeleteShoppingListItemGQL extends Apollo.Mutation<DeleteShoppingListItemMutation, DeleteShoppingListItemMutationVariables> {
+    document = DeleteShoppingListItemDocument;
     
   }
 export const GetShoppingListItemsDocument = gql`

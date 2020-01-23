@@ -1,0 +1,11 @@
+
+# import './product.fragment.graphql'
+mutation CreateProduct($product:[products_insert_input!]!) {
+  __typename
+  insert_products(objects: $product) {
+    affected_rows
+    returning {
+      ...ProductFields
+    }
+  }
+}

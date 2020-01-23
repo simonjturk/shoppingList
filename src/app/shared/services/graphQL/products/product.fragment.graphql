@@ -1,7 +1,5 @@
-query GetProducts {
-  __typename
-  products {
-    id
+fragment ProductFields on products {
+     id
     name
     category {
       id
@@ -9,5 +7,4 @@ query GetProducts {
       colour
     }
     favourite
-  }
 }

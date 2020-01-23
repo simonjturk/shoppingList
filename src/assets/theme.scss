@@ -19,11 +19,8 @@ $theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 // that you are using.
 @include angular-material-theme($theme);
 
+@import './scss/breakpoints';
+@import './scss/helpers';
 @import './scss/vars';
 @import './scss/splash';
 @import './scss/common';
-
-
-
-
-
