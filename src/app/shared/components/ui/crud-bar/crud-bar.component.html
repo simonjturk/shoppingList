@@ -1,1 +1,43 @@
-<p>crud-bar works!</p>
+<div fxLayout="row" fxLayoutAlign="space-around center">
+
+
+  <div *ngFor="let btn of buttons">
+    <div [ngSwitch]="btn.type">
+      <button *ngSwitchDefault mat-button [color]="btn.color" (click)="onClick(btn)" [disabled]="disabled(btn)">
+        <mat-icon *ngIf="includeIcons">{{btn.icon}}</mat-icon>{{btn.label}}
+      </button>
+
+      <button *ngSwitchCase="CRUD_BUTTONS_TYPES.raised" mat-raised-button [color]="btn.color" (click)="onClick(btn)"
+        [disabled]="disabled(btn)">
+        <mat-icon *ngIf="includeIcons">{{btn.icon}}</mat-icon>{{btn.label}}
+      </button>
+
+      <button *ngSwitchCase="CRUD_BUTTONS_TYPES.stroked" mat-stroked-button [color]="btn.color" (click)="onClick(btn)"
+        [disabled]="disabled(btn)">
+        <mat-icon *ngIf="includeIcons">{{btn.icon}}</mat-icon>{{btn.label}}
+      </button>
+
+      <button *ngSwitchCase="CRUD_BUTTONS_TYPES.flat" mat-flat-button [color]="btn.color" (click)="onClick(btn)"
+        [disabled]="disabled(btn)">
+        <mat-icon *ngIf="includeIcons">{{btn.icon}}</mat-icon>{{btn.label}}
+      </button>
+
+      <button *ngSwitchCase="CRUD_BUTTONS_TYPES.icon" mat-icon-button [color]="btn.color" (click)="onClick(btn)"
+        [disabled]="disabled(btn)">
+        <mat-icon>{{btn.icon}}</mat-icon>
+      </button>
+
+      <button *ngSwitchCase="CRUD_BUTTONS_TYPES.fab" mat-fab [color]="btn.color" (click)="onClick(btn)"
+        [disabled]="disabled(btn)">
+        <mat-icon>{{btn.icon}}</mat-icon>
+      </button>
+
+      <button *ngSwitchCase="CRUD_BUTTONS_TYPES.mini_fab" mat-mini-fab [color]="btn.color" (click)="onClick(btn)"
+        [disabled]="disabled(btn)">
+        <mat-icon>{{btn.icon}}</mat-icon>
+      </button>
+    </div>
+
+
+  </div>
+</div>

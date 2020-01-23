@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material.module';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { FormlyModule} from '@ngx-formly/core';
-import { FormlyMaterialModule} from '@ngx-formly/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
 import { FlexModule } from '@angular/flex-layout';
 import { ArrayFilterPipe } from './pipes/array.pipe';
@@ -16,13 +16,14 @@ import { FormlyButtonComponent } from './components/ui/formly/formly-button/form
 import { FormlyButtonModule } from './components/ui/formly/formly-button/formly-button.module';
 import { FormlyWrappersModule } from "./components/ui/formly/formly-wrappers/formly-wrappers.module";
 import { FormlyExpansionPanelComponent } from './components/ui/formly/formly-wrappers/expansion-panel/expansion-panel.component';
+import { CrudBarModule } from './components/ui/crud-bar/crud-bar.module';
 
 
 @NgModule({
-  declarations: [ArrayFilterPipe ],
-  providers:[
-    ArrayHelpersService, 
-    ShoppingListService, 
+  declarations: [ArrayFilterPipe],
+  providers: [
+    ArrayHelpersService,
+    ShoppingListService,
     ShoppingListItemService
   ],
   imports: [
@@ -34,12 +35,12 @@ import { FormlyExpansionPanelComponent } from './components/ui/formly/formly-wra
       validationMessages: [
         { name: 'required', message: 'This field is required' },
       ],
-      wrappers:[ 
+      wrappers: [
         { name: 'expansion-panel', component: FormlyExpansionPanelComponent }
       ],
 
 
-      types:[{
+      types: [{
         name: "chips",
         wrappers: ['form-field'],
         component: FormlyChipsComponent,
@@ -49,15 +50,15 @@ import { FormlyExpansionPanelComponent } from './components/ui/formly/formly-wra
       },
       {
         name: "button",
-       
+
         component: FormlyButtonComponent,
         defaultOptions: {
-         
+
         },
       }
-    
-    
-    ]
+
+
+      ]
     }),
     FormlyMaterialModule,
     FormlyMatToggleModule,
@@ -65,9 +66,9 @@ import { FormlyExpansionPanelComponent } from './components/ui/formly/formly-wra
     OAMaterialChipsModule
 
   ],
-  exports:[MaterialModule, ReactiveFormsModule,
+  exports: [MaterialModule, ReactiveFormsModule,
     FormlyModule,
-    FormlyMaterialModule, 
+    FormlyMaterialModule,
     FormlyMatToggleModule,
     FlexModule,
     ArrayFilterPipe,
@@ -76,6 +77,7 @@ import { FormlyExpansionPanelComponent } from './components/ui/formly/formly-wra
     FormlyWrappersModule,
     FormsModule,
     ReactiveFormsModule,
+    CrudBarModule
   ]
 
 })

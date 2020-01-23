@@ -10,21 +10,17 @@
 
   </div>
 
-  <div>
+  <div fxFill>
     <form [formGroup]="itemForm" (ngSubmit)="onSubmit(itemForm)">
       <div fxLayout="column" fxLayoutAlign="start center">
         <mat-form-field>
           <input matInput placeholder="Quantity" formControlName="quantity" type="number">
         </mat-form-field>
 
+        <oa-crud-bar style="width:100%;" [disabledSave]="itemForm.invalid" (saved)="onSubmit(itemForm)"
+          (deleted)="delete()">
+        </oa-crud-bar>
 
-        <button mat-flat-button color="warn" (click)="delete()" [disabled]="itemForm.invalid">
-          Delete
-        </button>
-
-        <button mat-flat-button color="primary" type="submit" [disabled]="itemForm.invalid">
-          Save
-        </button>
       </div>
 
     </form>
