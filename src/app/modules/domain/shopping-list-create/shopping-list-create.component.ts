@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
-import { ShoppingListCreateService } from './services/shopping-list-create.service';
+
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Route, Router } from '@angular/router';
+import { ShoppingListService } from 'src/app/shared/services/graphQL/shoppingList/shopping-list.service';
 
 @Component({
   selector: 'app-shopping-list-create',
@@ -14,7 +16,7 @@ export class ShoppingListCreateComponent implements OnInit, OnDestroy {
 
   private onDestroy$: Subject<void> = new Subject<void>();
 
-  constructor(private shoppingListCreateService:ShoppingListCreateService) { }
+  constructor(private router: Router, private shoppingListService:ShoppingListService) { }
 
   ngOnInit() {
   }
@@ -38,7 +40,7 @@ export class ShoppingListCreateComponent implements OnInit, OnDestroy {
   ];
   submit() {
     if (this.form.valid) {
-      this.shoppingListCreateService.createShoppingList(this.model.listName)
+      this.shoppingListService.createShoppingList(this.model.listName)
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(res=>{
         if (res.errors && res.errors.length >0){
@@ -49,12 +51,14 @@ export class ShoppingListCreateComponent implements OnInit, OnDestroy {
         console.log (list.name);
 
         //TODO rout to the shopping list
-
+        this.router.navigate(['shopping-list', list.id]);
       })
     }
   }
   ngOnDestroy(): void {
-    throw new Error("Method not implemented.");
+    // Unsubscribe from all subscriptions
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
 }

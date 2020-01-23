@@ -1,0 +1,12 @@
+query GetProducts {
+  __typename
+  products {
+    id
+    name
+    category {
+      name
+      colour
+    }
+    favourite
+  }
+}

@@ -1,0 +1,15 @@
+<button *ngIf="to.buttonType === 'basic'" mat-button  [color]="to.color">{{to.label}}</button>
+<button *ngIf="to.buttonType === 'raised'" mat-raised-button [color]="to.color">{{to.label}}</button>
+<button *ngIf="to.buttonType === 'stroked'" mat-stroked-button [color]="to.color">{{to.label}}</button>
+<button *ngIf="to.buttonType === 'flat'" mat-flat-button [color]="to.color">{{to.label}}</button>
+<button *ngIf="to.buttonType === 'icon'" mat-icon-button aria-label=""[color]="to.color">
+        <mat-icon>{{to.icon}}</mat-icon>
+</button>
+<button *ngIf="to.buttonType === 'fab'" mat-fab >{{to.label}}</button>
+<button *ngIf="to.buttonType === 'fab-icon'" mat-fab aria-label="Example icon-button with a heart icon"  [color]="to.color">
+        <mat-icon>to.icon</mat-icon>
+</button>
+<button *ngIf="to.buttonType === 'fab-mini'" mat-mini-fab [color]="to.color">{{to.label}}</button>
+<button *ngIf="to.buttonType === 'fab-mini-icon'" mat-mini-fab aria-label="Example icon-button with a heart icon" [color]="to.color">
+    <mat-icon>to.icon</mat-icon>
+</button>

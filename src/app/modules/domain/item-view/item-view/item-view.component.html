@@ -1,0 +1,33 @@
+<div fxLayout="column" fxLayoutAlign="space-around center">
+
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <div>
+      <h2>
+        {{item.product.name}}
+      </h2>
+
+    </div>
+
+  </div>
+
+  <div>
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmit(itemForm)">
+      <div fxLayout="column" fxLayoutAlign="start center">
+        <mat-form-field>
+          <input matInput placeholder="Quantity" formControlName="quantity" type="number">
+        </mat-form-field>
+
+
+        <button mat-flat-button color="warn" (click)="delete()" [disabled]="itemForm.invalid">
+          Delete
+        </button>
+
+        <button mat-flat-button color="primary" type="submit" [disabled]="itemForm.invalid">
+          Save
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</div>

@@ -6,7 +6,7 @@ $duration: 1.4s;
 .splash-screen {
     width: 100%;
     min-height: 100%;
-    background-color:$primary;
+    background-color:mat-color($primary);
     position: absolute;
 }
 

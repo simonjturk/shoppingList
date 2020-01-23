@@ -1,0 +1,9 @@
+<div fxLayout="column" fxLayoutAlign="space-around center">
+  <div fxFill fxLayout="row" fxLayoutAlign="end center">
+    <button mat-icon-button aria-label="Cancel button" (click)="close()">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
+
+  <app-item-view [item]="data" (saved)="onSaved($event)" (deleted)="onDeleted($event)"></app-item-view>
+</div>

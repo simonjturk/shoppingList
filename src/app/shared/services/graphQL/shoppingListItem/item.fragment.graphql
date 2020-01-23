@@ -1,0 +1,18 @@
+fragment ShoppingListItemFields on shopping_list_items {
+    id
+    product {
+      category {
+        name
+        id,
+        colour
+      }
+      name
+      id
+      description
+      favourite
+    }
+    quantity
+    complete
+    shopping_list_id
+    
+}

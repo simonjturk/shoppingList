@@ -1,0 +1,7 @@
+fragment ShoppingListFields on shopping_list {
+    id
+    name
+    created_at
+    favourite
+    
+}

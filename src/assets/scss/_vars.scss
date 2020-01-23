@@ -1,1 +1,11 @@
-$primary: mat-color(map-get($theme, primary));
+$primary: map-get($theme, primary);
+
+//$light-backround: 
+
+$foreground: map-get($theme, foreground);
+
+$disabled: map-get($theme, disabled);
+
+$background: map-get($theme, background);
+$text: map-get($foreground, text);
+$card: map-get($background, card);

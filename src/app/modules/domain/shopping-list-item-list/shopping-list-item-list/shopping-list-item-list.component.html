@@ -1,0 +1,19 @@
+
+<ng-container  *ngIf="(shoppingListItems$ | async) as shoppingListItems">
+
+    <div fxLayout="column" fxLayoutAlign="space-around center" >
+        <div *ngFor="let category of getItemCategories(shoppingListItems)" fxFill>
+            <div style="border-left: solid 5px; padding-left:5px;" [ngStyle]="{'border-left-color': category.colour}">
+                    <span [ngStyle]= "{'color': category.colour}">
+                            {{category.name}}
+                    </span>
+                    <div *ngFor="let item of getItemsByCategory(shoppingListItems,category.name)" style="padding:5px;">
+                            <shopping-list-item [item] = item></shopping-list-item>
+                    </div>
+        
+            </div>
+
+        </div>
+    </div>
+            
+</ng-container>

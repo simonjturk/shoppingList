@@ -1,0 +1,33 @@
+.primary-text {
+  color: mat-color($primary)
+}
+
+.app-background {
+
+  // background-color: mat-color($primary);
+}
+
+.light-text {
+  color: ghostwhite;
+}
+
+
+
+
+
+.rounded {
+  border-radius: 28px;
+  overflow: hidden;
+  @include mat-elevation(1);
+}
+
+.item-completed {
+  text-decoration: line-through;
+  color: mat-color($foreground, disabled-text);
+}
+
+.bottom-sheet {
+  min-height: 50vh;
+  min-width: 100vw !important;
+  margin-top: 80px;
+}

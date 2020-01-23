@@ -1,0 +1,26 @@
+#import "./shopping-list.fragment.graphql"
+
+
+
+
+query GetShoppingLists {
+  __typename
+  shopping_list {
+    ...ShoppingListFields
+  }
+}
+
+query GetShoppingListById ($id:uuid) {
+  __typename
+  shopping_list(where: {id: {_eq: $id}}) {
+    ...ShoppingListFields
+  }
+}
+
+
+query GetFavouriteShoppingList {
+  __typename
+  shopping_list(where: {favourite: {_eq: true}}) {
+    ...ShoppingListFields
+  }
+}

@@ -1,9 +1,0 @@
-mutation CreateShoppingList($shoppingList: [shopping_list_insert_input!]!) {
-  __typename
-  insert_shopping_list(objects: $shoppingList) {
-    returning {
-      id
-      name
-    }
-  }
-}

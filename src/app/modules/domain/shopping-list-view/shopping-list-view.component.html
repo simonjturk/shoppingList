@@ -1,0 +1,10 @@
+<div class="shopping-list" *ngIf="(shoppingLists$ | async) as shoppingLists; else loading">
+
+    <app-shopping-list-record class="shopping-list-record" *ngFor="let shoppingList of shoppingLists" [shoppingList]="shoppingList">
+          
+    </app-shopping-list-record>
+</div>
+
+<ng-template #loading>
+        Loading stuff...
+</ng-template>

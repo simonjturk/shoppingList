@@ -1,0 +1,8 @@
+#import "./item.fragment.graphql"
+
+query GetShoppingListItems($shoppingListId:uuid) {
+  __typename
+  shopping_list_items(where: {shopping_list_id: {_eq: $shoppingListId}}) {
+    ...ShoppingListItemFields
+  }
+}

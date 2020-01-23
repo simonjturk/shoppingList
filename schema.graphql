@@ -1,5 +1,5 @@
 # source: http://localhost:8080/v1/graphql
-# timestamp: Mon Jan 13 2020 12:42:41 GMT+1100 (Australian Eastern Daylight Time)
+# timestamp: Wed Jan 22 2020 12:13:50 GMT+1100 (Australian Eastern Daylight Time)
 
 schema {
   query: query_root
@@ -57,22 +57,6 @@ type mutation_root {
   ): shopping_list_items_mutation_response
 
   """
-  delete data from the table: "stores"
-  """
-  delete_stores(
-    """filter the rows which have to be deleted"""
-    where: stores_bool_exp!
-  ): stores_mutation_response
-
-  """
-  delete data from the table: "types"
-  """
-  delete_types(
-    """filter the rows which have to be deleted"""
-    where: types_bool_exp!
-  ): types_mutation_response
-
-  """
   insert data into the table: "product_categories"
   """
   insert_product_categories(
@@ -117,28 +101,6 @@ type mutation_root {
   ): shopping_list_items_mutation_response
 
   """
-  insert data into the table: "stores"
-  """
-  insert_stores(
-    """the rows to be inserted"""
-    objects: [stores_insert_input!]!
-
-    """on conflict condition"""
-    on_conflict: stores_on_conflict
-  ): stores_mutation_response
-
-  """
-  insert data into the table: "types"
-  """
-  insert_types(
-    """the rows to be inserted"""
-    objects: [types_insert_input!]!
-
-    """on conflict condition"""
-    on_conflict: types_on_conflict
-  ): types_mutation_response
-
-  """
   update data of the table: "product_categories"
   """
   update_product_categories(
@@ -181,28 +143,6 @@ type mutation_root {
     """filter the rows which have to be updated"""
     where: shopping_list_items_bool_exp!
   ): shopping_list_items_mutation_response
-
-  """
-  update data of the table: "stores"
-  """
-  update_stores(
-    """sets the columns of the filtered rows to the given values"""
-    _set: stores_set_input
-
-    """filter the rows which have to be updated"""
-    where: stores_bool_exp!
-  ): stores_mutation_response
-
-  """
-  update data of the table: "types"
-  """
-  update_types(
-    """sets the columns of the filtered rows to the given values"""
-    _set: types_set_input
-
-    """filter the rows which have to be updated"""
-    where: types_bool_exp!
-  ): types_mutation_response
 }
 
 scalar numeric
@@ -866,92 +806,6 @@ type query_root {
   fetch data from the table: "shopping_list_items" using primary key columns
   """
   shopping_list_items_by_pk(id: uuid!): shopping_list_items
-
-  """
-  fetch data from the table: "stores"
-  """
-  stores(
-    """distinct select on columns"""
-    distinct_on: [stores_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [stores_order_by!]
-
-    """filter the rows returned"""
-    where: stores_bool_exp
-  ): [stores!]!
-
-  """
-  fetch aggregated fields from the table: "stores"
-  """
-  stores_aggregate(
-    """distinct select on columns"""
-    distinct_on: [stores_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [stores_order_by!]
-
-    """filter the rows returned"""
-    where: stores_bool_exp
-  ): stores_aggregate!
-
-  """fetch data from the table: "stores" using primary key columns"""
-  stores_by_pk(id: uuid!): stores
-
-  """
-  fetch data from the table: "types"
-  """
-  types(
-    """distinct select on columns"""
-    distinct_on: [types_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [types_order_by!]
-
-    """filter the rows returned"""
-    where: types_bool_exp
-  ): [types!]!
-
-  """
-  fetch aggregated fields from the table: "types"
-  """
-  types_aggregate(
-    """distinct select on columns"""
-    distinct_on: [types_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [types_order_by!]
-
-    """filter the rows returned"""
-    where: types_bool_exp
-  ): types_aggregate!
-
-  """fetch data from the table: "types" using primary key columns"""
-  types_by_pk(id: uuid!): types
 }
 
 """
@@ -998,14 +852,6 @@ type shopping_list {
     where: shopping_list_items_bool_exp
   ): shopping_list_items_aggregate!
   name: String!
-
-  """An object relationship"""
-  store: stores
-  store_id: uuid
-
-  """An object relationship"""
-  type: types
-  type_id: uuid
   updated_at: timestamptz!
 }
 
@@ -1055,10 +901,6 @@ input shopping_list_bool_exp {
   id: uuid_comparison_exp
   items: shopping_list_items_bool_exp
   name: String_comparison_exp
-  store: stores_bool_exp
-  store_id: uuid_comparison_exp
-  type: types_bool_exp
-  type_id: uuid_comparison_exp
   updated_at: timestamptz_comparison_exp
 }
 
@@ -1079,10 +921,6 @@ input shopping_list_insert_input {
   id: uuid
   items: shopping_list_items_arr_rel_insert_input
   name: String
-  store: stores_obj_rel_insert_input
-  store_id: uuid
-  type: types_obj_rel_insert_input
-  type_id: uuid
   updated_at: timestamptz
 }
 
@@ -1093,6 +931,9 @@ type shopping_list_items {
   complete: Boolean!
   created_at: timestamptz!
   id: uuid!
+
+  """An object relationship"""
+  product: products!
   product_id: uuid!
   quantity: numeric!
   shopping_list_id: uuid!
@@ -1171,6 +1012,7 @@ input shopping_list_items_bool_exp {
   complete: Boolean_comparison_exp
   created_at: timestamptz_comparison_exp
   id: uuid_comparison_exp
+  product: products_bool_exp
   product_id: uuid_comparison_exp
   quantity: numeric_comparison_exp
   shopping_list_id: uuid_comparison_exp
@@ -1192,6 +1034,7 @@ input shopping_list_items_insert_input {
   complete: Boolean
   created_at: timestamptz
   id: uuid
+  product: products_obj_rel_insert_input
   product_id: uuid
   quantity: numeric
   shopping_list_id: uuid
@@ -1265,6 +1108,7 @@ input shopping_list_items_order_by {
   complete: order_by
   created_at: order_by
   id: order_by
+  product: products_order_by
   product_id: order_by
   quantity: order_by
   shopping_list_id: order_by
@@ -1489,10 +1333,6 @@ input shopping_list_order_by {
   id: order_by
   items_aggregate: shopping_list_items_aggregate_order_by
   name: order_by
-  store: stores_order_by
-  store_id: order_by
-  type: types_order_by
-  type_id: order_by
   updated_at: order_by
 }
 
@@ -1513,12 +1353,6 @@ enum shopping_list_select_column {
   name
 
   """column name"""
-  store_id
-
-  """column name"""
-  type_id
-
-  """column name"""
   updated_at
 }
 
@@ -1530,8 +1364,6 @@ input shopping_list_set_input {
   favourite: Boolean
   id: uuid
   name: String
-  store_id: uuid
-  type_id: uuid
   updated_at: timestamptz
 }
 
@@ -1550,218 +1382,6 @@ enum shopping_list_update_column {
 
   """column name"""
   name
-
-  """column name"""
-  store_id
-
-  """column name"""
-  type_id
-
-  """column name"""
-  updated_at
-}
-
-"""
-columns and relationships of "stores"
-"""
-type stores {
-  created_at: timestamptz!
-  id: uuid!
-  name: String!
-
-  """An object relationship"""
-  type: types
-  type_id: uuid!
-  updated_at: timestamptz!
-}
-
-"""
-aggregated selection of "stores"
-"""
-type stores_aggregate {
-  aggregate: stores_aggregate_fields
-  nodes: [stores!]!
-}
-
-"""
-aggregate fields of "stores"
-"""
-type stores_aggregate_fields {
-  count(columns: [stores_select_column!], distinct: Boolean): Int
-  max: stores_max_fields
-  min: stores_min_fields
-}
-
-"""
-order by aggregate values of table "stores"
-"""
-input stores_aggregate_order_by {
-  count: order_by
-  max: stores_max_order_by
-  min: stores_min_order_by
-}
-
-"""
-input type for inserting array relation for remote table "stores"
-"""
-input stores_arr_rel_insert_input {
-  data: [stores_insert_input!]!
-  on_conflict: stores_on_conflict
-}
-
-"""
-Boolean expression to filter rows from the table "stores". All fields are combined with a logical 'AND'.
-"""
-input stores_bool_exp {
-  _and: [stores_bool_exp]
-  _not: stores_bool_exp
-  _or: [stores_bool_exp]
-  created_at: timestamptz_comparison_exp
-  id: uuid_comparison_exp
-  name: String_comparison_exp
-  type: types_bool_exp
-  type_id: uuid_comparison_exp
-  updated_at: timestamptz_comparison_exp
-}
-
-"""
-unique or primary key constraints on table "stores"
-"""
-enum stores_constraint {
-  """unique or primary key constraint"""
-  stores_pkey
-}
-
-"""
-input type for inserting data into table "stores"
-"""
-input stores_insert_input {
-  created_at: timestamptz
-  id: uuid
-  name: String
-  type: types_obj_rel_insert_input
-  type_id: uuid
-  updated_at: timestamptz
-}
-
-"""aggregate max on columns"""
-type stores_max_fields {
-  created_at: timestamptz
-  name: String
-  updated_at: timestamptz
-}
-
-"""
-order by max() on columns of table "stores"
-"""
-input stores_max_order_by {
-  created_at: order_by
-  name: order_by
-  updated_at: order_by
-}
-
-"""aggregate min on columns"""
-type stores_min_fields {
-  created_at: timestamptz
-  name: String
-  updated_at: timestamptz
-}
-
-"""
-order by min() on columns of table "stores"
-"""
-input stores_min_order_by {
-  created_at: order_by
-  name: order_by
-  updated_at: order_by
-}
-
-"""
-response of any mutation on the table "stores"
-"""
-type stores_mutation_response {
-  """number of affected rows by the mutation"""
-  affected_rows: Int!
-
-  """data of the affected rows by the mutation"""
-  returning: [stores!]!
-}
-
-"""
-input type for inserting object relation for remote table "stores"
-"""
-input stores_obj_rel_insert_input {
-  data: stores_insert_input!
-  on_conflict: stores_on_conflict
-}
-
-"""
-on conflict condition type for table "stores"
-"""
-input stores_on_conflict {
-  constraint: stores_constraint!
-  update_columns: [stores_update_column!]!
-  where: stores_bool_exp
-}
-
-"""
-ordering options when selecting data from "stores"
-"""
-input stores_order_by {
-  created_at: order_by
-  id: order_by
-  name: order_by
-  type: types_order_by
-  type_id: order_by
-  updated_at: order_by
-}
-
-"""
-select columns of table "stores"
-"""
-enum stores_select_column {
-  """column name"""
-  created_at
-
-  """column name"""
-  id
-
-  """column name"""
-  name
-
-  """column name"""
-  type_id
-
-  """column name"""
-  updated_at
-}
-
-"""
-input type for updating data in table "stores"
-"""
-input stores_set_input {
-  created_at: timestamptz
-  id: uuid
-  name: String
-  type_id: uuid
-  updated_at: timestamptz
-}
-
-"""
-update columns of table "stores"
-"""
-enum stores_update_column {
-  """column name"""
-  created_at
-
-  """column name"""
-  id
-
-  """column name"""
-  name
-
-  """column name"""
-  type_id
 
   """column name"""
   updated_at
@@ -1965,92 +1585,6 @@ type subscription_root {
   fetch data from the table: "shopping_list_items" using primary key columns
   """
   shopping_list_items_by_pk(id: uuid!): shopping_list_items
-
-  """
-  fetch data from the table: "stores"
-  """
-  stores(
-    """distinct select on columns"""
-    distinct_on: [stores_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [stores_order_by!]
-
-    """filter the rows returned"""
-    where: stores_bool_exp
-  ): [stores!]!
-
-  """
-  fetch aggregated fields from the table: "stores"
-  """
-  stores_aggregate(
-    """distinct select on columns"""
-    distinct_on: [stores_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [stores_order_by!]
-
-    """filter the rows returned"""
-    where: stores_bool_exp
-  ): stores_aggregate!
-
-  """fetch data from the table: "stores" using primary key columns"""
-  stores_by_pk(id: uuid!): stores
-
-  """
-  fetch data from the table: "types"
-  """
-  types(
-    """distinct select on columns"""
-    distinct_on: [types_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [types_order_by!]
-
-    """filter the rows returned"""
-    where: types_bool_exp
-  ): [types!]!
-
-  """
-  fetch aggregated fields from the table: "types"
-  """
-  types_aggregate(
-    """distinct select on columns"""
-    distinct_on: [types_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [types_order_by!]
-
-    """filter the rows returned"""
-    where: types_bool_exp
-  ): types_aggregate!
-
-  """fetch data from the table: "types" using primary key columns"""
-  types_by_pk(id: uuid!): types
 }
 
 scalar timestamptz
@@ -2068,195 +1602,6 @@ input timestamptz_comparison_exp {
   _lte: timestamptz
   _neq: timestamptz
   _nin: [timestamptz!]
-}
-
-"""
-columns and relationships of "types"
-"""
-type types {
-  created_at: timestamptz!
-  id: uuid!
-  name: String!
-  updated_at: timestamptz!
-}
-
-"""
-aggregated selection of "types"
-"""
-type types_aggregate {
-  aggregate: types_aggregate_fields
-  nodes: [types!]!
-}
-
-"""
-aggregate fields of "types"
-"""
-type types_aggregate_fields {
-  count(columns: [types_select_column!], distinct: Boolean): Int
-  max: types_max_fields
-  min: types_min_fields
-}
-
-"""
-order by aggregate values of table "types"
-"""
-input types_aggregate_order_by {
-  count: order_by
-  max: types_max_order_by
-  min: types_min_order_by
-}
-
-"""
-input type for inserting array relation for remote table "types"
-"""
-input types_arr_rel_insert_input {
-  data: [types_insert_input!]!
-  on_conflict: types_on_conflict
-}
-
-"""
-Boolean expression to filter rows from the table "types". All fields are combined with a logical 'AND'.
-"""
-input types_bool_exp {
-  _and: [types_bool_exp]
-  _not: types_bool_exp
-  _or: [types_bool_exp]
-  created_at: timestamptz_comparison_exp
-  id: uuid_comparison_exp
-  name: String_comparison_exp
-  updated_at: timestamptz_comparison_exp
-}
-
-"""
-unique or primary key constraints on table "types"
-"""
-enum types_constraint {
-  """unique or primary key constraint"""
-  types_pkey
-}
-
-"""
-input type for inserting data into table "types"
-"""
-input types_insert_input {
-  created_at: timestamptz
-  id: uuid
-  name: String
-  updated_at: timestamptz
-}
-
-"""aggregate max on columns"""
-type types_max_fields {
-  created_at: timestamptz
-  name: String
-  updated_at: timestamptz
-}
-
-"""
-order by max() on columns of table "types"
-"""
-input types_max_order_by {
-  created_at: order_by
-  name: order_by
-  updated_at: order_by
-}
-
-"""aggregate min on columns"""
-type types_min_fields {
-  created_at: timestamptz
-  name: String
-  updated_at: timestamptz
-}
-
-"""
-order by min() on columns of table "types"
-"""
-input types_min_order_by {
-  created_at: order_by
-  name: order_by
-  updated_at: order_by
-}
-
-"""
-response of any mutation on the table "types"
-"""
-type types_mutation_response {
-  """number of affected rows by the mutation"""
-  affected_rows: Int!
-
-  """data of the affected rows by the mutation"""
-  returning: [types!]!
-}
-
-"""
-input type for inserting object relation for remote table "types"
-"""
-input types_obj_rel_insert_input {
-  data: types_insert_input!
-  on_conflict: types_on_conflict
-}
-
-"""
-on conflict condition type for table "types"
-"""
-input types_on_conflict {
-  constraint: types_constraint!
-  update_columns: [types_update_column!]!
-  where: types_bool_exp
-}
-
-"""
-ordering options when selecting data from "types"
-"""
-input types_order_by {
-  created_at: order_by
-  id: order_by
-  name: order_by
-  updated_at: order_by
-}
-
-"""
-select columns of table "types"
-"""
-enum types_select_column {
-  """column name"""
-  created_at
-
-  """column name"""
-  id
-
-  """column name"""
-  name
-
-  """column name"""
-  updated_at
-}
-
-"""
-input type for updating data in table "types"
-"""
-input types_set_input {
-  created_at: timestamptz
-  id: uuid
-  name: String
-  updated_at: timestamptz
-}
-
-"""
-update columns of table "types"
-"""
-enum types_update_column {
-  """column name"""
-  created_at
-
-  """column name"""
-  id
-
-  """column name"""
-  name
-
-  """column name"""
-  updated_at
 }
 
 scalar uuid

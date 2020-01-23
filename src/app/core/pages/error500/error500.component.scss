@@ -48,7 +48,7 @@
   }
   
   .notfound .notfound-404 h1>span {
-    color:$primary;
+    color:mat-color($primary);
   }
   
   .notfound h2 {

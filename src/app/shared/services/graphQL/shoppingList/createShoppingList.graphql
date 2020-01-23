@@ -1,0 +1,11 @@
+#import "./shopping-list.fragment.graphql"
+mutation CreateShoppingList($shoppingList: [shopping_list_insert_input!]!) {
+  __typename
+  insert_shopping_list(objects: $shoppingList) {
+    __typename
+
+    returning {
+      ...ShoppingListFields
+    }
+  }
+}

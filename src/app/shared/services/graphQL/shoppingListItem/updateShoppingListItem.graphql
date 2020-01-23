@@ -1,0 +1,10 @@
+#import "./item.fragment.graphql"
+mutation UpdateShopingListItem($id: uuid, $changes: shopping_list_items_set_input) {
+  __typename
+  update_shopping_list_items(_set: $changes, where: {id: {_eq: $id}}) {
+    affected_rows
+    returning {
+      ...ShoppingListItemFields
+    }
+  }
+}

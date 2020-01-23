@@ -40,10 +40,6 @@ export type Mutation_Root = {
   delete_shopping_list?: Maybe<Shopping_List_Mutation_Response>,
   /** delete data from the table: "shopping_list_items" */
   delete_shopping_list_items?: Maybe<Shopping_List_Items_Mutation_Response>,
-  /** delete data from the table: "stores" */
-  delete_stores?: Maybe<Stores_Mutation_Response>,
-  /** delete data from the table: "types" */
-  delete_types?: Maybe<Types_Mutation_Response>,
   /** insert data into the table: "product_categories" */
   insert_product_categories?: Maybe<Product_Categories_Mutation_Response>,
   /** insert data into the table: "products" */
@@ -52,10 +48,6 @@ export type Mutation_Root = {
   insert_shopping_list?: Maybe<Shopping_List_Mutation_Response>,
   /** insert data into the table: "shopping_list_items" */
   insert_shopping_list_items?: Maybe<Shopping_List_Items_Mutation_Response>,
-  /** insert data into the table: "stores" */
-  insert_stores?: Maybe<Stores_Mutation_Response>,
-  /** insert data into the table: "types" */
-  insert_types?: Maybe<Types_Mutation_Response>,
   /** update data of the table: "product_categories" */
   update_product_categories?: Maybe<Product_Categories_Mutation_Response>,
   /** update data of the table: "products" */
@@ -64,10 +56,6 @@ export type Mutation_Root = {
   update_shopping_list?: Maybe<Shopping_List_Mutation_Response>,
   /** update data of the table: "shopping_list_items" */
   update_shopping_list_items?: Maybe<Shopping_List_Items_Mutation_Response>,
-  /** update data of the table: "stores" */
-  update_stores?: Maybe<Stores_Mutation_Response>,
-  /** update data of the table: "types" */
-  update_types?: Maybe<Types_Mutation_Response>,
 };
 
 
@@ -92,18 +80,6 @@ export type Mutation_RootDelete_Shopping_ListArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Shopping_List_ItemsArgs = {
   where: Shopping_List_Items_Bool_Exp
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_StoresArgs = {
-  where: Stores_Bool_Exp
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_TypesArgs = {
-  where: Types_Bool_Exp
 };
 
 
@@ -136,20 +112,6 @@ export type Mutation_RootInsert_Shopping_List_ItemsArgs = {
 
 
 /** mutation root */
-export type Mutation_RootInsert_StoresArgs = {
-  objects: Array<Stores_Insert_Input>,
-  on_conflict?: Maybe<Stores_On_Conflict>
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_TypesArgs = {
-  objects: Array<Types_Insert_Input>,
-  on_conflict?: Maybe<Types_On_Conflict>
-};
-
-
-/** mutation root */
 export type Mutation_RootUpdate_Product_CategoriesArgs = {
   _set?: Maybe<Product_Categories_Set_Input>,
   where: Product_Categories_Bool_Exp
@@ -174,20 +136,6 @@ export type Mutation_RootUpdate_Shopping_ListArgs = {
 export type Mutation_RootUpdate_Shopping_List_ItemsArgs = {
   _set?: Maybe<Shopping_List_Items_Set_Input>,
   where: Shopping_List_Items_Bool_Exp
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_StoresArgs = {
-  _set?: Maybe<Stores_Set_Input>,
-  where: Stores_Bool_Exp
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_TypesArgs = {
-  _set?: Maybe<Types_Set_Input>,
-  where: Types_Bool_Exp
 };
 
 
@@ -627,18 +575,6 @@ export type Query_Root = {
   shopping_list_items_aggregate: Shopping_List_Items_Aggregate,
   /** fetch data from the table: "shopping_list_items" using primary key columns */
   shopping_list_items_by_pk?: Maybe<Shopping_List_Items>,
-  /** fetch data from the table: "stores" */
-  stores: Array<Stores>,
-  /** fetch aggregated fields from the table: "stores" */
-  stores_aggregate: Stores_Aggregate,
-  /** fetch data from the table: "stores" using primary key columns */
-  stores_by_pk?: Maybe<Stores>,
-  /** fetch data from the table: "types" */
-  types: Array<Types>,
-  /** fetch aggregated fields from the table: "types" */
-  types_aggregate: Types_Aggregate,
-  /** fetch data from the table: "types" using primary key columns */
-  types_by_pk?: Maybe<Types>,
 };
 
 
@@ -745,58 +681,6 @@ export type Query_RootShopping_List_Items_By_PkArgs = {
   id: Scalars['uuid']
 };
 
-
-/** query root */
-export type Query_RootStoresArgs = {
-  distinct_on?: Maybe<Array<Stores_Select_Column>>,
-  limit?: Maybe<Scalars['Int']>,
-  offset?: Maybe<Scalars['Int']>,
-  order_by?: Maybe<Array<Stores_Order_By>>,
-  where?: Maybe<Stores_Bool_Exp>
-};
-
-
-/** query root */
-export type Query_RootStores_AggregateArgs = {
-  distinct_on?: Maybe<Array<Stores_Select_Column>>,
-  limit?: Maybe<Scalars['Int']>,
-  offset?: Maybe<Scalars['Int']>,
-  order_by?: Maybe<Array<Stores_Order_By>>,
-  where?: Maybe<Stores_Bool_Exp>
-};
-
-
-/** query root */
-export type Query_RootStores_By_PkArgs = {
-  id: Scalars['uuid']
-};
-
-
-/** query root */
-export type Query_RootTypesArgs = {
-  distinct_on?: Maybe<Array<Types_Select_Column>>,
-  limit?: Maybe<Scalars['Int']>,
-  offset?: Maybe<Scalars['Int']>,
-  order_by?: Maybe<Array<Types_Order_By>>,
-  where?: Maybe<Types_Bool_Exp>
-};
-
-
-/** query root */
-export type Query_RootTypes_AggregateArgs = {
-  distinct_on?: Maybe<Array<Types_Select_Column>>,
-  limit?: Maybe<Scalars['Int']>,
-  offset?: Maybe<Scalars['Int']>,
-  order_by?: Maybe<Array<Types_Order_By>>,
-  where?: Maybe<Types_Bool_Exp>
-};
-
-
-/** query root */
-export type Query_RootTypes_By_PkArgs = {
-  id: Scalars['uuid']
-};
-
 /** columns and relationships of "shopping_list" */
 export type Shopping_List = {
    __typename?: 'shopping_list',
@@ -808,12 +692,6 @@ export type Shopping_List = {
   /** An aggregated array relationship */
   items_aggregate: Shopping_List_Items_Aggregate,
   name: Scalars['String'],
-  /** An object relationship */
-  store?: Maybe<Stores>,
-  store_id?: Maybe<Scalars['uuid']>,
-  /** An object relationship */
-  type?: Maybe<Types>,
-  type_id?: Maybe<Scalars['uuid']>,
   updated_at: Scalars['timestamptz'],
 };
 
@@ -882,10 +760,6 @@ export type Shopping_List_Bool_Exp = {
   id?: Maybe<Uuid_Comparison_Exp>,
   items?: Maybe<Shopping_List_Items_Bool_Exp>,
   name?: Maybe<String_Comparison_Exp>,
-  store?: Maybe<Stores_Bool_Exp>,
-  store_id?: Maybe<Uuid_Comparison_Exp>,
-  type?: Maybe<Types_Bool_Exp>,
-  type_id?: Maybe<Uuid_Comparison_Exp>,
   updated_at?: Maybe<Timestamptz_Comparison_Exp>,
 };
 
@@ -902,10 +776,6 @@ export type Shopping_List_Insert_Input = {
   id?: Maybe<Scalars['uuid']>,
   items?: Maybe<Shopping_List_Items_Arr_Rel_Insert_Input>,
   name?: Maybe<Scalars['String']>,
-  store?: Maybe<Stores_Obj_Rel_Insert_Input>,
-  store_id?: Maybe<Scalars['uuid']>,
-  type?: Maybe<Types_Obj_Rel_Insert_Input>,
-  type_id?: Maybe<Scalars['uuid']>,
   updated_at?: Maybe<Scalars['timestamptz']>,
 };
 
@@ -915,6 +785,8 @@ export type Shopping_List_Items = {
   complete: Scalars['Boolean'],
   created_at: Scalars['timestamptz'],
   id: Scalars['uuid'],
+  /** An object relationship */
+  product: Products,
   product_id: Scalars['uuid'],
   quantity: Scalars['numeric'],
   shopping_list_id: Scalars['uuid'],
@@ -991,6 +863,7 @@ export type Shopping_List_Items_Bool_Exp = {
   complete?: Maybe<Boolean_Comparison_Exp>,
   created_at?: Maybe<Timestamptz_Comparison_Exp>,
   id?: Maybe<Uuid_Comparison_Exp>,
+  product?: Maybe<Products_Bool_Exp>,
   product_id?: Maybe<Uuid_Comparison_Exp>,
   quantity?: Maybe<Numeric_Comparison_Exp>,
   shopping_list_id?: Maybe<Uuid_Comparison_Exp>,
@@ -1008,6 +881,7 @@ export type Shopping_List_Items_Insert_Input = {
   complete?: Maybe<Scalars['Boolean']>,
   created_at?: Maybe<Scalars['timestamptz']>,
   id?: Maybe<Scalars['uuid']>,
+  product?: Maybe<Products_Obj_Rel_Insert_Input>,
   product_id?: Maybe<Scalars['uuid']>,
   quantity?: Maybe<Scalars['numeric']>,
   shopping_list_id?: Maybe<Scalars['uuid']>,
@@ -1071,6 +945,7 @@ export type Shopping_List_Items_Order_By = {
   complete?: Maybe<Order_By>,
   created_at?: Maybe<Order_By>,
   id?: Maybe<Order_By>,
+  product?: Maybe<Products_Order_By>,
   product_id?: Maybe<Order_By>,
   quantity?: Maybe<Order_By>,
   shopping_list_id?: Maybe<Order_By>,
@@ -1260,10 +1135,6 @@ export type Shopping_List_Order_By = {
   id?: Maybe<Order_By>,
   items_aggregate?: Maybe<Shopping_List_Items_Aggregate_Order_By>,
   name?: Maybe<Order_By>,
-  store?: Maybe<Stores_Order_By>,
-  store_id?: Maybe<Order_By>,
-  type?: Maybe<Types_Order_By>,
-  type_id?: Maybe<Order_By>,
   updated_at?: Maybe<Order_By>,
 };
 
@@ -1278,10 +1149,6 @@ export enum Shopping_List_Select_Column {
   /** column name */
   Name = 'name',
   /** column name */
-  StoreId = 'store_id',
-  /** column name */
-  TypeId = 'type_id',
-  /** column name */
   UpdatedAt = 'updated_at'
 }
 
@@ -1291,8 +1158,6 @@ export type Shopping_List_Set_Input = {
   favourite?: Maybe<Scalars['Boolean']>,
   id?: Maybe<Scalars['uuid']>,
   name?: Maybe<Scalars['String']>,
-  store_id?: Maybe<Scalars['uuid']>,
-  type_id?: Maybe<Scalars['uuid']>,
   updated_at?: Maybe<Scalars['timestamptz']>,
 };
 
@@ -1306,185 +1171,6 @@ export enum Shopping_List_Update_Column {
   Id = 'id',
   /** column name */
   Name = 'name',
-  /** column name */
-  StoreId = 'store_id',
-  /** column name */
-  TypeId = 'type_id',
-  /** column name */
-  UpdatedAt = 'updated_at'
-}
-
-/** columns and relationships of "stores" */
-export type Stores = {
-   __typename?: 'stores',
-  created_at: Scalars['timestamptz'],
-  id: Scalars['uuid'],
-  name: Scalars['String'],
-  /** An object relationship */
-  type?: Maybe<Types>,
-  type_id: Scalars['uuid'],
-  updated_at: Scalars['timestamptz'],
-};
-
-/** aggregated selection of "stores" */
-export type Stores_Aggregate = {
-   __typename?: 'stores_aggregate',
-  aggregate?: Maybe<Stores_Aggregate_Fields>,
-  nodes: Array<Stores>,
-};
-
-/** aggregate fields of "stores" */
-export type Stores_Aggregate_Fields = {
-   __typename?: 'stores_aggregate_fields',
-  count?: Maybe<Scalars['Int']>,
-  max?: Maybe<Stores_Max_Fields>,
-  min?: Maybe<Stores_Min_Fields>,
-};
-
-
-/** aggregate fields of "stores" */
-export type Stores_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Stores_Select_Column>>,
-  distinct?: Maybe<Scalars['Boolean']>
-};
-
-/** order by aggregate values of table "stores" */
-export type Stores_Aggregate_Order_By = {
-  count?: Maybe<Order_By>,
-  max?: Maybe<Stores_Max_Order_By>,
-  min?: Maybe<Stores_Min_Order_By>,
-};
-
-/** input type for inserting array relation for remote table "stores" */
-export type Stores_Arr_Rel_Insert_Input = {
-  data: Array<Stores_Insert_Input>,
-  on_conflict?: Maybe<Stores_On_Conflict>,
-};
-
-/** Boolean expression to filter rows from the table "stores". All fields are combined with a logical 'AND'. */
-export type Stores_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Stores_Bool_Exp>>>,
-  _not?: Maybe<Stores_Bool_Exp>,
-  _or?: Maybe<Array<Maybe<Stores_Bool_Exp>>>,
-  created_at?: Maybe<Timestamptz_Comparison_Exp>,
-  id?: Maybe<Uuid_Comparison_Exp>,
-  name?: Maybe<String_Comparison_Exp>,
-  type?: Maybe<Types_Bool_Exp>,
-  type_id?: Maybe<Uuid_Comparison_Exp>,
-  updated_at?: Maybe<Timestamptz_Comparison_Exp>,
-};
-
-/** unique or primary key constraints on table "stores" */
-export enum Stores_Constraint {
-  /** unique or primary key constraint */
-  StoresPkey = 'stores_pkey'
-}
-
-/** input type for inserting data into table "stores" */
-export type Stores_Insert_Input = {
-  created_at?: Maybe<Scalars['timestamptz']>,
-  id?: Maybe<Scalars['uuid']>,
-  name?: Maybe<Scalars['String']>,
-  type?: Maybe<Types_Obj_Rel_Insert_Input>,
-  type_id?: Maybe<Scalars['uuid']>,
-  updated_at?: Maybe<Scalars['timestamptz']>,
-};
-
-/** aggregate max on columns */
-export type Stores_Max_Fields = {
-   __typename?: 'stores_max_fields',
-  created_at?: Maybe<Scalars['timestamptz']>,
-  name?: Maybe<Scalars['String']>,
-  updated_at?: Maybe<Scalars['timestamptz']>,
-};
-
-/** order by max() on columns of table "stores" */
-export type Stores_Max_Order_By = {
-  created_at?: Maybe<Order_By>,
-  name?: Maybe<Order_By>,
-  updated_at?: Maybe<Order_By>,
-};
-
-/** aggregate min on columns */
-export type Stores_Min_Fields = {
-   __typename?: 'stores_min_fields',
-  created_at?: Maybe<Scalars['timestamptz']>,
-  name?: Maybe<Scalars['String']>,
-  updated_at?: Maybe<Scalars['timestamptz']>,
-};
-
-/** order by min() on columns of table "stores" */
-export type Stores_Min_Order_By = {
-  created_at?: Maybe<Order_By>,
-  name?: Maybe<Order_By>,
-  updated_at?: Maybe<Order_By>,
-};
-
-/** response of any mutation on the table "stores" */
-export type Stores_Mutation_Response = {
-   __typename?: 'stores_mutation_response',
-  /** number of affected rows by the mutation */
-  affected_rows: Scalars['Int'],
-  /** data of the affected rows by the mutation */
-  returning: Array<Stores>,
-};
-
-/** input type for inserting object relation for remote table "stores" */
-export type Stores_Obj_Rel_Insert_Input = {
-  data: Stores_Insert_Input,
-  on_conflict?: Maybe<Stores_On_Conflict>,
-};
-
-/** on conflict condition type for table "stores" */
-export type Stores_On_Conflict = {
-  constraint: Stores_Constraint,
-  update_columns: Array<Stores_Update_Column>,
-  where?: Maybe<Stores_Bool_Exp>,
-};
-
-/** ordering options when selecting data from "stores" */
-export type Stores_Order_By = {
-  created_at?: Maybe<Order_By>,
-  id?: Maybe<Order_By>,
-  name?: Maybe<Order_By>,
-  type?: Maybe<Types_Order_By>,
-  type_id?: Maybe<Order_By>,
-  updated_at?: Maybe<Order_By>,
-};
-
-/** select columns of table "stores" */
-export enum Stores_Select_Column {
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Name = 'name',
-  /** column name */
-  TypeId = 'type_id',
-  /** column name */
-  UpdatedAt = 'updated_at'
-}
-
-/** input type for updating data in table "stores" */
-export type Stores_Set_Input = {
-  created_at?: Maybe<Scalars['timestamptz']>,
-  id?: Maybe<Scalars['uuid']>,
-  name?: Maybe<Scalars['String']>,
-  type_id?: Maybe<Scalars['uuid']>,
-  updated_at?: Maybe<Scalars['timestamptz']>,
-};
-
-/** update columns of table "stores" */
-export enum Stores_Update_Column {
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Name = 'name',
-  /** column name */
-  TypeId = 'type_id',
   /** column name */
   UpdatedAt = 'updated_at'
 }
@@ -1535,18 +1221,6 @@ export type Subscription_Root = {
   shopping_list_items_aggregate: Shopping_List_Items_Aggregate,
   /** fetch data from the table: "shopping_list_items" using primary key columns */
   shopping_list_items_by_pk?: Maybe<Shopping_List_Items>,
-  /** fetch data from the table: "stores" */
-  stores: Array<Stores>,
-  /** fetch aggregated fields from the table: "stores" */
-  stores_aggregate: Stores_Aggregate,
-  /** fetch data from the table: "stores" using primary key columns */
-  stores_by_pk?: Maybe<Stores>,
-  /** fetch data from the table: "types" */
-  types: Array<Types>,
-  /** fetch aggregated fields from the table: "types" */
-  types_aggregate: Types_Aggregate,
-  /** fetch data from the table: "types" using primary key columns */
-  types_by_pk?: Maybe<Types>,
 };
 
 
@@ -1654,58 +1328,6 @@ export type Subscription_RootShopping_List_Items_By_PkArgs = {
 };
 
 
-/** subscription root */
-export type Subscription_RootStoresArgs = {
-  distinct_on?: Maybe<Array<Stores_Select_Column>>,
-  limit?: Maybe<Scalars['Int']>,
-  offset?: Maybe<Scalars['Int']>,
-  order_by?: Maybe<Array<Stores_Order_By>>,
-  where?: Maybe<Stores_Bool_Exp>
-};
-
-
-/** subscription root */
-export type Subscription_RootStores_AggregateArgs = {
-  distinct_on?: Maybe<Array<Stores_Select_Column>>,
-  limit?: Maybe<Scalars['Int']>,
-  offset?: Maybe<Scalars['Int']>,
-  order_by?: Maybe<Array<Stores_Order_By>>,
-  where?: Maybe<Stores_Bool_Exp>
-};
-
-
-/** subscription root */
-export type Subscription_RootStores_By_PkArgs = {
-  id: Scalars['uuid']
-};
-
-
-/** subscription root */
-export type Subscription_RootTypesArgs = {
-  distinct_on?: Maybe<Array<Types_Select_Column>>,
-  limit?: Maybe<Scalars['Int']>,
-  offset?: Maybe<Scalars['Int']>,
-  order_by?: Maybe<Array<Types_Order_By>>,
-  where?: Maybe<Types_Bool_Exp>
-};
-
-
-/** subscription root */
-export type Subscription_RootTypes_AggregateArgs = {
-  distinct_on?: Maybe<Array<Types_Select_Column>>,
-  limit?: Maybe<Scalars['Int']>,
-  offset?: Maybe<Scalars['Int']>,
-  order_by?: Maybe<Array<Types_Order_By>>,
-  where?: Maybe<Types_Bool_Exp>
-};
-
-
-/** subscription root */
-export type Subscription_RootTypes_By_PkArgs = {
-  id: Scalars['uuid']
-};
-
-
 /** expression to compare columns of type timestamptz. All fields are combined with logical 'AND'. */
 export type Timestamptz_Comparison_Exp = {
   _eq?: Maybe<Scalars['timestamptz']>,
@@ -1718,167 +1340,6 @@ export type Timestamptz_Comparison_Exp = {
   _neq?: Maybe<Scalars['timestamptz']>,
   _nin?: Maybe<Array<Scalars['timestamptz']>>,
 };
-
-/** columns and relationships of "types" */
-export type Types = {
-   __typename?: 'types',
-  created_at: Scalars['timestamptz'],
-  id: Scalars['uuid'],
-  name: Scalars['String'],
-  updated_at: Scalars['timestamptz'],
-};
-
-/** aggregated selection of "types" */
-export type Types_Aggregate = {
-   __typename?: 'types_aggregate',
-  aggregate?: Maybe<Types_Aggregate_Fields>,
-  nodes: Array<Types>,
-};
-
-/** aggregate fields of "types" */
-export type Types_Aggregate_Fields = {
-   __typename?: 'types_aggregate_fields',
-  count?: Maybe<Scalars['Int']>,
-  max?: Maybe<Types_Max_Fields>,
-  min?: Maybe<Types_Min_Fields>,
-};
-
-
-/** aggregate fields of "types" */
-export type Types_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Types_Select_Column>>,
-  distinct?: Maybe<Scalars['Boolean']>
-};
-
-/** order by aggregate values of table "types" */
-export type Types_Aggregate_Order_By = {
-  count?: Maybe<Order_By>,
-  max?: Maybe<Types_Max_Order_By>,
-  min?: Maybe<Types_Min_Order_By>,
-};
-
-/** input type for inserting array relation for remote table "types" */
-export type Types_Arr_Rel_Insert_Input = {
-  data: Array<Types_Insert_Input>,
-  on_conflict?: Maybe<Types_On_Conflict>,
-};
-
-/** Boolean expression to filter rows from the table "types". All fields are combined with a logical 'AND'. */
-export type Types_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Types_Bool_Exp>>>,
-  _not?: Maybe<Types_Bool_Exp>,
-  _or?: Maybe<Array<Maybe<Types_Bool_Exp>>>,
-  created_at?: Maybe<Timestamptz_Comparison_Exp>,
-  id?: Maybe<Uuid_Comparison_Exp>,
-  name?: Maybe<String_Comparison_Exp>,
-  updated_at?: Maybe<Timestamptz_Comparison_Exp>,
-};
-
-/** unique or primary key constraints on table "types" */
-export enum Types_Constraint {
-  /** unique or primary key constraint */
-  TypesPkey = 'types_pkey'
-}
-
-/** input type for inserting data into table "types" */
-export type Types_Insert_Input = {
-  created_at?: Maybe<Scalars['timestamptz']>,
-  id?: Maybe<Scalars['uuid']>,
-  name?: Maybe<Scalars['String']>,
-  updated_at?: Maybe<Scalars['timestamptz']>,
-};
-
-/** aggregate max on columns */
-export type Types_Max_Fields = {
-   __typename?: 'types_max_fields',
-  created_at?: Maybe<Scalars['timestamptz']>,
-  name?: Maybe<Scalars['String']>,
-  updated_at?: Maybe<Scalars['timestamptz']>,
-};
-
-/** order by max() on columns of table "types" */
-export type Types_Max_Order_By = {
-  created_at?: Maybe<Order_By>,
-  name?: Maybe<Order_By>,
-  updated_at?: Maybe<Order_By>,
-};
-
-/** aggregate min on columns */
-export type Types_Min_Fields = {
-   __typename?: 'types_min_fields',
-  created_at?: Maybe<Scalars['timestamptz']>,
-  name?: Maybe<Scalars['String']>,
-  updated_at?: Maybe<Scalars['timestamptz']>,
-};
-
-/** order by min() on columns of table "types" */
-export type Types_Min_Order_By = {
-  created_at?: Maybe<Order_By>,
-  name?: Maybe<Order_By>,
-  updated_at?: Maybe<Order_By>,
-};
-
-/** response of any mutation on the table "types" */
-export type Types_Mutation_Response = {
-   __typename?: 'types_mutation_response',
-  /** number of affected rows by the mutation */
-  affected_rows: Scalars['Int'],
-  /** data of the affected rows by the mutation */
-  returning: Array<Types>,
-};
-
-/** input type for inserting object relation for remote table "types" */
-export type Types_Obj_Rel_Insert_Input = {
-  data: Types_Insert_Input,
-  on_conflict?: Maybe<Types_On_Conflict>,
-};
-
-/** on conflict condition type for table "types" */
-export type Types_On_Conflict = {
-  constraint: Types_Constraint,
-  update_columns: Array<Types_Update_Column>,
-  where?: Maybe<Types_Bool_Exp>,
-};
-
-/** ordering options when selecting data from "types" */
-export type Types_Order_By = {
-  created_at?: Maybe<Order_By>,
-  id?: Maybe<Order_By>,
-  name?: Maybe<Order_By>,
-  updated_at?: Maybe<Order_By>,
-};
-
-/** select columns of table "types" */
-export enum Types_Select_Column {
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Name = 'name',
-  /** column name */
-  UpdatedAt = 'updated_at'
-}
-
-/** input type for updating data in table "types" */
-export type Types_Set_Input = {
-  created_at?: Maybe<Scalars['timestamptz']>,
-  id?: Maybe<Scalars['uuid']>,
-  name?: Maybe<Scalars['String']>,
-  updated_at?: Maybe<Scalars['timestamptz']>,
-};
-
-/** update columns of table "types" */
-export enum Types_Update_Column {
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Name = 'name',
-  /** column name */
-  UpdatedAt = 'updated_at'
-}
 
 
 /** expression to compare columns of type uuid. All fields are combined with logical 'AND'. */
@@ -1894,6 +1355,21 @@ export type Uuid_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['uuid']>>,
 };
 
+export type GetProductsQueryVariables = {};
+
+
+export type GetProductsQuery = (
+  { __typename: 'query_root' }
+  & { products: Array<(
+    { __typename?: 'products' }
+    & Pick<Products, 'id' | 'name' | 'favourite'>
+    & { category: Maybe<(
+      { __typename?: 'product_categories' }
+      & Pick<Product_Categories, 'name' | 'colour'>
+    )> }
+  )> }
+);
+
 export type CreateShoppingListMutationVariables = {
   shoppingList: Array<Shopping_List_Insert_Input>
 };
@@ -1902,23 +1378,171 @@ export type CreateShoppingListMutationVariables = {
 export type CreateShoppingListMutation = (
   { __typename: 'mutation_root' }
   & { insert_shopping_list: Maybe<(
-    { __typename?: 'shopping_list_mutation_response' }
+    { __typename: 'shopping_list_mutation_response' }
     & { returning: Array<(
       { __typename?: 'shopping_list' }
-      & Pick<Shopping_List, 'id' | 'name'>
+      & ShoppingListFieldsFragment
     )> }
   )> }
 );
 
+export type GetShoppingListsQueryVariables = {};
 
-export const CreateShoppingListDocument = gql`
-    mutation CreateShoppingList($shoppingList: [shopping_list_insert_input!]!) {
-  __typename
-  insert_shopping_list(objects: $shoppingList) {
-    returning {
-      id
+
+export type GetShoppingListsQuery = (
+  { __typename: 'query_root' }
+  & { shopping_list: Array<(
+    { __typename?: 'shopping_list' }
+    & ShoppingListFieldsFragment
+  )> }
+);
+
+export type GetShoppingListByIdQueryVariables = {
+  id?: Maybe<Scalars['uuid']>
+};
+
+
+export type GetShoppingListByIdQuery = (
+  { __typename: 'query_root' }
+  & { shopping_list: Array<(
+    { __typename?: 'shopping_list' }
+    & ShoppingListFieldsFragment
+  )> }
+);
+
+export type GetFavouriteShoppingListQueryVariables = {};
+
+
+export type GetFavouriteShoppingListQuery = (
+  { __typename: 'query_root' }
+  & { shopping_list: Array<(
+    { __typename?: 'shopping_list' }
+    & ShoppingListFieldsFragment
+  )> }
+);
+
+export type ShoppingListFieldsFragment = (
+  { __typename?: 'shopping_list' }
+  & Pick<Shopping_List, 'id' | 'name' | 'created_at' | 'favourite'>
+);
+
+export type UpdateShoppingListMutationVariables = {
+  id?: Maybe<Scalars['uuid']>,
+  changes?: Maybe<Shopping_List_Set_Input>
+};
+
+
+export type UpdateShoppingListMutation = (
+  { __typename: 'mutation_root' }
+  & { update_shopping_list: Maybe<(
+    { __typename: 'shopping_list_mutation_response' }
+    & Pick<Shopping_List_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename?: 'shopping_list' }
+      & ShoppingListFieldsFragment
+    )> }
+  )> }
+);
+
+export type CreateShoppingListItemMutationVariables = {
+  shoppingListItems: Array<Shopping_List_Items_Insert_Input>
+};
+
+
+export type CreateShoppingListItemMutation = (
+  { __typename: 'mutation_root' }
+  & { insert_shopping_list_items: Maybe<(
+    { __typename?: 'shopping_list_items_mutation_response' }
+    & Pick<Shopping_List_Items_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename?: 'shopping_list_items' }
+      & ShoppingListItemFieldsFragment
+    )> }
+  )> }
+);
+
+export type GetShoppingListItemsQueryVariables = {
+  shoppingListId?: Maybe<Scalars['uuid']>
+};
+
+
+export type GetShoppingListItemsQuery = (
+  { __typename: 'query_root' }
+  & { shopping_list_items: Array<(
+    { __typename?: 'shopping_list_items' }
+    & ShoppingListItemFieldsFragment
+  )> }
+);
+
+export type ShoppingListItemFieldsFragment = (
+  { __typename?: 'shopping_list_items' }
+  & Pick<Shopping_List_Items, 'id' | 'quantity' | 'complete' | 'shopping_list_id'>
+  & { product: (
+    { __typename?: 'products' }
+    & Pick<Products, 'name' | 'id' | 'description' | 'favourite'>
+    & { category: Maybe<(
+      { __typename?: 'product_categories' }
+      & Pick<Product_Categories, 'name' | 'id' | 'colour'>
+    )> }
+  ) }
+);
+
+export type UpdateShopingListItemMutationVariables = {
+  id?: Maybe<Scalars['uuid']>,
+  changes?: Maybe<Shopping_List_Items_Set_Input>
+};
+
+
+export type UpdateShopingListItemMutation = (
+  { __typename: 'mutation_root' }
+  & { update_shopping_list_items: Maybe<(
+    { __typename?: 'shopping_list_items_mutation_response' }
+    & Pick<Shopping_List_Items_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename?: 'shopping_list_items' }
+      & ShoppingListItemFieldsFragment
+    )> }
+  )> }
+);
+
+export const ShoppingListFieldsFragmentDoc = gql`
+    fragment ShoppingListFields on shopping_list {
+  id
+  name
+  created_at
+  favourite
+}
+    `;
+export const ShoppingListItemFieldsFragmentDoc = gql`
+    fragment ShoppingListItemFields on shopping_list_items {
+  id
+  product {
+    category {
       name
+      id
+      colour
     }
+    name
+    id
+    description
+    favourite
+  }
+  quantity
+  complete
+  shopping_list_id
+}
+    `;
+export const GetProductsDocument = gql`
+    query GetProducts {
+  __typename
+  products {
+    id
+    name
+    category {
+      name
+      colour
+    }
+    favourite
   }
 }
     `;
@@ -1926,7 +1550,148 @@ export const CreateShoppingListDocument = gql`
   @Injectable({
     providedIn: 'root'
   })
+  export class GetProductsGQL extends Apollo.Query<GetProductsQuery, GetProductsQueryVariables> {
+    document = GetProductsDocument;
+    
+  }
+export const CreateShoppingListDocument = gql`
+    mutation CreateShoppingList($shoppingList: [shopping_list_insert_input!]!) {
+  __typename
+  insert_shopping_list(objects: $shoppingList) {
+    __typename
+    returning {
+      ...ShoppingListFields
+    }
+  }
+}
+    ${ShoppingListFieldsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
   export class CreateShoppingListGQL extends Apollo.Mutation<CreateShoppingListMutation, CreateShoppingListMutationVariables> {
     document = CreateShoppingListDocument;
+    
+  }
+export const GetShoppingListsDocument = gql`
+    query GetShoppingLists {
+  __typename
+  shopping_list {
+    ...ShoppingListFields
+  }
+}
+    ${ShoppingListFieldsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetShoppingListsGQL extends Apollo.Query<GetShoppingListsQuery, GetShoppingListsQueryVariables> {
+    document = GetShoppingListsDocument;
+    
+  }
+export const GetShoppingListByIdDocument = gql`
+    query GetShoppingListById($id: uuid) {
+  __typename
+  shopping_list(where: {id: {_eq: $id}}) {
+    ...ShoppingListFields
+  }
+}
+    ${ShoppingListFieldsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetShoppingListByIdGQL extends Apollo.Query<GetShoppingListByIdQuery, GetShoppingListByIdQueryVariables> {
+    document = GetShoppingListByIdDocument;
+    
+  }
+export const GetFavouriteShoppingListDocument = gql`
+    query GetFavouriteShoppingList {
+  __typename
+  shopping_list(where: {favourite: {_eq: true}}) {
+    ...ShoppingListFields
+  }
+}
+    ${ShoppingListFieldsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetFavouriteShoppingListGQL extends Apollo.Query<GetFavouriteShoppingListQuery, GetFavouriteShoppingListQueryVariables> {
+    document = GetFavouriteShoppingListDocument;
+    
+  }
+export const UpdateShoppingListDocument = gql`
+    mutation UpdateShoppingList($id: uuid, $changes: shopping_list_set_input) {
+  __typename
+  update_shopping_list(where: {id: {_eq: $id}}, _set: $changes) {
+    affected_rows
+    __typename
+    returning {
+      ...ShoppingListFields
+    }
+  }
+}
+    ${ShoppingListFieldsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UpdateShoppingListGQL extends Apollo.Mutation<UpdateShoppingListMutation, UpdateShoppingListMutationVariables> {
+    document = UpdateShoppingListDocument;
+    
+  }
+export const CreateShoppingListItemDocument = gql`
+    mutation CreateShoppingListItem($shoppingListItems: [shopping_list_items_insert_input!]!) {
+  __typename
+  insert_shopping_list_items(objects: $shoppingListItems) {
+    affected_rows
+    returning {
+      ...ShoppingListItemFields
+    }
+  }
+}
+    ${ShoppingListItemFieldsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateShoppingListItemGQL extends Apollo.Mutation<CreateShoppingListItemMutation, CreateShoppingListItemMutationVariables> {
+    document = CreateShoppingListItemDocument;
+    
+  }
+export const GetShoppingListItemsDocument = gql`
+    query GetShoppingListItems($shoppingListId: uuid) {
+  __typename
+  shopping_list_items(where: {shopping_list_id: {_eq: $shoppingListId}}) {
+    ...ShoppingListItemFields
+  }
+}
+    ${ShoppingListItemFieldsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetShoppingListItemsGQL extends Apollo.Query<GetShoppingListItemsQuery, GetShoppingListItemsQueryVariables> {
+    document = GetShoppingListItemsDocument;
+    
+  }
+export const UpdateShopingListItemDocument = gql`
+    mutation UpdateShopingListItem($id: uuid, $changes: shopping_list_items_set_input) {
+  __typename
+  update_shopping_list_items(_set: $changes, where: {id: {_eq: $id}}) {
+    affected_rows
+    returning {
+      ...ShoppingListItemFields
+    }
+  }
+}
+    ${ShoppingListItemFieldsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UpdateShopingListItemGQL extends Apollo.Mutation<UpdateShopingListItemMutation, UpdateShopingListItemMutationVariables> {
+    document = UpdateShopingListItemDocument;
     
   }
