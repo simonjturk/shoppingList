@@ -4,7 +4,8 @@ import { ShoppingListItemService } from 'src/app/shared/services/graphQL/shoppin
 import { MatCheckboxChange, MatBottomSheet } from '@angular/material';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { ItemPopupComponent } from './item-popup/item-popup.component';
+import { ItemPopupComponent } from 'src/app/modules/views/popups/bottom-sheets/item-popup/item-popup.component';
+
 
 @Component({
   selector: 'shopping-list-item',

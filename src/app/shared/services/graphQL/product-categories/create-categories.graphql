@@ -1,0 +1,11 @@
+
+#import './categories.fragment.graphql'
+mutation CreateProductCategories($args: [product_categories_insert_input!]!) {
+  __typename
+  insert_product_categories(objects: $args) {
+    affected_rows
+    returning {
+      ...CategoryFields
+    }
+  }
+}

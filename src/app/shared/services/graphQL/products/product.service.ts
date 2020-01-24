@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import { CreateProductGQL, Products, Product_Categories, Products_Insert_Input, Product_Categories_Obj_Rel_Insert_Input, CreateProductMutationVariables, GetProductsDocument } from 'src/generated/graphql';
+import { CrudStore } from 'src/app/core/store/crud/crud.store';
+import { CRUD_MODE } from 'src/app/shared/enums';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor(private createProductGQL: CreateProductGQL) { }
+  constructor(private createProductGQL: CreateProductGQL, private crudStore: CrudStore) { }
 
-  createProduct(product: Products, category: Product_Categories) {
+  createProduct(product: Products_Insert_Input, category: Product_Categories) {
 
     const categoryVars: Product_Categories_Obj_Rel_Insert_Input = {
       data: {
-        name: category.name,
-        colour: category.colour
+        name: category ? category.name : null,
+        colour: category ? category.colour : null
       }
 
 
@@ -33,7 +35,7 @@ export class ProductService {
     }
 
 
-    this.createProductGQL.mutate(vars, {
+    return this.createProductGQL.mutate(vars, {
       update: (cache, { data }) => {
 
         // Read the data from our cache for this query. making sure to send the parameters to the gql to correctly map to the store
@@ -48,7 +50,12 @@ export class ProductService {
           data: { products: [newProduct, ...existingProduct.products] }
         })
       }
-    });
+    }).subscribe(p => {
+      const newProduct = p.data.insert_products.returning[0] as Products
+      this.crudStore.setProduct(newProduct, CRUD_MODE.Create)
+
+
+    })
 
 
   }

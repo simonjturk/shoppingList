@@ -1,0 +1,16 @@
+<form [formGroup]="productCategoryForm">
+
+  <mat-form-field>
+    <input matInput formControlName="name" placeholder="Category Name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="color" formControlName="colour" placeholder="Colour">
+  </mat-form-field>
+
+
+
+  <oa-crud-bar style="width:100%;" [disabledSave]="productCategoryForm.invalid" (saved)="onSave(productCategoryForm)"
+    (deleted)="onDelete()">
+  </oa-crud-bar>
+</form>

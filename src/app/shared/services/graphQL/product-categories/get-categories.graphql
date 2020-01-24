@@ -1,0 +1,8 @@
+
+#import './categories.fragment.graphql'
+query GetAllCategories {
+  __typename
+  product_categories {
+    ...CategoryFields
+  }
+}

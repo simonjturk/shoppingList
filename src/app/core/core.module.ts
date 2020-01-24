@@ -12,6 +12,7 @@ import { GraphQLModule } from '../graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CrudStore } from './store/crud/crud.store';
 
 
 @NgModule({
@@ -26,13 +27,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     GraphQLModule
   ],
-  exports:[CoreRoutingModule, AppLayoutModule],
+  exports: [CoreRoutingModule, AppLayoutModule],
   providers: [
+    CrudStore,
     {
-     provide: ErrorHandler,
-     useClass: ErrorService,
+      provide: ErrorHandler,
+      useClass: ErrorService,
     },
-   ],
-   entryComponents: [IosInstallComponent]
+  ],
+  entryComponents: [IosInstallComponent]
 })
 export class CoreModule { }

@@ -1,0 +1,27 @@
+<form [formGroup]="productForm">
+
+  <mat-form-field>
+    <input matInput formControlName="name" placeholder="Product Name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="description" placeholder="Product Description">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Category</mat-label>
+    <mat-select formControlName="productCategoryId">
+      <mat-option *ngFor="let category of categories$ | async" [value]="category.id">
+        {{category.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-icon-button color="primary" aria-label="Add category" (click)="openProductCategories()">
+    <mat-icon>add</mat-icon>
+  </button>
+
+
+  <oa-crud-bar style="width:100%;" [disabledSave]="productForm.invalid" (saved)="onSave(productForm)"
+    (deleted)="onDelete()">
+  </oa-crud-bar>
+</form>

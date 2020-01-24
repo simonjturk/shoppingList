@@ -1355,6 +1355,39 @@ export type Uuid_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['uuid']>>,
 };
 
+export type CategoryFieldsFragment = (
+  { __typename?: 'product_categories' }
+  & Pick<Product_Categories, 'id' | 'name' | 'colour'>
+);
+
+export type CreateProductCategoriesMutationVariables = {
+  args: Array<Product_Categories_Insert_Input>
+};
+
+
+export type CreateProductCategoriesMutation = (
+  { __typename: 'mutation_root' }
+  & { insert_product_categories: Maybe<(
+    { __typename?: 'product_categories_mutation_response' }
+    & Pick<Product_Categories_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename?: 'product_categories' }
+      & CategoryFieldsFragment
+    )> }
+  )> }
+);
+
+export type GetAllCategoriesQueryVariables = {};
+
+
+export type GetAllCategoriesQuery = (
+  { __typename: 'query_root' }
+  & { product_categories: Array<(
+    { __typename?: 'product_categories' }
+    & CategoryFieldsFragment
+  )> }
+);
+
 export type CreateProductMutationVariables = {
   product: Array<Products_Insert_Input>
 };
@@ -1548,6 +1581,13 @@ export type UpdateShopingListItemMutation = (
   )> }
 );
 
+export const CategoryFieldsFragmentDoc = gql`
+    fragment CategoryFields on product_categories {
+  id
+  name
+  colour
+}
+    `;
 export const ProductFieldsFragmentDoc = gql`
     fragment ProductFields on products {
   id
@@ -1587,6 +1627,41 @@ export const ShoppingListItemFieldsFragmentDoc = gql`
   shopping_list_id
 }
     `;
+export const CreateProductCategoriesDocument = gql`
+    mutation CreateProductCategories($args: [product_categories_insert_input!]!) {
+  __typename
+  insert_product_categories(objects: $args) {
+    affected_rows
+    returning {
+      ...CategoryFields
+    }
+  }
+}
+    ${CategoryFieldsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateProductCategoriesGQL extends Apollo.Mutation<CreateProductCategoriesMutation, CreateProductCategoriesMutationVariables> {
+    document = CreateProductCategoriesDocument;
+    
+  }
+export const GetAllCategoriesDocument = gql`
+    query GetAllCategories {
+  __typename
+  product_categories {
+    ...CategoryFields
+  }
+}
+    ${CategoryFieldsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetAllCategoriesGQL extends Apollo.Query<GetAllCategoriesQuery, GetAllCategoriesQueryVariables> {
+    document = GetAllCategoriesDocument;
+    
+  }
 export const CreateProductDocument = gql`
     mutation CreateProduct($product: [products_insert_input!]!) {
   __typename

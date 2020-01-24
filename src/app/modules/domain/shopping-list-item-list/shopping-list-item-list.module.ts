@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common';
 import { ShoppingListItemListComponent } from './shopping-list-item-list/shopping-list-item-list.component';
 import { ItemComponent } from './shopping-list-item-list/item/item.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ItemViewModule } from '../item-view/item-view.module';
-import { ItemPopupComponent } from './shopping-list-item-list/item/item-popup/item-popup.component';
+
+
+import { PopupsModule } from '../../views/popups/popups.module';
+import { ItemPopupComponent } from '../../views/popups/bottom-sheets/item-popup/item-popup.component';
 
 
 
 @NgModule({
-  declarations: [ShoppingListItemListComponent, ItemComponent, ItemPopupComponent],
+  declarations: [ShoppingListItemListComponent, ItemComponent],
   imports: [
     CommonModule,
     SharedModule,
-    ItemViewModule
+    PopupsModule
   ],
   entryComponents: [ItemPopupComponent],
   exports: [ShoppingListItemListComponent]
