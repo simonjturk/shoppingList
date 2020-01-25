@@ -1,0 +1,42 @@
+@import "../../../../../assets/theme.scss";
+
+//$background: map-get($theme, background);
+//$foreground: map-get($theme, foreground);
+
+.card {
+
+
+  background: map-get($background, card);
+
+  margin: 10px;
+
+
+  min-width: 320px;
+  border-radius: 8px;
+  border: 1px solid;
+  border-color: $border;
+
+  &.variable-width {
+    min-width: 0;
+  }
+
+  &.auto-width {
+    min-width: 0;
+    max-width: none;
+  }
+
+  .header {
+    padding: 5px;
+    background-color: mat-color($primary);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+    h2 {
+      margin-top: 1px;
+      margin-bottom: 1px;
+
+      font-size: 16px;
+
+    }
+  }
+}

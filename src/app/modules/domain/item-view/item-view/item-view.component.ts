@@ -19,7 +19,7 @@ export class ItemViewComponent implements OnInit, OnChanges, OnDestroy {
 
   @Output() saved = new EventEmitter();
   @Output() deleted = new EventEmitter();
-
+  @Output() editProductClicked = new EventEmitter()
 
   itemForm: FormGroup;
 
@@ -53,6 +53,10 @@ export class ItemViewComponent implements OnInit, OnChanges, OnDestroy {
       });
   }
 
+
+  onEditProductClick() {
+    this.editProductClicked.emit();
+  }
 
 
   /**

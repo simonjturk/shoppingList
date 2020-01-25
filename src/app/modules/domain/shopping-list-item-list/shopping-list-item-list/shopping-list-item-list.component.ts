@@ -14,27 +14,28 @@ export class ShoppingListItemListComponent implements OnInit, OnChanges {
 
   @Input() shoppingListId: string;
 
-  shoppingListItems$: Observable<Shopping_List_Items[]>
+  shoppingListItems$: Observable<any[]>
 
   constructor(private shoppingListItemService: ShoppingListItemService) { }
 
   ngOnInit() {
   }
 
-  ngOnChanges(changes:SimpleChanges){
-    if (this.shoppingListId){
-      this.shoppingListItems$ = this.shoppingListItemService.getShoppingListItems(this.shoppingListId) as Observable<Shopping_List_Items[]>;
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.shoppingListId) {
+      this.shoppingListItems$ =
+        this.shoppingListItemService.getShoppingListItems(this.shoppingListId);
     }
 
   }
 
-  getItemCategories(items:Shopping_List_Items[]):Product_Categories[]{
-    const categories = [ ...new Set(items.map(i=>i.product.category))]
+  getItemCategories(items: Shopping_List_Items[]): Product_Categories[] {
+    const categories = [...new Set(items.map(i => i.product.category))]
     return categories;
   }
 
-  getItemsByCategory(items:Shopping_List_Items[], category:string):Shopping_List_Items[]{
-    return items.filter(item=>{
+  getItemsByCategory(items: Shopping_List_Items[], category: string): Shopping_List_Items[] {
+    return items.filter(item => {
       return item.product.category.name === category
     })
   }

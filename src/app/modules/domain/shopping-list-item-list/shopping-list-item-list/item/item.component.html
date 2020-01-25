@@ -1,12 +1,14 @@
-<div fxLayout="row" fxLayoutAlign="start center">
+<div style="height: 30px;padding-left: 5px;" fxLayout="row" fxLayoutAlign="start center">
 
   <mat-checkbox (change)="checkChanged($event)" [(ngModel)]="checked"></mat-checkbox>
-  <span class="item" (click)="onItemClick()">
+  <div class="item" (click)="onItemClick()" fxFlex>
     <div *ngIf="checked" class="item-completed">
       {{item.product.name}}<span *ngIf="item.quantity > 1">({{item.quantity}})</span>
     </div>
     <div *ngIf="!checked">
       {{item.product.name}} <span *ngIf="item.quantity > 1">({{item.quantity}})</span>
     </div>
-  </span>
+    <mat-divider></mat-divider>
+  </div>
+
 </div>

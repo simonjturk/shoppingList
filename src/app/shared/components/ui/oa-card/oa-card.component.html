@@ -1,0 +1,8 @@
+<div class="card" *ngIf="headerColor">
+  <div class="header" [ngStyle]="{'background-color': headerColor? headerColor: '' , 'color': headerColor? getBackColor(headerColor):
+    'black'
+    }">
+    <h2>{{header}}</h2>
+  </div>
+  <ng-content></ng-content>
+</div>

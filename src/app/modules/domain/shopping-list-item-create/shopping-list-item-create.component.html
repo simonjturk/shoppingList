@@ -1,12 +1,20 @@
 <form class="product-form">
   <div fxLayout="row" fxLayoutAlign="start center">
-    <input id="inputField" #inputField type="text" placeholder="Add Item" aria-label="Select shopping list item"
-      [formControl]="productControl" [matAutocomplete]="auto" (keyup.enter)="addItem()">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="selected($event)"
-      showPanel="false">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{ option.name }}
-      </mat-option>
-    </mat-autocomplete>
+    <mat-form-field class="example-full-width">
+      <div class="border-radius-4 border control-background" fxLayout="row" fxLayoutAlign="start center"
+        style="padding:16px; margin-top:-10px;">
+        <input matInput type="text" placeholder="Add Item" aria-label="Select shopping list item"
+          [formControl]="productControl" [matAutocomplete]="auto" (keydown.enter)="addItem()">
+
+
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="selected($event)"
+          showPanel="false">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{ option.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+    </mat-form-field>
+
   </div>
 </form>

@@ -9,3 +9,5 @@ $disabled: map-get($theme, disabled);
 $background: map-get($theme, background);
 $text: map-get($foreground, text);
 $card: map-get($background, card);
+
+$border: map-get($foreground, divider);
