@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CreateShoppingListGQL, CreateShoppingListMutationVariables, GetShoppingListsDocument, GetShoppingListsGQL, UpdateShoppingListGQL, GetFavouriteShoppingListGQL, UpdateShoppingListMutationVariables, GetShoppingListsQuery, GetFavouriteShoppingListDocument, Shopping_List, Shopping_List_Set_Input } from 'src/generated/graphql';
+import { CreateShoppingListGQL, CreateShoppingListMutationVariables, GetShoppingListByIdGQL, GetShoppingListsDocument, GetShoppingListsGQL, UpdateShoppingListGQL, GetFavouriteShoppingListGQL, UpdateShoppingListMutationVariables, GetShoppingListsQuery, GetFavouriteShoppingListDocument, Shopping_List, Shopping_List_Set_Input } from 'src/generated/graphql';
 import { map } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 /**
@@ -17,7 +17,8 @@ export class ShoppingListService {
     private gqlService: CreateShoppingListGQL,
     private getShoppingListsGQL: GetShoppingListsGQL,
     private updateShoppingListGQL: UpdateShoppingListGQL,
-    private getFavouriteShoppingListGQL: GetFavouriteShoppingListGQL) { }
+    private getFavouriteShoppingListGQL: GetFavouriteShoppingListGQL,
+    private getShoppingListByIdGQL: GetShoppingListByIdGQL) { }
 
 
   createShoppingList(name: string) {
@@ -57,16 +58,15 @@ export class ShoppingListService {
       .valueChanges
       .pipe(map(res => res.data.shopping_list));
 
+  }
 
-    /*
-    null, {
-          context: {
-            headers: new HttpHeaders().append('X-Hasura-Role', 'anon')
-          }
-        }
-    */
+  getShoppingListById(id: string) {
+    return this.getShoppingListByIdGQL.watch({ id: id })
+      .valueChanges
+      .pipe(map(res => res.data.shopping_list[0] as Shopping_List));
 
   }
+
 
   getFavouriteShoppingList() {
     return this.getFavouriteShoppingListGQL.watch()

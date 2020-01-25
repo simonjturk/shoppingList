@@ -2,11 +2,10 @@
 
 
   <div class="card" *ngFor="let category of getItemCategories(shoppingListItems)" style="width:100%">
-
-
-    <oa-card [header]="category.name" [headerColor]="category.colour">
+    <oa-card *ngIf=" !hideCompleted || getCountItemsByCategory(shoppingListItems,category.id).remaining > 0"
+      [header]="category.name" [headerColor]="category.colour">
       <div *ngFor="let item of getItemsByCategory(shoppingListItems,category.name)">
-        <shopping-list-item [item]=item></shopping-list-item>
+        <shopping-list-item *ngIf=" !hideCompleted ||  !item.complete" [item]=item></shopping-list-item>
       </div>
     </oa-card>
 

@@ -1,5 +1,20 @@
-<div class="background">
-  <app-shopping-list-detail-view [shoppingListId]="shoppingListId$ | async"></app-shopping-list-detail-view>
+<div class="background" *ngIf="shoppingListId$ | async as shoppingList">
+  <!--<app-shopping-list-detail-view [shoppingListId]="shoppingListId$ | async"></app-shopping-list-detail-view>-->
+
+  <mat-toolbar color="primary" *ngIf="shoppingList$ | async as shoppingList">
+    <mat-toolbar-row>
+      <span>{{shoppingList.name}}</span>
+      <span class="example-spacer"></span>
+      <mat-slide-toggle (change)="hideCompletedChange($event)" color="accent" class="example-icon"><span
+          style="font-size:10px;">Hide Done</span>
+      </mat-slide-toggle>
+      <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">edit</mat-icon>
+      <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+
+
   <div class="p-8">
     <app-shopping-list-item-create [shoppingListId]="shoppingListId$ | async"></app-shopping-list-item-create>
   </div>
@@ -7,4 +22,5 @@
 
 </div>
 
-<app-shopping-list-item-list [shoppingListId]="shoppingListId$ | async"></app-shopping-list-item-list>
+<app-shopping-list-item-list [hideCompleted]="hideCompleted" [shoppingListId]="shoppingListId$ | async">
+</app-shopping-list-item-list>

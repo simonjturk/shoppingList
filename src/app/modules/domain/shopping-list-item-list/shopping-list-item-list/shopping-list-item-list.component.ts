@@ -4,6 +4,7 @@ import { Shopping_List_Items, Product_Categories } from 'src/generated/graphql';
 import { Observable } from 'rxjs';
 import { ShoppingListItemService } from 'src/app/shared/services/graphQL/shoppingListItem/shopping-list-item.service';
 import { map } from 'rxjs/operators';
+import { MatSlideToggleChange } from '@angular/material';
 
 @Component({
   selector: 'app-shopping-list-item-list',
@@ -15,6 +16,8 @@ export class ShoppingListItemListComponent implements OnInit, OnChanges {
   @Input() shoppingListId: string;
 
   shoppingListItems$: Observable<any[]>
+
+  @Input() hideCompleted: boolean = false;
 
   constructor(private shoppingListItemService: ShoppingListItemService) { }
 
@@ -40,6 +43,18 @@ export class ShoppingListItemListComponent implements OnInit, OnChanges {
     })
   }
 
+  getCountItemsByCategory(items: Shopping_List_Items[], categoryId: string) {
+    return {
+      completed: items.filter(i => i.complete === true && i.product.category.id === categoryId).length,
+      remaining: items.filter(i => i.complete === false && i.product.category.id === categoryId).length,
+      total: items.filter(i => i.product.category.id === categoryId).length
+    }
+
+  }
+  hideCompletedChange(event: MatSlideToggleChange) {
+    this.hideCompleted = event.checked;
+
+  }
 
 
 }
