@@ -4,4 +4,4 @@ fragment CategoryFields on product_categories {
      id
     name
     colour
-}
+} 

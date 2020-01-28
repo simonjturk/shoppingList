@@ -12,8 +12,8 @@ import { ShoppingListService } from 'src/app/shared/services/graphQL/shoppingLis
   styleUrls: ['./shopping-list-record.component.scss']
 })
 export class ShoppingListRecordComponent implements OnInit, OnDestroy {
-  expanded:boolean;
-  
+  expanded: boolean;
+
   @Input() shoppingList: Shopping_List
 
 
@@ -25,11 +25,11 @@ export class ShoppingListRecordComponent implements OnInit, OnDestroy {
    * 
    * Constructor
    */
-  constructor(private router: Router,private shoppingListService: ShoppingListService ) {
+  constructor(private router: Router, private shoppingListService: ShoppingListService) {
 
-     // Set the private defaults
-     this._unsubscribeAll = new Subject();
-   }
+    // Set the private defaults
+    this._unsubscribeAll = new Subject();
+  }
 
 
   // -----------------------------------------------------------------------------------------------------
@@ -45,11 +45,10 @@ export class ShoppingListRecordComponent implements OnInit, OnDestroy {
   /**
    * On destroy
    */
-  ngOnDestroy(): void
-  {
-      // Unsubscribe from all subscriptions
-      this._unsubscribeAll.next();
-      this._unsubscribeAll.complete();
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 
   // -----------------------------------------------------------------------------------------------------
@@ -62,18 +61,35 @@ export class ShoppingListRecordComponent implements OnInit, OnDestroy {
    *
    * @memberof ShoppingListRecordComponent
    */
-  toggleFavourite(event){
-    this.shoppingList.favourite = ! this.shoppingList.favourite 
+  toggleFavourite(event) {
+    this.shoppingList.favourite = !this.shoppingList.favourite
 
     this.shoppingListService.toggleFavourite(this.shoppingList.id, this.shoppingList.favourite)
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(x=>{
+      .subscribe(x => {
         //this.shoppingListService.getShoppingList().subscribe();
       });
   }
 
-  goShoppingList(data){
-    this.router.navigate(['shopping-list',data])
+  goShoppingList(data) {
+    this.router.navigate(['shopping-list', data])
   }
+
+  deleteShoppingList() {
+    this.shoppingListService.deleteShoppingList(this.shoppingList.id).pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(sl => {
+
+      })
+  }
+
+  cloneShoppingList() {
+    this.shoppingListService.cloneShoppingList(this.shoppingList)
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(sl => {
+        //TODO should check for errors etc
+        this.router.navigate(['shopping-list', sl.data.insert_shopping_list.returning[0].id])
+      })
+  }
+
 
 }

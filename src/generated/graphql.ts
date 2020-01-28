@@ -171,9 +171,8 @@ export enum Order_By {
 /** columns and relationships of "product_categories" */
 export type Product_Categories = {
    __typename?: 'product_categories',
-  colour?: Maybe<Scalars['String']>,
+  colour: Scalars['String'],
   created_at: Scalars['timestamptz'],
-  favourite: Scalars['Boolean'],
   id: Scalars['uuid'],
   name: Scalars['String'],
   updated_at: Scalars['timestamptz'],
@@ -221,7 +220,6 @@ export type Product_Categories_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Product_Categories_Bool_Exp>>>,
   colour?: Maybe<String_Comparison_Exp>,
   created_at?: Maybe<Timestamptz_Comparison_Exp>,
-  favourite?: Maybe<Boolean_Comparison_Exp>,
   id?: Maybe<Uuid_Comparison_Exp>,
   name?: Maybe<String_Comparison_Exp>,
   updated_at?: Maybe<Timestamptz_Comparison_Exp>,
@@ -237,7 +235,6 @@ export enum Product_Categories_Constraint {
 export type Product_Categories_Insert_Input = {
   colour?: Maybe<Scalars['String']>,
   created_at?: Maybe<Scalars['timestamptz']>,
-  favourite?: Maybe<Scalars['Boolean']>,
   id?: Maybe<Scalars['uuid']>,
   name?: Maybe<Scalars['String']>,
   updated_at?: Maybe<Scalars['timestamptz']>,
@@ -303,7 +300,6 @@ export type Product_Categories_On_Conflict = {
 export type Product_Categories_Order_By = {
   colour?: Maybe<Order_By>,
   created_at?: Maybe<Order_By>,
-  favourite?: Maybe<Order_By>,
   id?: Maybe<Order_By>,
   name?: Maybe<Order_By>,
   updated_at?: Maybe<Order_By>,
@@ -316,8 +312,6 @@ export enum Product_Categories_Select_Column {
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
-  Favourite = 'favourite',
-  /** column name */
   Id = 'id',
   /** column name */
   Name = 'name',
@@ -329,7 +323,6 @@ export enum Product_Categories_Select_Column {
 export type Product_Categories_Set_Input = {
   colour?: Maybe<Scalars['String']>,
   created_at?: Maybe<Scalars['timestamptz']>,
-  favourite?: Maybe<Scalars['Boolean']>,
   id?: Maybe<Scalars['uuid']>,
   name?: Maybe<Scalars['String']>,
   updated_at?: Maybe<Scalars['timestamptz']>,
@@ -342,8 +335,6 @@ export enum Product_Categories_Update_Column {
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
-  Favourite = 'favourite',
-  /** column name */
   Id = 'id',
   /** column name */
   Name = 'name',
@@ -355,8 +346,8 @@ export enum Product_Categories_Update_Column {
 export type Products = {
    __typename?: 'products',
   /** An object relationship */
-  category?: Maybe<Product_Categories>,
-  category_id?: Maybe<Scalars['uuid']>,
+  category: Product_Categories,
+  category_id: Scalars['uuid'],
   created_at: Scalars['timestamptz'],
   description?: Maybe<Scalars['String']>,
   favourite: Scalars['Boolean'],
@@ -1413,20 +1404,20 @@ export type GetProductsQuery = (
   & { products: Array<(
     { __typename?: 'products' }
     & Pick<Products, 'id' | 'name' | 'favourite'>
-    & { category: Maybe<(
+    & { category: (
       { __typename?: 'product_categories' }
       & Pick<Product_Categories, 'id' | 'name' | 'colour'>
-    )> }
+    ) }
   )> }
 );
 
 export type ProductFieldsFragment = (
   { __typename?: 'products' }
   & Pick<Products, 'id' | 'name' | 'favourite'>
-  & { category: Maybe<(
+  & { category: (
     { __typename?: 'product_categories' }
     & Pick<Product_Categories, 'id' | 'name' | 'colour'>
-  )> }
+  ) }
 );
 
 export type CreateShoppingListMutationVariables = {
@@ -1441,6 +1432,23 @@ export type CreateShoppingListMutation = (
     & { returning: Array<(
       { __typename?: 'shopping_list' }
       & ShoppingListFieldsFragment
+    )> }
+  )> }
+);
+
+export type DeleteShoppingListMutationVariables = {
+  id?: Maybe<Scalars['uuid']>
+};
+
+
+export type DeleteShoppingListMutation = (
+  { __typename: 'mutation_root' }
+  & { delete_shopping_list: Maybe<(
+    { __typename?: 'shopping_list_mutation_response' }
+    & Pick<Shopping_List_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename?: 'shopping_list' }
+      & Pick<Shopping_List, 'id'>
     )> }
   )> }
 );
@@ -1483,6 +1491,18 @@ export type GetFavouriteShoppingListQuery = (
 export type ShoppingListFieldsFragment = (
   { __typename?: 'shopping_list' }
   & Pick<Shopping_List, 'id' | 'name' | 'created_at' | 'favourite'>
+  & { items: Array<(
+    { __typename?: 'shopping_list_items' }
+    & Pick<Shopping_List_Items, 'id'>
+    & { product: (
+      { __typename?: 'products' }
+      & Pick<Products, 'id' | 'name'>
+      & { category: (
+        { __typename?: 'product_categories' }
+        & Pick<Product_Categories, 'id' | 'name'>
+      ) }
+    ) }
+  )> }
 );
 
 export type UpdateShoppingListMutationVariables = {
@@ -1556,10 +1576,10 @@ export type ShoppingListItemFieldsFragment = (
   & { product: (
     { __typename?: 'products' }
     & Pick<Products, 'name' | 'id' | 'description' | 'favourite'>
-    & { category: Maybe<(
+    & { category: (
       { __typename?: 'product_categories' }
       & Pick<Product_Categories, 'name' | 'id' | 'colour'>
-    )> }
+    ) }
   ) }
 );
 
@@ -1606,6 +1626,17 @@ export const ShoppingListFieldsFragmentDoc = gql`
   name
   created_at
   favourite
+  items {
+    id
+    product {
+      id
+      name
+      category {
+        id
+        name
+      }
+    }
+  }
 }
     `;
 export const ShoppingListItemFieldsFragmentDoc = gql`
@@ -1721,6 +1752,25 @@ export const CreateShoppingListDocument = gql`
   })
   export class CreateShoppingListGQL extends Apollo.Mutation<CreateShoppingListMutation, CreateShoppingListMutationVariables> {
     document = CreateShoppingListDocument;
+    
+  }
+export const DeleteShoppingListDocument = gql`
+    mutation deleteShoppingList($id: uuid) {
+  __typename
+  delete_shopping_list(where: {id: {_eq: $id}, items: {}}) {
+    returning {
+      id
+    }
+    affected_rows
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class DeleteShoppingListGQL extends Apollo.Mutation<DeleteShoppingListMutation, DeleteShoppingListMutationVariables> {
+    document = DeleteShoppingListDocument;
     
   }
 export const GetShoppingListsDocument = gql`

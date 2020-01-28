@@ -1,0 +1,9 @@
+mutation deleteShoppingList($id:uuid) {
+  __typename
+  delete_shopping_list(where: {id: {_eq: $id}, items: {}}) {
+    returning {
+      id
+    }
+    affected_rows
+  }
+}

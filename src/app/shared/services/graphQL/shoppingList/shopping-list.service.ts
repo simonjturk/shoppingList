@@ -1,7 +1,16 @@
 import { Injectable } from '@angular/core';
-import { CreateShoppingListGQL, CreateShoppingListMutationVariables, GetShoppingListByIdGQL, GetShoppingListsDocument, GetShoppingListsGQL, UpdateShoppingListGQL, GetFavouriteShoppingListGQL, UpdateShoppingListMutationVariables, GetShoppingListsQuery, GetFavouriteShoppingListDocument, Shopping_List, Shopping_List_Set_Input } from 'src/generated/graphql';
+import { CreateShoppingListGQL, CreateShoppingListMutationVariables, GetShoppingListByIdGQL, GetShoppingListsDocument, GetShoppingListsGQL, UpdateShoppingListGQL, GetFavouriteShoppingListGQL, UpdateShoppingListMutationVariables, GetShoppingListsQuery, GetFavouriteShoppingListDocument, Shopping_List, Shopping_List_Set_Input, Shopping_List_Insert_Input, Shopping_List_Items_Insert_Input, DeleteShoppingListGQL } from 'src/generated/graphql';
 import { map } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
+import { GraphQLError } from 'graphql';
+import { DataProxy } from 'apollo-cache';
+import { headersToString } from 'selenium-webdriver/http';
+import { CacheHelperService, CACHE_ACTION } from 'src/app/core/graphql/helpers/cache-helper.service';
+
+
+
+
+
 /**
  *
  *
@@ -11,6 +20,8 @@ import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class ShoppingListService {
 
   constructor(
@@ -18,35 +29,64 @@ export class ShoppingListService {
     private getShoppingListsGQL: GetShoppingListsGQL,
     private updateShoppingListGQL: UpdateShoppingListGQL,
     private getFavouriteShoppingListGQL: GetFavouriteShoppingListGQL,
-    private getShoppingListByIdGQL: GetShoppingListByIdGQL) { }
+    private getShoppingListByIdGQL: GetShoppingListByIdGQL,
+    private deleteShoppingListGQL: DeleteShoppingListGQL) {
 
 
-  createShoppingList(name: string) {
+
+  }
+
+
+  createShoppingList(shoppingList: Shopping_List_Insert_Input) {
     const args: CreateShoppingListMutationVariables = {
-      shoppingList: [
-        {
-          name: name
-        }
-      ]
+      shoppingList: [shoppingList]
+
     }
     //return this.gqlService.mutate(args);
     return this.gqlService.mutate(args, {
       update: (cache, { data }) => {
 
-        // Read the data from our cache for this query.
-        const existingShoppingLists: any = cache.readQuery({ query: GetShoppingListsDocument });
 
-        //get our latest shopping list just inserted
-        const newShoppingList = data.insert_shopping_list.returning[0];
+        const cacherHelper: CacheHelperService = new CacheHelperService(cache, data);
 
-        // Add our shopping list from the mutation to the end.
-        cache.writeQuery({
-          query: GetShoppingListsDocument,
-          data: { shopping_list: [newShoppingList, ...existingShoppingLists.shopping_list] }
-        })
+        cacherHelper.manageCache([
+          {
+            type: CACHE_ACTION.INSERT,
+            queryDocument: GetShoppingListsDocument,
+            variables: null
+          }]);
       }
     });
   }
+
+  deleteShoppingList(id: string) {
+
+    //return this.gqlService.mutate(args);
+    return this.deleteShoppingListGQL.mutate({ id: id }, {
+      update: (cache, { data }) => {
+
+        const cacherHelper: CacheHelperService = new CacheHelperService(cache, data);
+
+        cacherHelper.manageCache([
+          {
+            type: CACHE_ACTION.DELETE,
+            queryDocument: GetShoppingListsDocument,
+            variables: null
+          },
+          {
+            type: CACHE_ACTION.DELETE,
+            queryDocument: GetFavouriteShoppingListDocument,
+            variables: { favourite: true }
+          }]);
+      }
+    });
+  }
+
+
+
+
+
+
   /**
    *
    *
@@ -54,6 +94,9 @@ export class ShoppingListService {
    * @memberof ShoppingListService
    */
   getShoppingList() {
+    //throw new GraphQLError("Test GRaphQL Error");
+
+
     return this.getShoppingListsGQL.watch()
       .valueChanges
       .pipe(map(res => res.data.shopping_list));
@@ -69,6 +112,7 @@ export class ShoppingListService {
 
 
   getFavouriteShoppingList() {
+    //throw new GraphQLError("Test GRaphQL Error");
     return this.getFavouriteShoppingListGQL.watch()
       .valueChanges
       .pipe(map(res => res.data.shopping_list));
@@ -76,11 +120,28 @@ export class ShoppingListService {
 
   toggleFavourite(id: string, favourite: boolean) {
 
-    const changes: Shopping_List_Set_Input = {
-      favourite: favourite
-    }
 
-    return this.updateShoppingList(id, changes)
+    const changes: UpdateShoppingListMutationVariables = {
+      changes: {
+        favourite: favourite
+      },
+      id: id,
+
+    }
+    return this.updateShoppingListGQL.mutate(changes, {
+      update: (cache, { data }) => {
+        //we need to make sure our favourites cache is updated
+        const cacherHelper: CacheHelperService = new CacheHelperService(cache, data);
+
+        cacherHelper.manageCache([
+          {
+            type: favourite ? CACHE_ACTION.INSERT : CACHE_ACTION.DELETE,
+            queryDocument: GetFavouriteShoppingListDocument,
+            variables: null
+          }]);
+      }
+
+    });
 
 
 
@@ -93,30 +154,32 @@ export class ShoppingListService {
       id: id,
 
     }
-    //return this.updateShoppingListGQL.mutate(changes)
-
-    return this.updateShoppingListGQL.mutate(changes, {
-      update: (cache, { data }) => {
-        //we are going to get all the fav lists and update our favs cache
-
-        const existingShoppingLists: GetShoppingListsQuery = cache.readQuery({ query: GetShoppingListsDocument });
-
-        const newList = [...existingShoppingLists.shopping_list.filter(x => {
-          return x.favourite === true;
-        })]
-
-
-
-        cache.writeQuery({
-          query: GetFavouriteShoppingListDocument,
-          data: { shopping_list: [...newList] }
-        })
-      }
-    });
+    return this.updateShoppingListGQL.mutate(changes);
 
 
 
   }
+
+  cloneShoppingList(shoppingList: Shopping_List) {
+
+    let items = shoppingList.items.map((x) => {
+      return { product_id: x.product.id } as Shopping_List_Items_Insert_Input;
+    });
+
+
+
+    const sl: Shopping_List_Insert_Input = {
+      name: `Copy of ${shoppingList.name}`,
+      items: {
+
+        data: items
+      }
+    }
+
+    return this.createShoppingList(sl)
+  }
+
+
 
   //PRivate methods
 

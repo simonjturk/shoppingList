@@ -1,5 +1,5 @@
-# source: http://localhost:8080/v1/graphql
-# timestamp: Wed Jan 22 2020 12:13:50 GMT+1100 (Australian Eastern Daylight Time)
+# source: https://oa-shopping-list.herokuapp.com/v1/graphql
+# timestamp: Mon Jan 27 2020 12:46:31 GMT+1100 (Australian Eastern Daylight Time)
 
 schema {
   query: query_root
@@ -187,9 +187,8 @@ enum order_by {
 columns and relationships of "product_categories"
 """
 type product_categories {
-  colour: String
+  colour: String!
   created_at: timestamptz!
-  favourite: Boolean!
   id: uuid!
   name: String!
   updated_at: timestamptz!
@@ -238,7 +237,6 @@ input product_categories_bool_exp {
   _or: [product_categories_bool_exp]
   colour: String_comparison_exp
   created_at: timestamptz_comparison_exp
-  favourite: Boolean_comparison_exp
   id: uuid_comparison_exp
   name: String_comparison_exp
   updated_at: timestamptz_comparison_exp
@@ -258,7 +256,6 @@ input type for inserting data into table "product_categories"
 input product_categories_insert_input {
   colour: String
   created_at: timestamptz
-  favourite: Boolean
   id: uuid
   name: String
   updated_at: timestamptz
@@ -334,7 +331,6 @@ ordering options when selecting data from "product_categories"
 input product_categories_order_by {
   colour: order_by
   created_at: order_by
-  favourite: order_by
   id: order_by
   name: order_by
   updated_at: order_by
@@ -349,9 +345,6 @@ enum product_categories_select_column {
 
   """column name"""
   created_at
-
-  """column name"""
-  favourite
 
   """column name"""
   id
@@ -369,7 +362,6 @@ input type for updating data in table "product_categories"
 input product_categories_set_input {
   colour: String
   created_at: timestamptz
-  favourite: Boolean
   id: uuid
   name: String
   updated_at: timestamptz
@@ -386,9 +378,6 @@ enum product_categories_update_column {
   created_at
 
   """column name"""
-  favourite
-
-  """column name"""
   id
 
   """column name"""
@@ -403,8 +392,8 @@ columns and relationships of "products"
 """
 type products {
   """An object relationship"""
-  category: product_categories
-  category_id: uuid
+  category: product_categories!
+  category_id: uuid!
   created_at: timestamptz!
   description: String
   favourite: Boolean!

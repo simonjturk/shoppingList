@@ -1,6 +1,7 @@
 import { Injectable, ErrorHandler, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http'
+import { GraphQLError } from 'graphql';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,11 +10,14 @@ export class ErrorService implements ErrorHandler {
   handleError(error: any) {
     const router = this.injector.get(Router);
     if (Error instanceof HttpErrorResponse) {
-      console.log(error.status);
+      console.error(error.status);
+    }
+    else if (Error instanceof GraphQLError) {
+      console.error(error)
     }
     else {
       console.error(error);
-      //DISABLE FOR DEVrouter.navigate(['error500']);
+      //DISABLE FOR DEV router.navigate(['error500']);
     }
 
   }

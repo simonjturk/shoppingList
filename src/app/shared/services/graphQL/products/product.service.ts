@@ -48,14 +48,13 @@ export class ProductService {
         cache.writeQuery({
           query: GetProductsDocument,
           data: { products: [newProduct, ...existingProduct.products] }
-        })
+        });
+
+        //update our crud store
+        this.crudStore.setProduct(newProduct as Products, CRUD_MODE.Create)
+
       }
-    }).subscribe(p => {
-      const newProduct = p.data.insert_products.returning[0] as Products
-      this.crudStore.setProduct(newProduct, CRUD_MODE.Create)
-
-
-    })
+    });
 
 
   }

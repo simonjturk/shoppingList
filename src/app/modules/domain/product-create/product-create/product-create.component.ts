@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { Product_Categories, Products, Products_Insert_Input } from 'src/generated/graphql';
 import { CRUD_MODE } from 'src/app/shared/enums';
 import { ProductService } from 'src/app/shared/services/graphQL/products/product.service';
-import { takeUntil, map, distinctUntilChanged, skip } from 'rxjs/operators';
+import { takeUntil, map, distinctUntilChanged, skip, finalize, delay } from 'rxjs/operators';
 
 
 import { CrudStore } from 'src/app/core/store/crud/crud.store';
@@ -24,6 +24,8 @@ export class ProductCreateComponent implements OnInit, OnChanges, OnDestroy {
   @Output() openProductCategory = new EventEmitter();
 
   productForm: FormGroup;
+
+  disableSave: boolean = false;
 
   categories$: Observable<Product_Categories[]>
 
@@ -87,6 +89,10 @@ export class ProductCreateComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onSave() {
+
+    //disable savce buton
+    this.disableSave = true;
+
     const newProduct: Products_Insert_Input = {
       name: this.productForm.value.name,
       description: this.productForm.value.description,
@@ -94,6 +100,14 @@ export class ProductCreateComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     this.productService.createProduct(newProduct, null)
+      .pipe(finalize(() => this.disableSave = false))
+      .subscribe(response => {
+        console.log('Data available.');
+      },
+        err => {
+          console.error(err);
+        });
+
 
 
   }

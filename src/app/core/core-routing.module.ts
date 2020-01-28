@@ -7,22 +7,22 @@ import { Error404Component } from './pages/error404/error404.component';
 
 
 export const routes: Routes = [
-  {path: '',redirectTo: '/home',pathMatch:'full'},
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   //{path:'home',component:HomeComponent},
 
   //Lazy Load modules
-  { 
-    path: 'home', 
-    loadChildren: () => import('../modules/routed/home/home.module').then(m => m.HomeModule) 
+  {
+    path: 'home',
+    redirectTo: '/shopping-list'
   },
-  { 
-    path: 'shopping-list', 
-    loadChildren: () => import('../modules/routed/shopping-list/shopping-list.module').then(m => m.ShoppingListModule) 
+  {
+    path: 'shopping-list',
+    loadChildren: () => import('../modules/routed/shopping-list/shopping-list.module').then(m => m.ShoppingListModule)
   },
 
-  {path:'error500',component: Error500Component},
-  {path: '404', component: Error404Component},
-  {path: '**', redirectTo: '/404'}
+  { path: 'error500', component: Error500Component },
+  { path: '404', component: Error404Component },
+  { path: '**', redirectTo: '/404' }
 ]
 
 
@@ -32,6 +32,6 @@ export const routes: Routes = [
     CommonModule,
     RouterModule.forRoot(routes)
   ],
-  exports:[RouterModule]
+  exports: [RouterModule]
 })
 export class CoreRoutingModule { }

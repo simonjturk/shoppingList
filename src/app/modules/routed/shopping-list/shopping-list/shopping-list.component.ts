@@ -1,15 +1,55 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { Shopping_List } from 'src/generated/graphql';
+import { ShoppingListService } from 'src/app/shared/services/graphQL/shoppingList/shopping-list.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.scss']
 })
-export class ShoppingListComponent implements OnInit {
+export class ShoppingListComponent implements OnInit, OnDestroy {
+  shoppingLists$;//:Observable<Shopping_List[]>;
+  favShoppingLists$;//:Observable<Shopping_List[]>;
 
-  constructor() { }
+  // Private
+  private _unsubscribeAll: Subject<void> = new Subject<void>();
+
+
+  constructor(private shoppingListService: ShoppingListService) { }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Lifecycle hooks
+  // -----------------------------------------------------------------------------------------------------
+
 
   ngOnInit() {
+    /*
+        this.shoppingListService.watch()
+        .valueChanges
+        .pipe(takeUntil(this._unsubscribeAll))
+        .subscribe(lists=>{
+          this.shoppingLists = lists.data.shopping_list as Shopping_List[];
+        });
+        */
+
+    this.shoppingLists$ = this.shoppingListService.getShoppingList();
+    //.valueChanges
+    //.pipe(map(l => l.data.shopping_list as Shopping_List[]))
+
+    this.favShoppingLists$ = this.shoppingListService.getFavouriteShoppingList();
+    //  .valueChanges
+    // .pipe(map(l => l.data.shopping_list as Shopping_List[]))
+
+
+
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 
 }

@@ -2,7 +2,7 @@
   "schemaPath": "schema.graphql",
   "extensions": {
     "endpoints": {
-      "dev": "http://localhost:8080/v1/graphql"
+      "dev": "https://oa-shopping-list.herokuapp.com/v1/graphql"
     }
   }
 }

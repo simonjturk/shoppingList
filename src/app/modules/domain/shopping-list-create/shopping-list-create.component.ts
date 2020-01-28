@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
+import { FormGroup } from '@angular/forms';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -16,7 +16,7 @@ export class ShoppingListCreateComponent implements OnInit, OnDestroy {
 
   private onDestroy$: Subject<void> = new Subject<void>();
 
-  constructor(private router: Router, private shoppingListService:ShoppingListService) { }
+  constructor(private router: Router, private shoppingListService: ShoppingListService) { }
 
   ngOnInit() {
   }
@@ -40,19 +40,19 @@ export class ShoppingListCreateComponent implements OnInit, OnDestroy {
   ];
   submit() {
     if (this.form.valid) {
-      this.shoppingListService.createShoppingList(this.model.listName)
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe(res=>{
-        if (res.errors && res.errors.length >0){
-          //TODO error stuff
-        }
-        const list = res.data.insert_shopping_list.returning.pop();
+      this.shoppingListService.createShoppingList({ name: this.model.listName })
+        .pipe(takeUntil(this.onDestroy$))
+        .subscribe(res => {
+          if (res.errors && res.errors.length > 0) {
+            //TODO error stuff
+          }
+          const list = res.data.insert_shopping_list.returning.pop();
 
-        console.log (list.name);
+          console.log(list.name);
 
-        //TODO rout to the shopping list
-        this.router.navigate(['shopping-list', list.id]);
-      })
+          //TODO rout to the shopping list
+          this.router.navigate(['shopping-list', list.id]);
+        })
     }
   }
   ngOnDestroy(): void {

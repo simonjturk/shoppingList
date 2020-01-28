@@ -1,8 +1,21 @@
-<div class="footer" #footer  >
-        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center" fxFlexFill>
-                
-                <mat-icon aria-hidden="false" aria-label="history icon">favorite</mat-icon>
-                <mat-icon aria-hidden="false" aria-label="history icon">home</mat-icon>
-                <mat-icon aria-hidden="false" aria-label="history icon">history</mat-icon>
-        </div>
-</div> 
+<div class="footer" #footer>
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center" fxFlexFill>
+
+    <button mat-icon-button aria-label="Favourites" (click)="goHome()">
+      <mat-icon aria-hidden="false" aria-label="favourite icon">favorite</mat-icon>
+    </button>
+
+    <button mat-icon-button aria-label="Home" (click)="goHome()">
+      <mat-icon aria-hidden="false" aria-label="home icon">home</mat-icon>
+    </button>
+
+    <button mat-icon-button aria-label="History" (click)="goHome()">
+      <mat-icon aria-hidden="false" aria-label="history icon">history</mat-icon>
+    </button>
+
+
+
+
+
+  </div>
+</div>

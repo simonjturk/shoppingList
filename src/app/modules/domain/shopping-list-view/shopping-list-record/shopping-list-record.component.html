@@ -1,56 +1,55 @@
+<div fxLayout="row">
 
-<div  fxLayout="row" >
-
-        <div fxFlex="50px">
-                <div fxFlexFill fxLayoutAlign="start center">  
-                    <button mat-icon-button aria-label="expand shopping list" (click)="expanded = !expanded">
-                        <mat-icon *ngIf="expanded">keyboard_arrow_up</mat-icon>
-                        <mat-icon *ngIf="!expanded">keyboard_arrow_down</mat-icon>
-                    </button>
-                </div>
-        </div>
-        <div fxFlex >
-            <div fxFill>
-                <div fxFlexFill fxLayoutAlign="start center">
-                    {{shoppingList.name}}
-                </div>
-            </div>
-        </div>
-        <div fxFlex="100px">
-            <div fxFlexFill fxLayoutAlign="end center">  
-                <button mat-icon-button (click)="toggleFavourite()" >
-                    <mat-icon class="primary-text" *ngIf="shoppingList.favourite">favorite</mat-icon>
-                    <mat-icon class="primary-text" *ngIf="!shoppingList.favourite">favorite_border</mat-icon>
-                </button>
-               
-                <button (click)="goShoppingList(shoppingList.id)" mat-icon-button color="primary" [matMenuTriggerFor]="menu" aria-label="more options">
-                        <mat-icon>list_alt</mat-icon>
-                </button>
-
-
-                <button mat-icon-button color="primary" [matMenuTriggerFor]="menu" aria-label="more options">
-                    <mat-icon>more_vert</mat-icon>
-                </button>
-    
-               
-    
-                <mat-menu #menu="matMenu">
-                      
-                        <button mat-menu-item>
-                            <mat-icon color="primary">open_in_new</mat-icon>
-                            <span>Clone</span>
-                        </button>
-                        <button mat-menu-item>
-                            <mat-icon color="warn">delete</mat-icon>
-                            <span>Delete list</span>
-                        </button>
-                    </mat-menu>
-    
-            </div>
-        </div>
+  <div fxFlex="50px">
+    <div fxFlexFill fxLayoutAlign="start center">
+      <button mat-icon-button aria-label="expand shopping list" (click)="expanded = !expanded">
+        <mat-icon *ngIf="expanded">keyboard_arrow_up</mat-icon>
+        <mat-icon *ngIf="!expanded">keyboard_arrow_down</mat-icon>
+      </button>
     </div>
-    
-    <div fxLayout="row" *ngIf="expanded">
-          
-    some list details
+  </div>
+  <div fxFlex>
+    <div fxFill>
+      <div fxFlexFill fxLayoutAlign="start center">
+        {{shoppingList.name}}
+      </div>
     </div>
+  </div>
+  <div fxFlex="100px">
+    <div fxFlexFill fxLayoutAlign="end center">
+      <button mat-icon-button (click)="toggleFavourite()">
+        <mat-icon class="primary-text" *ngIf="shoppingList.favourite">favorite</mat-icon>
+        <mat-icon class="primary-text" *ngIf="!shoppingList.favourite">favorite_border</mat-icon>
+      </button>
+
+      <button (click)="goShoppingList(shoppingList.id)" mat-icon-button color="primary">
+        <mat-icon>list_alt</mat-icon>
+      </button>
+
+
+      <button mat-icon-button color="primary" [matMenuTriggerFor]="menu" aria-label="more options">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+
+
+      <mat-menu #menu="matMenu">
+
+        <button mat-menu-item (click)="cloneShoppingList()">
+          <mat-icon color="primary">open_in_new</mat-icon>
+          <span>Clone</span>
+        </button>
+        <button mat-menu-item (click)="deleteShoppingList()">
+          <mat-icon color="warn">delete</mat-icon>
+          <span>Delete list</span>
+        </button>
+      </mat-menu>
+
+    </div>
+  </div>
+</div>
+
+<div fxLayout="row" *ngIf="expanded">
+
+  some list details
+</div>

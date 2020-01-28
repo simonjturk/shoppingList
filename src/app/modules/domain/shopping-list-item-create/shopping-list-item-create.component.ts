@@ -27,6 +27,8 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
   filteredOptions: Observable<Products[]>;
 
 
+
+
   private products: Products[] = [];
 
   constructor(private crudStore: CrudStore, private fb: FormBuilder, private shoppingListItemService: ShoppingListItemService, private bottomSheet: MatBottomSheet) {
@@ -95,6 +97,7 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
 
 
   private createListItem(productId: string) {
+
     this.shoppingListItemService.createShoppingListItem(this.shoppingListId, productId, 1)
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(x => {

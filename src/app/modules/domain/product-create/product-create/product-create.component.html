@@ -21,7 +21,7 @@
   </button>
 
 
-  <oa-crud-bar style="width:100%;" [disabledSave]="productForm.invalid" (saved)="onSave(productForm)"
-    (deleted)="onDelete()">
+  <oa-crud-bar style="width:100%;" [disabledSave]="productForm.invalid || this.disableSave"
+    (saved)="onSave(productForm)" (deleted)="onDelete()">
   </oa-crud-bar>
 </form>
