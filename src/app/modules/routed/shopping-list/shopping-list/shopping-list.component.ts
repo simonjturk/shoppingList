@@ -3,6 +3,8 @@ import { map } from 'rxjs/operators';
 import { Shopping_List } from 'src/generated/graphql';
 import { ShoppingListService } from 'src/app/shared/services/graphQL/shoppingList/shopping-list.service';
 import { Subject } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { getHeapStatistics } from 'v8';
 
 @Component({
   selector: 'app-shopping-list',
@@ -17,7 +19,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<void> = new Subject<void>();
 
 
-  constructor(private shoppingListService: ShoppingListService) { }
+  constructor(private shoppingListService: ShoppingListService, public auth: AuthService) { }
 
   // -----------------------------------------------------------------------------------------------------
   // @ Lifecycle hooks
@@ -43,7 +45,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     // .pipe(map(l => l.data.shopping_list as Shopping_List[]))
 
 
-
+    this.getToken();
   }
 
   ngOnDestroy(): void {
@@ -51,5 +53,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
-
+  poo
+  getToken() {
+    this.poo = this.auth.getTokenSilently$();
+  }
 }

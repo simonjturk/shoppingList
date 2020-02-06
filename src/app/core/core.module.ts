@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrudStore } from './store/crud/crud.store';
+import { AuthService } from './services/auth/auth.service';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { CrudStore } from './store/crud/crud.store';
   ],
   exports: [CoreRoutingModule, AppLayoutModule],
   providers: [
+    AuthService,
     CrudStore,
     {
       provide: ErrorHandler,
