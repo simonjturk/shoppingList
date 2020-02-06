@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Input, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 //import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
-import { map, startWith, takeUntil, mergeAll, distinctUntilChanged } from 'rxjs/operators';
+import { map, startWith, takeUntil, mergeAll, distinctUntilChanged, switchMap, delay } from 'rxjs/operators';
 import { ShoppingListItemService } from 'src/app/shared/services/graphQL/shoppingListItem/shopping-list-item.service';
 import { Observable, Subject, of } from 'rxjs';
 import { Products } from 'src/generated/graphql';
@@ -10,6 +10,7 @@ import { MatBottomSheet } from '@angular/material';
 import { CrudStore } from 'src/app/core/store/crud/crud.store';
 import { CRUD_MODE } from 'src/app/shared/enums';
 import { CreateProductPopupComponent } from '../../views/popups/modals/create-product-popup/create-product-popup.component';
+import { IIdentifiable } from 'src/app/shared/components/ui/oa-form-controls/oa-autocomplete/IIdentifiable';
 
 @Component({
   selector: 'app-shopping-list-item-create',
@@ -25,13 +26,52 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
 
   productControl: FormControl = new FormControl();
   filteredOptions: Observable<Products[]>;
+  itemForm: FormGroup;
 
+
+  products$;
 
 
 
   private products: Products[] = [];
 
   constructor(private crudStore: CrudStore, private fb: FormBuilder, private shoppingListItemService: ShoppingListItemService, private bottomSheet: MatBottomSheet) {
+    this.buildForm();
+
+    this.products$ = this.itemForm.get('product_id').valueChanges
+      .pipe(
+        startWith(null),
+        switchMap(name => {
+          if (typeof name === 'string') {
+            return this.shoppingListItemService.getProducts()
+              .pipe(
+                delay(800),
+                map(response => {
+                  const filterValue = name.toLowerCase();
+                  const filtered = response.filter(
+                    item => item.name.toLowerCase().includes(filterValue)
+                  );
+
+                  return filtered.map(p => {
+
+                    return {
+                      id: p.id,
+                      label: p.name
+                    } as IIdentifiable
+                  })
+
+                })
+
+              )
+          }
+          return of([]);
+        })
+      )
+
+
+
+
+
 
 
     //listen out for the completion of the save action of the product that is created so we can then add it to the shopping list (via create item)
@@ -46,7 +86,7 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
+    //this.buildForm();
     //load our products
     this.shoppingListItemService.getProducts()
       .pipe(takeUntil(this.onDestroy$))
@@ -101,7 +141,7 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
     this.shoppingListItemService.createShoppingListItem(this.shoppingListId, productId, 1)
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(x => {
-        this.productControl.setValue("");
+        this.itemForm.controls.product_id.setValue('Milk');
       })
 
 
@@ -132,7 +172,12 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
 
 
 
+  private buildForm() {
+    this.itemForm = this.fb.group({
+      product_id: ['']
 
+    })
+  }
 
 
 

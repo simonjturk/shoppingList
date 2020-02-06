@@ -76,7 +76,12 @@ export class ShoppingListService {
           {
             type: CACHE_ACTION.DELETE,
             queryDocument: GetFavouriteShoppingListDocument,
-            variables: { favourite: true }
+            variables: [
+              {
+                variableName: "favourite",
+                value: true
+              }
+            ]
           }]);
       }
     });
@@ -131,9 +136,9 @@ export class ShoppingListService {
     return this.updateShoppingListGQL.mutate(changes, {
       update: (cache, { data }) => {
         //we need to make sure our favourites cache is updated
-        const cacherHelper: CacheHelperService = new CacheHelperService(cache, data);
+        const cacheHelper: CacheHelperService = new CacheHelperService(cache, data);
 
-        cacherHelper.manageCache([
+        cacheHelper.manageCache([
           {
             type: favourite ? CACHE_ACTION.INSERT : CACHE_ACTION.DELETE,
             queryDocument: GetFavouriteShoppingListDocument,

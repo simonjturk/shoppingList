@@ -17,7 +17,7 @@
   </div>
   <div fxFlex="100px">
     <div fxFlexFill fxLayoutAlign="end center">
-      <button mat-icon-button (click)="toggleFavourite()">
+      <button mat-icon-button (click)="toggleFavourite($event)">
         <mat-icon class="primary-text" *ngIf="shoppingList.favourite">favorite</mat-icon>
         <mat-icon class="primary-text" *ngIf="!shoppingList.favourite">favorite_border</mat-icon>
       </button>

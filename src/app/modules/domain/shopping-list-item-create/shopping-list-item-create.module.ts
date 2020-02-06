@@ -8,13 +8,13 @@ import { PopupsModule } from '../../views/popups/popups.module';
 import { CreateProductPopupComponent } from '../../views/popups/modals/create-product-popup/create-product-popup.component';
 
 
-
 @NgModule({
   declarations: [ShoppingListItemCreateComponent],
   imports: [
     CommonModule,
     SharedModule,
-    PopupsModule
+    PopupsModule,
+
   ],
   entryComponents: [CreateProductPopupComponent],
   exports: [ShoppingListItemCreateComponent]

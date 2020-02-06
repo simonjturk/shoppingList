@@ -1757,7 +1757,7 @@ export const CreateShoppingListDocument = gql`
 export const DeleteShoppingListDocument = gql`
     mutation deleteShoppingList($id: uuid) {
   __typename
-  delete_shopping_list(where: {id: {_eq: $id}, items: {}}) {
+  delete_shopping_list(where: {id: {_eq: $id}}) {
     returning {
       id
     }

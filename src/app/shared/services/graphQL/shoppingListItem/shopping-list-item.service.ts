@@ -15,6 +15,7 @@ import {
 } from 'src/generated/graphql';
 import { map } from 'rxjs/operators';
 import gql from 'graphql-tag';
+import { CacheHelperService, CACHE_ACTION } from 'src/app/core/graphql/helpers/cache-helper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -55,18 +56,18 @@ export class ShoppingListItemService {
     return this.gqlService.mutate(args, {
       update: (cache, { data }) => {
 
-        // Read the data from our cache for this query. making sure to send the parameters to the gql to correctly map to the store
-        const existingShoppingListItems: any = cache.readQuery({ query: GetShoppingListItemsDocument, variables: { shoppingListId: shoppingListId } });
+        const cacheHelper: CacheHelperService = new CacheHelperService(cache, data);
 
-        //get our latest shopping list just inserted
-        const newShoppingListItems = data.insert_shopping_list_items.returning[0];
+        cacheHelper.manageCache([
+          {
+            type: CACHE_ACTION.INSERT,
+            queryDocument: GetShoppingListItemsDocument,
+            variables: [{
+              variableName: "shoppingListId",
+              field: "shopping_list_id"
+            }]
+          }]);
 
-        // Add our shopping list from the mutation to the end.
-        cache.writeQuery({
-          query: GetShoppingListItemsDocument,
-          data: { shopping_list_items: [newShoppingListItems, ...existingShoppingListItems.shopping_list_items] },
-          variables: { shoppingListId: shoppingListId }
-        })
       }
     });
   }
@@ -80,24 +81,20 @@ export class ShoppingListItemService {
       update: (cache, { data }) => {
 
 
-        //get our latest shopping list just inserted
-        const deletedItem = data.delete_shopping_list_items.returning[0];
+        const cacherHelper: CacheHelperService = new CacheHelperService(cache, data);
 
-        // Read the data from our cache for this query. making sure to send the variables to the gql to correctly map to the store
-        const existingShoppingListItems: any = cache.readQuery({ query: GetShoppingListItemsDocument, variables: { shoppingListId: deletedItem.shopping_list_id } });
+        cacherHelper.manageCache([
+          {
+            type: CACHE_ACTION.DELETE,
+            queryDocument: GetShoppingListItemsDocument,
+            variables: [{
+              variableName: "shoppingListId",
+              field: "shopping_list_id"
+            }]
+          }]);
 
-
-        //delete our item from the query
-
-        const newList = existingShoppingListItems.shopping_list_items as Shopping_List_Items[];
-
-        // Add our shopping list from the mutation to the end.
-        cache.writeQuery({
-          query: GetShoppingListItemsDocument,
-          data: { shopping_list_items: [...newList.filter(el => el.id !== deletedItem.id)] },
-          variables: { shoppingListId: deletedItem.shopping_list_id }
-        })
       }
+
     });
   }
 

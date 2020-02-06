@@ -18,6 +18,7 @@ import { FormlyWrappersModule } from "./components/ui/formly/formly-wrappers/for
 import { FormlyExpansionPanelComponent } from './components/ui/formly/formly-wrappers/expansion-panel/expansion-panel.component';
 import { CrudBarModule } from './components/ui/crud-bar/crud-bar.module';
 import { OaCardModule } from './components/ui/oa-card/oa-card.module';
+import { OaFormControlsModule } from './components/ui/oa-form-controls/oa-form-controls.module';
 
 
 @NgModule({
@@ -79,7 +80,8 @@ import { OaCardModule } from './components/ui/oa-card/oa-card.module';
     FormsModule,
     ReactiveFormsModule,
     CrudBarModule,
-    OaCardModule
+    OaCardModule,
+    OaFormControlsModule
   ]
 
 })

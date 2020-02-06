@@ -30,6 +30,7 @@
     "@angular/pwa": "^0.803.22",
     "@angular/router": "^8.2.14",
     "@angular/service-worker": "^8.2.14",
+    "@auth0/auth0-spa-js": "^1.6.3",
     "@graphql-codegen/typescript-resolvers": "^1.11.2",
     "@ngx-formly/core": "^5.5.8",
     "@ngx-formly/material": "^5.5.8",

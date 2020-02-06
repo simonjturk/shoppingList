@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
 import { DataProxy } from 'apollo-cache';
 
-
 export interface IUpdateCache {
     type: CACHE_ACTION,
     queryDocument: any,
-    variables: any,
+    variables: IHelperVariable[],
+}
+export interface IHelperVariable {
+    variableName: string,
+    value?: any | null,
+    field?: string | null
 }
 
 export enum CACHE_ACTION {
     INSERT,
     UPDATE,
-    DELETE,
+    DELETE
 
 }
 
@@ -19,12 +23,14 @@ export enum CACHE_ACTION {
 @Injectable()
 export class CacheHelperService {
     private cache: DataProxy;
-    private data: any
+    private data: object;
 
     private currentQuery: IUpdateCache;
 
     private currentItem;
     private currentList;
+
+    private variables: any;
 
 
     constructor(cache: DataProxy, data: any) {
@@ -40,9 +46,13 @@ export class CacheHelperService {
      */
     public manageCache(queries: IUpdateCache[]) {
 
+
+
         queries.forEach(query => {
 
-            this.setup(query);
+            this.currentQuery = query;
+            this.setup();
+
 
             if (query.type === CACHE_ACTION.DELETE) {
                 this.handleDeletes();
@@ -65,15 +75,25 @@ export class CacheHelperService {
      * @param {IUpdateCache} query
      * @memberof CacheHelperService
      */
-    private setup(query: IUpdateCache) {
+    private setup() {
         //
-        this.currentQuery = query;
+
+
+        //NB ITS IMPORTANT THAT THE FOLLOWING 3 METHODS HAPPEN IN THE ORDER WRITTEN.  THEY EACH RELY ON THE PREVIOUS-- SOLID my arse.  sorry future me.
+
 
         // Read the data from our cache for this query.
         this.currentItem = this.getCurrent();
 
+        //build our query variables
+        this.buildVariables();
+
+
+
         //get our latest just inserted
-        this.currentList = this.getExistingList()
+        this.currentList = this.getExistingList();
+
+
     }
 
     /**
@@ -131,7 +151,7 @@ export class CacheHelperService {
 
         // Read the data from our cache for this query. making sure to send the variables to the gql to correctly map to the store
 
-        const cacheObject = this.cache.readQuery({ query: this.currentQuery.queryDocument, variables: this.currentQuery.variables ? this.currentQuery.variables : null });
+        const cacheObject = this.cache.readQuery({ query: this.currentQuery.queryDocument, variables: this.variables ? this.variables : null });
 
         return cacheObject[this.currentItem.__typename];
     }
@@ -145,13 +165,34 @@ export class CacheHelperService {
      * @memberof CacheHelperService
      */
     private writeToCache(newData: any) {
+
+
+
+
+
+
         this.cache.writeQuery({
             query: this.currentQuery.queryDocument,
             data: newData,
-            variables: this.currentQuery.variables ? this.currentQuery.variables : null
+            variables: this.variables ? this.variables : null
         })
 
 
+    };
+
+
+    private buildVariables() {
+        this.variables = null;
+
+        if (this.currentQuery.variables) {
+            this.variables = {};//initialise it
+            this.currentQuery.variables.forEach(v => {
+
+                this.variables[v.variableName] = v.value ? v.value : this.currentItem[v.field];
+
+
+            });
+        }
     }
 
 }

@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { CrudStore } from 'src/app/core/store/crud/crud.store';
 import { CRUD_MODE } from 'src/app/shared/enums';
+import { CacheHelperService, CACHE_ACTION } from 'src/app/core/graphql/helpers/cache-helper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -30,20 +31,18 @@ export class ProductCategoriesService {
     return this.createProductCategoriesGQL.mutate(vars, {
       update: (cache, { data }) => {
 
-        // Read the data from our cache for this query. making sure to send the parameters to the gql to correctly map to the store
-        const existing: any = cache.readQuery({ query: GetAllCategoriesDocument });
 
-        //get our latest shopping list just inserted
-        const newCategory = data.insert_product_categories.returning[0];
+        const cacheHelper: CacheHelperService = new CacheHelperService(cache, data);
 
-        // Add our shopping list from the mutation to the end.
-        cache.writeQuery({
-          query: GetAllCategoriesDocument,
-          data: { product_categories: [newCategory, ...existing.product_categories] }
-        })
+        cacheHelper.manageCache([
+          {
+            type: CACHE_ACTION.INSERT,
+            queryDocument: GetAllCategoriesDocument,
+            variables: []
+          }]);
 
         //update our internal crud store
-        this.crudStore.setProductCategory(newCategory as Product_Categories, CRUD_MODE.Create)
+        this.crudStore.setProductCategory(data.insert_product_categories.returning[0] as Product_Categories, CRUD_MODE.Create)
       }
     })
   }

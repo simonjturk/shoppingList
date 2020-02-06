@@ -5,7 +5,7 @@
 
   //margin: 5px;
   /* bottom: -50px; */
-  height: 80%;
-  max-height: 80%;
+  height: calc(100% - 90px);
+  max-height: calc(100% - 90px);
   overflow: auto;
 }

@@ -6,8 +6,8 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
-$theme-primary: mat-palette($mat-orange);
-$theme-accent: mat-palette($mat-blue, A200, A100, A400);
+$theme-primary: mat-palette($mat-blue, A700, A300, A800);
+$theme-accent: mat-palette($mat-orange, A200, A100, A400);
 $theme-warn: mat-palette($mat-red);
 
 

@@ -7,7 +7,7 @@ import { Error404Component } from './pages/error404/error404.component';
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/shopping-list', pathMatch: 'full' },
   //{path:'home',component:HomeComponent},
 
   //Lazy Load modules

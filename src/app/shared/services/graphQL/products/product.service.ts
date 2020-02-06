@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
-import { CreateProductGQL, Products, Product_Categories, Products_Insert_Input, Product_Categories_Obj_Rel_Insert_Input, CreateProductMutationVariables, GetProductsDocument } from 'src/generated/graphql';
+import { CreateProductGQL, Products, Product_Categories, Products_Insert_Input, Product_Categories_Obj_Rel_Insert_Input, CreateProductMutationVariables, GetProductsDocument, GetProductsGQL } from 'src/generated/graphql';
 import { CrudStore } from 'src/app/core/store/crud/crud.store';
 import { CRUD_MODE } from 'src/app/shared/enums';
+import { CacheHelperService, CACHE_ACTION } from 'src/app/core/graphql/helpers/cache-helper.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor(private createProductGQL: CreateProductGQL, private crudStore: CrudStore) { }
+  constructor(private createProductGQL: CreateProductGQL, private getProductsService: GetProductsGQL, private crudStore: CrudStore) { }
 
   createProduct(product: Products_Insert_Input, category: Product_Categories) {
 
@@ -38,24 +40,29 @@ export class ProductService {
     return this.createProductGQL.mutate(vars, {
       update: (cache, { data }) => {
 
-        // Read the data from our cache for this query. making sure to send the parameters to the gql to correctly map to the store
-        const existingProduct: any = cache.readQuery({ query: GetProductsDocument });
 
-        //get our latest shopping list just inserted
-        const newProduct = data.insert_products.returning[0];
+        const cacheHelper: CacheHelperService = new CacheHelperService(cache, data);
 
-        // Add our shopping list from the mutation to the end.
-        cache.writeQuery({
-          query: GetProductsDocument,
-          data: { products: [newProduct, ...existingProduct.products] }
-        });
+        cacheHelper.manageCache([
+          {
+            type: CACHE_ACTION.INSERT,
+            queryDocument: GetProductsDocument,
+            variables: []
+          }]);
 
         //update our crud store
-        this.crudStore.setProduct(newProduct as Products, CRUD_MODE.Create)
+        this.crudStore.setProduct(data.insert_products.returning[0] as Products, CRUD_MODE.Create)
 
       }
     });
 
 
+  }
+
+  getProducts() {
+
+    return this.getProductsService.watch()
+      .valueChanges
+      .pipe(map(res => res.data.products));
   }
 }
