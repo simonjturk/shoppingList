@@ -2,65 +2,41 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GetShoppingListsGQL, Shopping_List, GetFavouriteShoppingListGQL } from 'src/generated/graphql';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil, map, distinctUntilChanged } from 'rxjs/operators';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
- 
-shoppingLists:Shopping_List[];
-shoppingLists$;//:Observable<Shopping_List[]>;
-favShoppingLists$;//:Observable<Shopping_List[]>;
+export class HomeComponent implements OnInit {
 
 
-// Private
-private _unsubscribeAll: Subject<any>;
 
-/**
- *Creates an instance of HomeComponent.
- * @param {GetShoppingListsGQL} shoppingListService
- * @memberof HomeComponent
- */
-constructor(private shoppingListService: GetShoppingListsGQL, private getFavouriteShoppingListGQL:GetFavouriteShoppingListGQL) { 
-   // Set the private defaults
-   this._unsubscribeAll = new Subject();
-}
+  /**
+   *Creates an instance of HomeComponent.
+   * @param {GetShoppingListsGQL} shoppingListService
+   * @memberof HomeComponent
+   */
+  constructor(private auth: AuthService, private router: Router) {
+
+  }
 
 
-// -----------------------------------------------------------------------------------------------------
-// @ Lifecycle hooks
-// -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Lifecycle hooks
+  // -----------------------------------------------------------------------------------------------------
 
 
   ngOnInit() {
-/*
-    this.shoppingListService.watch()
-    .valueChanges
-    .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe(lists=>{
-      this.shoppingLists = lists.data.shopping_list as Shopping_List[];
-    });
-    */
 
-    this.shoppingLists$ = this.shoppingListService.watch()
-    .valueChanges
-    .pipe(map(l=> l.data.shopping_list as Shopping_List[]))
-
-    this.favShoppingLists$ = this.getFavouriteShoppingListGQL.watch()
-    .valueChanges
-    .pipe(map(l=> l.data.shopping_list as Shopping_List[]))
-    
-    
-
+    console.log("home page, logged in:" + this.auth.loggedIn)
+    if (this.auth.loggedIn) {
+      this.router.navigateByUrl('/shopping-list');
+    }
 
   }
 
-  ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
-    this._unsubscribeAll.next();
-    this._unsubscribeAll.complete();
-  }
 
 }

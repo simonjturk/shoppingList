@@ -14,7 +14,7 @@ export class FooterComponent implements OnInit {
   }
 
   goHome() {
-    this.router.navigate(['shopping-list'])
+    this.router.navigate(['home'])
   }
 
 }

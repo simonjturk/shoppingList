@@ -6,6 +6,7 @@ import { Error500Component } from './pages/error500/error500.component';
 import { Error404Component } from './pages/error404/error404.component';
 import { AuthGuard } from './services/auth/auth.guard';
 import { AuthCanLoadGuard } from './services/auth/auth-can-load.guard';
+import { HomeGuard } from '../modules/routed/home/guards/home.guard';
 
 
 export const routes: Routes = [
@@ -15,7 +16,8 @@ export const routes: Routes = [
   //Lazy Load modules
   {
     path: 'home',
-    loadChildren: () => import('../modules/routed/home/home.module').then(m => m.HomeModule)
+    loadChildren: () => import('../modules/routed/home/home.module').then(m => m.HomeModule),
+    canActivate: [HomeGuard]
   },
   {
     path: 'shopping-list',

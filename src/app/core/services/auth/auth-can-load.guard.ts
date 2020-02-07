@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,21 @@ export class AuthCanLoadGuard implements CanLoad {
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-    if (!this.auth.loggedIn) {
-      return this.router.navigateByUrl('/home');
-    } else {
-      return true;
-    }
+    return this.auth.isAuthenticated$
+      .pipe(map(loggedIn => {
+        if (!loggedIn) {
+          this.router.navigateByUrl('/home');
+          return false;
+        } else {
+          return true;
+        }
+
+      }))
+
+
+
+
+
+
   }
 }

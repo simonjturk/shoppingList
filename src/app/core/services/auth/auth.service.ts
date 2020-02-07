@@ -42,6 +42,8 @@ export class AuthService {
   loggedIn: boolean = null;
 
   constructor(private router: Router) {
+
+    console.log("constructor");
     // On initial load, check authentication state with authorization server
     // Set up local auth streams if user is already authenticated
     this.localAuthSetup();
@@ -66,7 +68,7 @@ export class AuthService {
         if (loggedIn) {
           // If authenticated, get user and set in app
           // NOTE: you could pass options here if needed
-
+          console.log("logged in: " + this.loggedIn);
           return this.getUser$();
         }
         // If not authenticated, return stream that emits 'false'
