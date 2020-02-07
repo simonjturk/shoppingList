@@ -4,20 +4,24 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { Error500Component } from './pages/error500/error500.component';
 import { Error404Component } from './pages/error404/error404.component';
+import { AuthGuard } from './services/auth/auth.guard';
+import { AuthCanLoadGuard } from './services/auth/auth-can-load.guard';
 
 
 export const routes: Routes = [
   { path: '', redirectTo: '/shopping-list', pathMatch: 'full' },
-  //{path:'home',component:HomeComponent},
+
 
   //Lazy Load modules
   {
     path: 'home',
-    redirectTo: '/shopping-list'
+    loadChildren: () => import('../modules/routed/home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'shopping-list',
-    loadChildren: () => import('../modules/routed/shopping-list/shopping-list.module').then(m => m.ShoppingListModule)
+    loadChildren: () => import('../modules/routed/shopping-list/shopping-list.module').then(m => m.ShoppingListModule),
+    canActivate: [AuthGuard],
+    canLoad: [AuthCanLoadGuard]
   },
 
   { path: 'error500', component: Error500Component },

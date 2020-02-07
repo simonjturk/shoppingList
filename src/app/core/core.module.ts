@@ -14,6 +14,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrudStore } from './store/crud/crud.store';
 import { AuthService } from './services/auth/auth.service';
+import { FlexModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { AuthService } from './services/auth/auth.service';
     AppLayoutModule,
     MatIconModule,
     HttpClientModule,
+    FlexModule,
     GraphQLModule
   ],
   exports: [CoreRoutingModule, AppLayoutModule],
