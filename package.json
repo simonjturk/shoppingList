@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "gql:update-schema": "graphql get-schema -e dev",
+    "gql:update-schema": "apollo client:download-schema schema.graphql  --config=apollo.config.js",
     "gql:codegen": "graphql-codegen --config codegen.yml",
     "gql:codegen:watch": "graphql-codegen --watch"
   },

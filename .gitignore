@@ -45,3 +45,4 @@ Thumbs.db
 
 #graphQL stuff
 *.graphql-gen.ts
+apollo.config.js

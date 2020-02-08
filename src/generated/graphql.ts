@@ -29,6 +29,19 @@ export type Boolean_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['Boolean']>>,
 };
 
+/** expression to compare columns of type Int. All fields are combined with logical 'AND'. */
+export type Int_Comparison_Exp = {
+  _eq?: Maybe<Scalars['Int']>,
+  _gt?: Maybe<Scalars['Int']>,
+  _gte?: Maybe<Scalars['Int']>,
+  _in?: Maybe<Array<Scalars['Int']>>,
+  _is_null?: Maybe<Scalars['Boolean']>,
+  _lt?: Maybe<Scalars['Int']>,
+  _lte?: Maybe<Scalars['Int']>,
+  _neq?: Maybe<Scalars['Int']>,
+  _nin?: Maybe<Array<Scalars['Int']>>,
+};
+
 /** mutation root */
 export type Mutation_Root = {
    __typename?: 'mutation_root',
@@ -36,26 +49,38 @@ export type Mutation_Root = {
   delete_product_categories?: Maybe<Product_Categories_Mutation_Response>,
   /** delete data from the table: "products" */
   delete_products?: Maybe<Products_Mutation_Response>,
+  /** delete data from the table: "shared_lists" */
+  delete_shared_lists?: Maybe<Shared_Lists_Mutation_Response>,
   /** delete data from the table: "shopping_list" */
   delete_shopping_list?: Maybe<Shopping_List_Mutation_Response>,
   /** delete data from the table: "shopping_list_items" */
   delete_shopping_list_items?: Maybe<Shopping_List_Items_Mutation_Response>,
+  /** delete data from the table: "users" */
+  delete_users?: Maybe<Users_Mutation_Response>,
   /** insert data into the table: "product_categories" */
   insert_product_categories?: Maybe<Product_Categories_Mutation_Response>,
   /** insert data into the table: "products" */
   insert_products?: Maybe<Products_Mutation_Response>,
+  /** insert data into the table: "shared_lists" */
+  insert_shared_lists?: Maybe<Shared_Lists_Mutation_Response>,
   /** insert data into the table: "shopping_list" */
   insert_shopping_list?: Maybe<Shopping_List_Mutation_Response>,
   /** insert data into the table: "shopping_list_items" */
   insert_shopping_list_items?: Maybe<Shopping_List_Items_Mutation_Response>,
+  /** insert data into the table: "users" */
+  insert_users?: Maybe<Users_Mutation_Response>,
   /** update data of the table: "product_categories" */
   update_product_categories?: Maybe<Product_Categories_Mutation_Response>,
   /** update data of the table: "products" */
   update_products?: Maybe<Products_Mutation_Response>,
+  /** update data of the table: "shared_lists" */
+  update_shared_lists?: Maybe<Shared_Lists_Mutation_Response>,
   /** update data of the table: "shopping_list" */
   update_shopping_list?: Maybe<Shopping_List_Mutation_Response>,
   /** update data of the table: "shopping_list_items" */
   update_shopping_list_items?: Maybe<Shopping_List_Items_Mutation_Response>,
+  /** update data of the table: "users" */
+  update_users?: Maybe<Users_Mutation_Response>,
 };
 
 
@@ -72,6 +97,12 @@ export type Mutation_RootDelete_ProductsArgs = {
 
 
 /** mutation root */
+export type Mutation_RootDelete_Shared_ListsArgs = {
+  where: Shared_Lists_Bool_Exp
+};
+
+
+/** mutation root */
 export type Mutation_RootDelete_Shopping_ListArgs = {
   where: Shopping_List_Bool_Exp
 };
@@ -80,6 +111,12 @@ export type Mutation_RootDelete_Shopping_ListArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Shopping_List_ItemsArgs = {
   where: Shopping_List_Items_Bool_Exp
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_UsersArgs = {
+  where: Users_Bool_Exp
 };
 
 
@@ -98,6 +135,13 @@ export type Mutation_RootInsert_ProductsArgs = {
 
 
 /** mutation root */
+export type Mutation_RootInsert_Shared_ListsArgs = {
+  objects: Array<Shared_Lists_Insert_Input>,
+  on_conflict?: Maybe<Shared_Lists_On_Conflict>
+};
+
+
+/** mutation root */
 export type Mutation_RootInsert_Shopping_ListArgs = {
   objects: Array<Shopping_List_Insert_Input>,
   on_conflict?: Maybe<Shopping_List_On_Conflict>
@@ -108,6 +152,13 @@ export type Mutation_RootInsert_Shopping_ListArgs = {
 export type Mutation_RootInsert_Shopping_List_ItemsArgs = {
   objects: Array<Shopping_List_Items_Insert_Input>,
   on_conflict?: Maybe<Shopping_List_Items_On_Conflict>
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_UsersArgs = {
+  objects: Array<Users_Insert_Input>,
+  on_conflict?: Maybe<Users_On_Conflict>
 };
 
 
@@ -126,6 +177,13 @@ export type Mutation_RootUpdate_ProductsArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_Shared_ListsArgs = {
+  _set?: Maybe<Shared_Lists_Set_Input>,
+  where: Shared_Lists_Bool_Exp
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_Shopping_ListArgs = {
   _set?: Maybe<Shopping_List_Set_Input>,
   where: Shopping_List_Bool_Exp
@@ -136,6 +194,14 @@ export type Mutation_RootUpdate_Shopping_ListArgs = {
 export type Mutation_RootUpdate_Shopping_List_ItemsArgs = {
   _set?: Maybe<Shopping_List_Items_Set_Input>,
   where: Shopping_List_Items_Bool_Exp
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_UsersArgs = {
+  _inc?: Maybe<Users_Inc_Input>,
+  _set?: Maybe<Users_Set_Input>,
+  where: Users_Bool_Exp
 };
 
 
@@ -554,6 +620,12 @@ export type Query_Root = {
   products_aggregate: Products_Aggregate,
   /** fetch data from the table: "products" using primary key columns */
   products_by_pk?: Maybe<Products>,
+  /** fetch data from the table: "shared_lists" */
+  shared_lists: Array<Shared_Lists>,
+  /** fetch aggregated fields from the table: "shared_lists" */
+  shared_lists_aggregate: Shared_Lists_Aggregate,
+  /** fetch data from the table: "shared_lists" using primary key columns */
+  shared_lists_by_pk?: Maybe<Shared_Lists>,
   /** fetch data from the table: "shopping_list" */
   shopping_list: Array<Shopping_List>,
   /** fetch aggregated fields from the table: "shopping_list" */
@@ -566,6 +638,12 @@ export type Query_Root = {
   shopping_list_items_aggregate: Shopping_List_Items_Aggregate,
   /** fetch data from the table: "shopping_list_items" using primary key columns */
   shopping_list_items_by_pk?: Maybe<Shopping_List_Items>,
+  /** fetch data from the table: "users" */
+  users: Array<Users>,
+  /** fetch aggregated fields from the table: "users" */
+  users_aggregate: Users_Aggregate,
+  /** fetch data from the table: "users" using primary key columns */
+  users_by_pk?: Maybe<Users>,
 };
 
 
@@ -622,6 +700,32 @@ export type Query_RootProducts_By_PkArgs = {
 
 
 /** query root */
+export type Query_RootShared_ListsArgs = {
+  distinct_on?: Maybe<Array<Shared_Lists_Select_Column>>,
+  limit?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  order_by?: Maybe<Array<Shared_Lists_Order_By>>,
+  where?: Maybe<Shared_Lists_Bool_Exp>
+};
+
+
+/** query root */
+export type Query_RootShared_Lists_AggregateArgs = {
+  distinct_on?: Maybe<Array<Shared_Lists_Select_Column>>,
+  limit?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  order_by?: Maybe<Array<Shared_Lists_Order_By>>,
+  where?: Maybe<Shared_Lists_Bool_Exp>
+};
+
+
+/** query root */
+export type Query_RootShared_Lists_By_PkArgs = {
+  id: Scalars['uuid']
+};
+
+
+/** query root */
 export type Query_RootShopping_ListArgs = {
   distinct_on?: Maybe<Array<Shopping_List_Select_Column>>,
   limit?: Maybe<Scalars['Int']>,
@@ -672,6 +776,202 @@ export type Query_RootShopping_List_Items_By_PkArgs = {
   id: Scalars['uuid']
 };
 
+
+/** query root */
+export type Query_RootUsersArgs = {
+  distinct_on?: Maybe<Array<Users_Select_Column>>,
+  limit?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  order_by?: Maybe<Array<Users_Order_By>>,
+  where?: Maybe<Users_Bool_Exp>
+};
+
+
+/** query root */
+export type Query_RootUsers_AggregateArgs = {
+  distinct_on?: Maybe<Array<Users_Select_Column>>,
+  limit?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  order_by?: Maybe<Array<Users_Order_By>>,
+  where?: Maybe<Users_Bool_Exp>
+};
+
+
+/** query root */
+export type Query_RootUsers_By_PkArgs = {
+  auth0_id: Scalars['String']
+};
+
+/** columns and relationships of "shared_lists" */
+export type Shared_Lists = {
+   __typename?: 'shared_lists',
+  created_at: Scalars['timestamptz'],
+  id: Scalars['uuid'],
+  shopping_list_id: Scalars['uuid'],
+  updated_at: Scalars['timestamptz'],
+  user_id: Scalars['String'],
+};
+
+/** aggregated selection of "shared_lists" */
+export type Shared_Lists_Aggregate = {
+   __typename?: 'shared_lists_aggregate',
+  aggregate?: Maybe<Shared_Lists_Aggregate_Fields>,
+  nodes: Array<Shared_Lists>,
+};
+
+/** aggregate fields of "shared_lists" */
+export type Shared_Lists_Aggregate_Fields = {
+   __typename?: 'shared_lists_aggregate_fields',
+  count?: Maybe<Scalars['Int']>,
+  max?: Maybe<Shared_Lists_Max_Fields>,
+  min?: Maybe<Shared_Lists_Min_Fields>,
+};
+
+
+/** aggregate fields of "shared_lists" */
+export type Shared_Lists_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Shared_Lists_Select_Column>>,
+  distinct?: Maybe<Scalars['Boolean']>
+};
+
+/** order by aggregate values of table "shared_lists" */
+export type Shared_Lists_Aggregate_Order_By = {
+  count?: Maybe<Order_By>,
+  max?: Maybe<Shared_Lists_Max_Order_By>,
+  min?: Maybe<Shared_Lists_Min_Order_By>,
+};
+
+/** input type for inserting array relation for remote table "shared_lists" */
+export type Shared_Lists_Arr_Rel_Insert_Input = {
+  data: Array<Shared_Lists_Insert_Input>,
+  on_conflict?: Maybe<Shared_Lists_On_Conflict>,
+};
+
+/** Boolean expression to filter rows from the table "shared_lists". All fields are combined with a logical 'AND'. */
+export type Shared_Lists_Bool_Exp = {
+  _and?: Maybe<Array<Maybe<Shared_Lists_Bool_Exp>>>,
+  _not?: Maybe<Shared_Lists_Bool_Exp>,
+  _or?: Maybe<Array<Maybe<Shared_Lists_Bool_Exp>>>,
+  created_at?: Maybe<Timestamptz_Comparison_Exp>,
+  id?: Maybe<Uuid_Comparison_Exp>,
+  shopping_list_id?: Maybe<Uuid_Comparison_Exp>,
+  updated_at?: Maybe<Timestamptz_Comparison_Exp>,
+  user_id?: Maybe<String_Comparison_Exp>,
+};
+
+/** unique or primary key constraints on table "shared_lists" */
+export enum Shared_Lists_Constraint {
+  /** unique or primary key constraint */
+  SharedListsPkey = 'shared_lists_pkey'
+}
+
+/** input type for inserting data into table "shared_lists" */
+export type Shared_Lists_Insert_Input = {
+  created_at?: Maybe<Scalars['timestamptz']>,
+  id?: Maybe<Scalars['uuid']>,
+  shopping_list_id?: Maybe<Scalars['uuid']>,
+  updated_at?: Maybe<Scalars['timestamptz']>,
+  user_id?: Maybe<Scalars['String']>,
+};
+
+/** aggregate max on columns */
+export type Shared_Lists_Max_Fields = {
+   __typename?: 'shared_lists_max_fields',
+  created_at?: Maybe<Scalars['timestamptz']>,
+  updated_at?: Maybe<Scalars['timestamptz']>,
+  user_id?: Maybe<Scalars['String']>,
+};
+
+/** order by max() on columns of table "shared_lists" */
+export type Shared_Lists_Max_Order_By = {
+  created_at?: Maybe<Order_By>,
+  updated_at?: Maybe<Order_By>,
+  user_id?: Maybe<Order_By>,
+};
+
+/** aggregate min on columns */
+export type Shared_Lists_Min_Fields = {
+   __typename?: 'shared_lists_min_fields',
+  created_at?: Maybe<Scalars['timestamptz']>,
+  updated_at?: Maybe<Scalars['timestamptz']>,
+  user_id?: Maybe<Scalars['String']>,
+};
+
+/** order by min() on columns of table "shared_lists" */
+export type Shared_Lists_Min_Order_By = {
+  created_at?: Maybe<Order_By>,
+  updated_at?: Maybe<Order_By>,
+  user_id?: Maybe<Order_By>,
+};
+
+/** response of any mutation on the table "shared_lists" */
+export type Shared_Lists_Mutation_Response = {
+   __typename?: 'shared_lists_mutation_response',
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int'],
+  /** data of the affected rows by the mutation */
+  returning: Array<Shared_Lists>,
+};
+
+/** input type for inserting object relation for remote table "shared_lists" */
+export type Shared_Lists_Obj_Rel_Insert_Input = {
+  data: Shared_Lists_Insert_Input,
+  on_conflict?: Maybe<Shared_Lists_On_Conflict>,
+};
+
+/** on conflict condition type for table "shared_lists" */
+export type Shared_Lists_On_Conflict = {
+  constraint: Shared_Lists_Constraint,
+  update_columns: Array<Shared_Lists_Update_Column>,
+  where?: Maybe<Shared_Lists_Bool_Exp>,
+};
+
+/** ordering options when selecting data from "shared_lists" */
+export type Shared_Lists_Order_By = {
+  created_at?: Maybe<Order_By>,
+  id?: Maybe<Order_By>,
+  shopping_list_id?: Maybe<Order_By>,
+  updated_at?: Maybe<Order_By>,
+  user_id?: Maybe<Order_By>,
+};
+
+/** select columns of table "shared_lists" */
+export enum Shared_Lists_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  ShoppingListId = 'shopping_list_id',
+  /** column name */
+  UpdatedAt = 'updated_at',
+  /** column name */
+  UserId = 'user_id'
+}
+
+/** input type for updating data in table "shared_lists" */
+export type Shared_Lists_Set_Input = {
+  created_at?: Maybe<Scalars['timestamptz']>,
+  id?: Maybe<Scalars['uuid']>,
+  shopping_list_id?: Maybe<Scalars['uuid']>,
+  updated_at?: Maybe<Scalars['timestamptz']>,
+  user_id?: Maybe<Scalars['String']>,
+};
+
+/** update columns of table "shared_lists" */
+export enum Shared_Lists_Update_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  ShoppingListId = 'shopping_list_id',
+  /** column name */
+  UpdatedAt = 'updated_at',
+  /** column name */
+  UserId = 'user_id'
+}
+
 /** columns and relationships of "shopping_list" */
 export type Shopping_List = {
    __typename?: 'shopping_list',
@@ -683,7 +983,14 @@ export type Shopping_List = {
   /** An aggregated array relationship */
   items_aggregate: Shopping_List_Items_Aggregate,
   name: Scalars['String'],
+  /** An array relationship */
+  shared_with_users: Array<Shared_Lists>,
+  /** An aggregated array relationship */
+  shared_with_users_aggregate: Shared_Lists_Aggregate,
   updated_at: Scalars['timestamptz'],
+  /** An object relationship */
+  user?: Maybe<Users>,
+  user_id?: Maybe<Scalars['String']>,
 };
 
 
@@ -704,6 +1011,26 @@ export type Shopping_ListItems_AggregateArgs = {
   offset?: Maybe<Scalars['Int']>,
   order_by?: Maybe<Array<Shopping_List_Items_Order_By>>,
   where?: Maybe<Shopping_List_Items_Bool_Exp>
+};
+
+
+/** columns and relationships of "shopping_list" */
+export type Shopping_ListShared_With_UsersArgs = {
+  distinct_on?: Maybe<Array<Shared_Lists_Select_Column>>,
+  limit?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  order_by?: Maybe<Array<Shared_Lists_Order_By>>,
+  where?: Maybe<Shared_Lists_Bool_Exp>
+};
+
+
+/** columns and relationships of "shopping_list" */
+export type Shopping_ListShared_With_Users_AggregateArgs = {
+  distinct_on?: Maybe<Array<Shared_Lists_Select_Column>>,
+  limit?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  order_by?: Maybe<Array<Shared_Lists_Order_By>>,
+  where?: Maybe<Shared_Lists_Bool_Exp>
 };
 
 /** aggregated selection of "shopping_list" */
@@ -751,7 +1078,10 @@ export type Shopping_List_Bool_Exp = {
   id?: Maybe<Uuid_Comparison_Exp>,
   items?: Maybe<Shopping_List_Items_Bool_Exp>,
   name?: Maybe<String_Comparison_Exp>,
+  shared_with_users?: Maybe<Shared_Lists_Bool_Exp>,
   updated_at?: Maybe<Timestamptz_Comparison_Exp>,
+  user?: Maybe<Users_Bool_Exp>,
+  user_id?: Maybe<String_Comparison_Exp>,
 };
 
 /** unique or primary key constraints on table "shopping_list" */
@@ -767,7 +1097,10 @@ export type Shopping_List_Insert_Input = {
   id?: Maybe<Scalars['uuid']>,
   items?: Maybe<Shopping_List_Items_Arr_Rel_Insert_Input>,
   name?: Maybe<Scalars['String']>,
+  shared_with_users?: Maybe<Shared_Lists_Arr_Rel_Insert_Input>,
   updated_at?: Maybe<Scalars['timestamptz']>,
+  user?: Maybe<Users_Obj_Rel_Insert_Input>,
+  user_id?: Maybe<Scalars['String']>,
 };
 
 /** columns and relationships of "shopping_list_items" */
@@ -1073,6 +1406,7 @@ export type Shopping_List_Max_Fields = {
   created_at?: Maybe<Scalars['timestamptz']>,
   name?: Maybe<Scalars['String']>,
   updated_at?: Maybe<Scalars['timestamptz']>,
+  user_id?: Maybe<Scalars['String']>,
 };
 
 /** order by max() on columns of table "shopping_list" */
@@ -1080,6 +1414,7 @@ export type Shopping_List_Max_Order_By = {
   created_at?: Maybe<Order_By>,
   name?: Maybe<Order_By>,
   updated_at?: Maybe<Order_By>,
+  user_id?: Maybe<Order_By>,
 };
 
 /** aggregate min on columns */
@@ -1088,6 +1423,7 @@ export type Shopping_List_Min_Fields = {
   created_at?: Maybe<Scalars['timestamptz']>,
   name?: Maybe<Scalars['String']>,
   updated_at?: Maybe<Scalars['timestamptz']>,
+  user_id?: Maybe<Scalars['String']>,
 };
 
 /** order by min() on columns of table "shopping_list" */
@@ -1095,6 +1431,7 @@ export type Shopping_List_Min_Order_By = {
   created_at?: Maybe<Order_By>,
   name?: Maybe<Order_By>,
   updated_at?: Maybe<Order_By>,
+  user_id?: Maybe<Order_By>,
 };
 
 /** response of any mutation on the table "shopping_list" */
@@ -1126,7 +1463,10 @@ export type Shopping_List_Order_By = {
   id?: Maybe<Order_By>,
   items_aggregate?: Maybe<Shopping_List_Items_Aggregate_Order_By>,
   name?: Maybe<Order_By>,
+  shared_with_users_aggregate?: Maybe<Shared_Lists_Aggregate_Order_By>,
   updated_at?: Maybe<Order_By>,
+  user?: Maybe<Users_Order_By>,
+  user_id?: Maybe<Order_By>,
 };
 
 /** select columns of table "shopping_list" */
@@ -1140,7 +1480,9 @@ export enum Shopping_List_Select_Column {
   /** column name */
   Name = 'name',
   /** column name */
-  UpdatedAt = 'updated_at'
+  UpdatedAt = 'updated_at',
+  /** column name */
+  UserId = 'user_id'
 }
 
 /** input type for updating data in table "shopping_list" */
@@ -1150,6 +1492,7 @@ export type Shopping_List_Set_Input = {
   id?: Maybe<Scalars['uuid']>,
   name?: Maybe<Scalars['String']>,
   updated_at?: Maybe<Scalars['timestamptz']>,
+  user_id?: Maybe<Scalars['String']>,
 };
 
 /** update columns of table "shopping_list" */
@@ -1163,7 +1506,9 @@ export enum Shopping_List_Update_Column {
   /** column name */
   Name = 'name',
   /** column name */
-  UpdatedAt = 'updated_at'
+  UpdatedAt = 'updated_at',
+  /** column name */
+  UserId = 'user_id'
 }
 
 /** expression to compare columns of type String. All fields are combined with logical 'AND'. */
@@ -1200,6 +1545,12 @@ export type Subscription_Root = {
   products_aggregate: Products_Aggregate,
   /** fetch data from the table: "products" using primary key columns */
   products_by_pk?: Maybe<Products>,
+  /** fetch data from the table: "shared_lists" */
+  shared_lists: Array<Shared_Lists>,
+  /** fetch aggregated fields from the table: "shared_lists" */
+  shared_lists_aggregate: Shared_Lists_Aggregate,
+  /** fetch data from the table: "shared_lists" using primary key columns */
+  shared_lists_by_pk?: Maybe<Shared_Lists>,
   /** fetch data from the table: "shopping_list" */
   shopping_list: Array<Shopping_List>,
   /** fetch aggregated fields from the table: "shopping_list" */
@@ -1212,6 +1563,12 @@ export type Subscription_Root = {
   shopping_list_items_aggregate: Shopping_List_Items_Aggregate,
   /** fetch data from the table: "shopping_list_items" using primary key columns */
   shopping_list_items_by_pk?: Maybe<Shopping_List_Items>,
+  /** fetch data from the table: "users" */
+  users: Array<Users>,
+  /** fetch aggregated fields from the table: "users" */
+  users_aggregate: Users_Aggregate,
+  /** fetch data from the table: "users" using primary key columns */
+  users_by_pk?: Maybe<Users>,
 };
 
 
@@ -1268,6 +1625,32 @@ export type Subscription_RootProducts_By_PkArgs = {
 
 
 /** subscription root */
+export type Subscription_RootShared_ListsArgs = {
+  distinct_on?: Maybe<Array<Shared_Lists_Select_Column>>,
+  limit?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  order_by?: Maybe<Array<Shared_Lists_Order_By>>,
+  where?: Maybe<Shared_Lists_Bool_Exp>
+};
+
+
+/** subscription root */
+export type Subscription_RootShared_Lists_AggregateArgs = {
+  distinct_on?: Maybe<Array<Shared_Lists_Select_Column>>,
+  limit?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  order_by?: Maybe<Array<Shared_Lists_Order_By>>,
+  where?: Maybe<Shared_Lists_Bool_Exp>
+};
+
+
+/** subscription root */
+export type Subscription_RootShared_Lists_By_PkArgs = {
+  id: Scalars['uuid']
+};
+
+
+/** subscription root */
 export type Subscription_RootShopping_ListArgs = {
   distinct_on?: Maybe<Array<Shopping_List_Select_Column>>,
   limit?: Maybe<Scalars['Int']>,
@@ -1319,6 +1702,32 @@ export type Subscription_RootShopping_List_Items_By_PkArgs = {
 };
 
 
+/** subscription root */
+export type Subscription_RootUsersArgs = {
+  distinct_on?: Maybe<Array<Users_Select_Column>>,
+  limit?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  order_by?: Maybe<Array<Users_Order_By>>,
+  where?: Maybe<Users_Bool_Exp>
+};
+
+
+/** subscription root */
+export type Subscription_RootUsers_AggregateArgs = {
+  distinct_on?: Maybe<Array<Users_Select_Column>>,
+  limit?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  order_by?: Maybe<Array<Users_Order_By>>,
+  where?: Maybe<Users_Bool_Exp>
+};
+
+
+/** subscription root */
+export type Subscription_RootUsers_By_PkArgs = {
+  auth0_id: Scalars['String']
+};
+
+
 /** expression to compare columns of type timestamptz. All fields are combined with logical 'AND'. */
 export type Timestamptz_Comparison_Exp = {
   _eq?: Maybe<Scalars['timestamptz']>,
@@ -1330,6 +1739,360 @@ export type Timestamptz_Comparison_Exp = {
   _lte?: Maybe<Scalars['timestamptz']>,
   _neq?: Maybe<Scalars['timestamptz']>,
   _nin?: Maybe<Array<Scalars['timestamptz']>>,
+};
+
+/** columns and relationships of "users" */
+export type Users = {
+   __typename?: 'users',
+  auth0_id: Scalars['String'],
+  created_at: Scalars['timestamptz'],
+  id: Scalars['Int'],
+  last_seen: Scalars['timestamptz'],
+  name: Scalars['String'],
+  /** An array relationship */
+  shared_lists: Array<Shared_Lists>,
+  /** An aggregated array relationship */
+  shared_lists_aggregate: Shared_Lists_Aggregate,
+  /** An array relationship */
+  shopping_lists: Array<Shopping_List>,
+  /** An aggregated array relationship */
+  shopping_lists_aggregate: Shopping_List_Aggregate,
+  updated_at: Scalars['timestamptz'],
+};
+
+
+/** columns and relationships of "users" */
+export type UsersShared_ListsArgs = {
+  distinct_on?: Maybe<Array<Shared_Lists_Select_Column>>,
+  limit?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  order_by?: Maybe<Array<Shared_Lists_Order_By>>,
+  where?: Maybe<Shared_Lists_Bool_Exp>
+};
+
+
+/** columns and relationships of "users" */
+export type UsersShared_Lists_AggregateArgs = {
+  distinct_on?: Maybe<Array<Shared_Lists_Select_Column>>,
+  limit?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  order_by?: Maybe<Array<Shared_Lists_Order_By>>,
+  where?: Maybe<Shared_Lists_Bool_Exp>
+};
+
+
+/** columns and relationships of "users" */
+export type UsersShopping_ListsArgs = {
+  distinct_on?: Maybe<Array<Shopping_List_Select_Column>>,
+  limit?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  order_by?: Maybe<Array<Shopping_List_Order_By>>,
+  where?: Maybe<Shopping_List_Bool_Exp>
+};
+
+
+/** columns and relationships of "users" */
+export type UsersShopping_Lists_AggregateArgs = {
+  distinct_on?: Maybe<Array<Shopping_List_Select_Column>>,
+  limit?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  order_by?: Maybe<Array<Shopping_List_Order_By>>,
+  where?: Maybe<Shopping_List_Bool_Exp>
+};
+
+/** aggregated selection of "users" */
+export type Users_Aggregate = {
+   __typename?: 'users_aggregate',
+  aggregate?: Maybe<Users_Aggregate_Fields>,
+  nodes: Array<Users>,
+};
+
+/** aggregate fields of "users" */
+export type Users_Aggregate_Fields = {
+   __typename?: 'users_aggregate_fields',
+  avg?: Maybe<Users_Avg_Fields>,
+  count?: Maybe<Scalars['Int']>,
+  max?: Maybe<Users_Max_Fields>,
+  min?: Maybe<Users_Min_Fields>,
+  stddev?: Maybe<Users_Stddev_Fields>,
+  stddev_pop?: Maybe<Users_Stddev_Pop_Fields>,
+  stddev_samp?: Maybe<Users_Stddev_Samp_Fields>,
+  sum?: Maybe<Users_Sum_Fields>,
+  var_pop?: Maybe<Users_Var_Pop_Fields>,
+  var_samp?: Maybe<Users_Var_Samp_Fields>,
+  variance?: Maybe<Users_Variance_Fields>,
+};
+
+
+/** aggregate fields of "users" */
+export type Users_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Users_Select_Column>>,
+  distinct?: Maybe<Scalars['Boolean']>
+};
+
+/** order by aggregate values of table "users" */
+export type Users_Aggregate_Order_By = {
+  avg?: Maybe<Users_Avg_Order_By>,
+  count?: Maybe<Order_By>,
+  max?: Maybe<Users_Max_Order_By>,
+  min?: Maybe<Users_Min_Order_By>,
+  stddev?: Maybe<Users_Stddev_Order_By>,
+  stddev_pop?: Maybe<Users_Stddev_Pop_Order_By>,
+  stddev_samp?: Maybe<Users_Stddev_Samp_Order_By>,
+  sum?: Maybe<Users_Sum_Order_By>,
+  var_pop?: Maybe<Users_Var_Pop_Order_By>,
+  var_samp?: Maybe<Users_Var_Samp_Order_By>,
+  variance?: Maybe<Users_Variance_Order_By>,
+};
+
+/** input type for inserting array relation for remote table "users" */
+export type Users_Arr_Rel_Insert_Input = {
+  data: Array<Users_Insert_Input>,
+  on_conflict?: Maybe<Users_On_Conflict>,
+};
+
+/** aggregate avg on columns */
+export type Users_Avg_Fields = {
+   __typename?: 'users_avg_fields',
+  id?: Maybe<Scalars['Float']>,
+};
+
+/** order by avg() on columns of table "users" */
+export type Users_Avg_Order_By = {
+  id?: Maybe<Order_By>,
+};
+
+/** Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'. */
+export type Users_Bool_Exp = {
+  _and?: Maybe<Array<Maybe<Users_Bool_Exp>>>,
+  _not?: Maybe<Users_Bool_Exp>,
+  _or?: Maybe<Array<Maybe<Users_Bool_Exp>>>,
+  auth0_id?: Maybe<String_Comparison_Exp>,
+  created_at?: Maybe<Timestamptz_Comparison_Exp>,
+  id?: Maybe<Int_Comparison_Exp>,
+  last_seen?: Maybe<Timestamptz_Comparison_Exp>,
+  name?: Maybe<String_Comparison_Exp>,
+  shared_lists?: Maybe<Shared_Lists_Bool_Exp>,
+  shopping_lists?: Maybe<Shopping_List_Bool_Exp>,
+  updated_at?: Maybe<Timestamptz_Comparison_Exp>,
+};
+
+/** unique or primary key constraints on table "users" */
+export enum Users_Constraint {
+  /** unique or primary key constraint */
+  UsersPkey = 'users_pkey'
+}
+
+/** input type for incrementing integer columne in table "users" */
+export type Users_Inc_Input = {
+  id?: Maybe<Scalars['Int']>,
+};
+
+/** input type for inserting data into table "users" */
+export type Users_Insert_Input = {
+  auth0_id?: Maybe<Scalars['String']>,
+  created_at?: Maybe<Scalars['timestamptz']>,
+  id?: Maybe<Scalars['Int']>,
+  last_seen?: Maybe<Scalars['timestamptz']>,
+  name?: Maybe<Scalars['String']>,
+  shared_lists?: Maybe<Shared_Lists_Arr_Rel_Insert_Input>,
+  shopping_lists?: Maybe<Shopping_List_Arr_Rel_Insert_Input>,
+  updated_at?: Maybe<Scalars['timestamptz']>,
+};
+
+/** aggregate max on columns */
+export type Users_Max_Fields = {
+   __typename?: 'users_max_fields',
+  auth0_id?: Maybe<Scalars['String']>,
+  created_at?: Maybe<Scalars['timestamptz']>,
+  id?: Maybe<Scalars['Int']>,
+  last_seen?: Maybe<Scalars['timestamptz']>,
+  name?: Maybe<Scalars['String']>,
+  updated_at?: Maybe<Scalars['timestamptz']>,
+};
+
+/** order by max() on columns of table "users" */
+export type Users_Max_Order_By = {
+  auth0_id?: Maybe<Order_By>,
+  created_at?: Maybe<Order_By>,
+  id?: Maybe<Order_By>,
+  last_seen?: Maybe<Order_By>,
+  name?: Maybe<Order_By>,
+  updated_at?: Maybe<Order_By>,
+};
+
+/** aggregate min on columns */
+export type Users_Min_Fields = {
+   __typename?: 'users_min_fields',
+  auth0_id?: Maybe<Scalars['String']>,
+  created_at?: Maybe<Scalars['timestamptz']>,
+  id?: Maybe<Scalars['Int']>,
+  last_seen?: Maybe<Scalars['timestamptz']>,
+  name?: Maybe<Scalars['String']>,
+  updated_at?: Maybe<Scalars['timestamptz']>,
+};
+
+/** order by min() on columns of table "users" */
+export type Users_Min_Order_By = {
+  auth0_id?: Maybe<Order_By>,
+  created_at?: Maybe<Order_By>,
+  id?: Maybe<Order_By>,
+  last_seen?: Maybe<Order_By>,
+  name?: Maybe<Order_By>,
+  updated_at?: Maybe<Order_By>,
+};
+
+/** response of any mutation on the table "users" */
+export type Users_Mutation_Response = {
+   __typename?: 'users_mutation_response',
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int'],
+  /** data of the affected rows by the mutation */
+  returning: Array<Users>,
+};
+
+/** input type for inserting object relation for remote table "users" */
+export type Users_Obj_Rel_Insert_Input = {
+  data: Users_Insert_Input,
+  on_conflict?: Maybe<Users_On_Conflict>,
+};
+
+/** on conflict condition type for table "users" */
+export type Users_On_Conflict = {
+  constraint: Users_Constraint,
+  update_columns: Array<Users_Update_Column>,
+  where?: Maybe<Users_Bool_Exp>,
+};
+
+/** ordering options when selecting data from "users" */
+export type Users_Order_By = {
+  auth0_id?: Maybe<Order_By>,
+  created_at?: Maybe<Order_By>,
+  id?: Maybe<Order_By>,
+  last_seen?: Maybe<Order_By>,
+  name?: Maybe<Order_By>,
+  shared_lists_aggregate?: Maybe<Shared_Lists_Aggregate_Order_By>,
+  shopping_lists_aggregate?: Maybe<Shopping_List_Aggregate_Order_By>,
+  updated_at?: Maybe<Order_By>,
+};
+
+/** select columns of table "users" */
+export enum Users_Select_Column {
+  /** column name */
+  Auth0Id = 'auth0_id',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LastSeen = 'last_seen',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** input type for updating data in table "users" */
+export type Users_Set_Input = {
+  auth0_id?: Maybe<Scalars['String']>,
+  created_at?: Maybe<Scalars['timestamptz']>,
+  id?: Maybe<Scalars['Int']>,
+  last_seen?: Maybe<Scalars['timestamptz']>,
+  name?: Maybe<Scalars['String']>,
+  updated_at?: Maybe<Scalars['timestamptz']>,
+};
+
+/** aggregate stddev on columns */
+export type Users_Stddev_Fields = {
+   __typename?: 'users_stddev_fields',
+  id?: Maybe<Scalars['Float']>,
+};
+
+/** order by stddev() on columns of table "users" */
+export type Users_Stddev_Order_By = {
+  id?: Maybe<Order_By>,
+};
+
+/** aggregate stddev_pop on columns */
+export type Users_Stddev_Pop_Fields = {
+   __typename?: 'users_stddev_pop_fields',
+  id?: Maybe<Scalars['Float']>,
+};
+
+/** order by stddev_pop() on columns of table "users" */
+export type Users_Stddev_Pop_Order_By = {
+  id?: Maybe<Order_By>,
+};
+
+/** aggregate stddev_samp on columns */
+export type Users_Stddev_Samp_Fields = {
+   __typename?: 'users_stddev_samp_fields',
+  id?: Maybe<Scalars['Float']>,
+};
+
+/** order by stddev_samp() on columns of table "users" */
+export type Users_Stddev_Samp_Order_By = {
+  id?: Maybe<Order_By>,
+};
+
+/** aggregate sum on columns */
+export type Users_Sum_Fields = {
+   __typename?: 'users_sum_fields',
+  id?: Maybe<Scalars['Int']>,
+};
+
+/** order by sum() on columns of table "users" */
+export type Users_Sum_Order_By = {
+  id?: Maybe<Order_By>,
+};
+
+/** update columns of table "users" */
+export enum Users_Update_Column {
+  /** column name */
+  Auth0Id = 'auth0_id',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LastSeen = 'last_seen',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** aggregate var_pop on columns */
+export type Users_Var_Pop_Fields = {
+   __typename?: 'users_var_pop_fields',
+  id?: Maybe<Scalars['Float']>,
+};
+
+/** order by var_pop() on columns of table "users" */
+export type Users_Var_Pop_Order_By = {
+  id?: Maybe<Order_By>,
+};
+
+/** aggregate var_samp on columns */
+export type Users_Var_Samp_Fields = {
+   __typename?: 'users_var_samp_fields',
+  id?: Maybe<Scalars['Float']>,
+};
+
+/** order by var_samp() on columns of table "users" */
+export type Users_Var_Samp_Order_By = {
+  id?: Maybe<Order_By>,
+};
+
+/** aggregate variance on columns */
+export type Users_Variance_Fields = {
+   __typename?: 'users_variance_fields',
+  id?: Maybe<Scalars['Float']>,
+};
+
+/** order by variance() on columns of table "users" */
+export type Users_Variance_Order_By = {
+  id?: Maybe<Order_By>,
 };
 
 

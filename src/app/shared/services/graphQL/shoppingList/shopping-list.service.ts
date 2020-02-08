@@ -6,6 +6,7 @@ import { GraphQLError } from 'graphql';
 import { DataProxy } from 'apollo-cache';
 import { headersToString } from 'selenium-webdriver/http';
 import { CacheHelperService, CACHE_ACTION } from 'src/app/core/graphql/helpers/cache-helper.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 
 
@@ -24,7 +25,10 @@ import { CacheHelperService, CACHE_ACTION } from 'src/app/core/graphql/helpers/c
 
 export class ShoppingListService {
 
+  private user_id: string;
+
   constructor(
+    private auth: AuthService,
     private gqlService: CreateShoppingListGQL,
     private getShoppingListsGQL: GetShoppingListsGQL,
     private updateShoppingListGQL: UpdateShoppingListGQL,
@@ -33,13 +37,18 @@ export class ShoppingListService {
     private deleteShoppingListGQL: DeleteShoppingListGQL) {
 
 
-
+    //Set our user id for all calls.  Maybe could inject this automagically latersome sort of middleware?
+    auth.getUser$().subscribe(u => this.user_id = u.sub);//the auth0 subscriber
   }
 
 
   createShoppingList(shoppingList: Shopping_List_Insert_Input) {
     const args: CreateShoppingListMutationVariables = {
-      shoppingList: [shoppingList]
+      shoppingList: [
+        {
+          ...shoppingList,
+          user_id: this.user_id
+        }]
 
     }
     //return this.gqlService.mutate(args);
