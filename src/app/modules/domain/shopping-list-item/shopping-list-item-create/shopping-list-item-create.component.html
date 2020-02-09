@@ -1,0 +1,14 @@
+<form class="product-form" [formGroup]="itemForm">
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <div class="border-radius-4 border control-background" fxLayout="row" fxLayoutAlign="start center"
+      style="padding:16px; margin-top:-10px;">
+      <oa-autocomplete *ngIf="products$" formControlName="product_id" placeholder="Add Item" appearence="none"
+        (optionSelected)="selected($event)" (onEnterKeyPressed)="addItem($event)" [options]=" products$ | async">
+
+      </oa-autocomplete>
+
+
+    </div>
+
+  </div>
+</form>

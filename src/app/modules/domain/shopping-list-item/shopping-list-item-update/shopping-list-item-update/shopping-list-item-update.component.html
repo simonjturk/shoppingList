@@ -1,0 +1,42 @@
+<div fxLayout="column" fxLayoutAlign="space-around center">
+  <!--
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="column" fxLayoutAlign="start center">
+      <h2>
+        {{item.product.name}}
+      </h2>
+      <div>
+        <strong>
+          <span [ngStyle]="{'color':item.product.category.colour}">
+            ({{item.product.category.name}})
+          </span>
+        </strong>
+      </div>
+
+    
+      <button mat-icon-button aria-label="Edit product" (click)=onEditProductClick()>
+        <mat-icon aria-hidden="false" aria-label="Edit product">edit</mat-icon>
+      </button>
+
+
+    </div>
+
+  </div>
+-->
+  <div fxFill>
+    <form [formGroup]="itemForm">
+      <div fxLayout="column" fxLayoutAlign="start center">
+        <mat-form-field>
+          <input matInput placeholder="Quantity" formControlName="quantity" type="number">
+        </mat-form-field>
+
+        <oa-crud-bar style="width:100%;" [disabledSave]="itemForm.invalid" (saved)="onSubmit(itemForm)"
+          (deleted)="delete(itemForm)">
+        </oa-crud-bar>
+
+      </div>
+
+    </form>
+  </div>
+
+</div>

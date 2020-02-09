@@ -1,0 +1,10 @@
+<div *ngIf="(shoppingListItems$ | async) as shoppingListItems" fxLayout="column" fxLayoutAlign="start center">
+  <div class="card" *ngFor="let category of getItemCategories(shoppingListItems)" style="width:100%">
+    <oa-card *ngIf=" !hideCompleted || getCountItemsByCategory(shoppingListItems,category.id).remaining > 0"
+      [header]="category.name" [headerColor]="category.colour">
+      <div *ngFor="let item of getItemsByCategory(shoppingListItems,category.name)">
+        <shopping-list-item-record *ngIf=" !hideCompleted ||  !item.complete" [item]=item></shopping-list-item-record>
+      </div>
+    </oa-card>
+  </div>
+</div>

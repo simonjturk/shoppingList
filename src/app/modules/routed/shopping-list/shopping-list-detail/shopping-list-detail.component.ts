@@ -12,11 +12,8 @@ import { MatSlideToggleChange } from '@angular/material';
   styleUrls: ['./shopping-list-detail.component.scss']
 })
 export class ShoppingListDetailComponent implements OnInit {
-  shoppingListId$: Observable<string>;
 
   shoppingList$: Observable<Shopping_List>;
-
-  hideCompleted: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute, private shoppingListService: ShoppingListService) { }
 
@@ -26,8 +23,6 @@ export class ShoppingListDetailComponent implements OnInit {
 
   ngOnInit() {
 
-    this.shoppingListId$ = this.activatedRoute.paramMap
-      .pipe(map((params: ParamMap) => params.get('id')))
 
     this.shoppingList$ = this.activatedRoute.paramMap
       .pipe(map((params: ParamMap) => params.get('id')))
@@ -37,8 +32,5 @@ export class ShoppingListDetailComponent implements OnInit {
   }
 
 
-  hideCompletedChange(event: MatSlideToggleChange) {
-    this.hideCompleted = event.checked;
 
-  }
 }

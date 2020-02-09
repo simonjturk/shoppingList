@@ -1,0 +1,22 @@
+<div *ngIf="shoppingList$ | async as shoppingList">
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <span>{{shoppingList.name}}</span>
+      <span class="example-spacer"></span>
+      <mat-slide-toggle (change)="hideCompletedChange($event)" color="accent" class="example-icon" checked="true"><span
+          style="font-size:10px;">Hide Done</span>
+      </mat-slide-toggle>
+
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+      <app-shopping-list-item-create style="width:100%;" [shoppingListId]="shoppingList.id">
+      </app-shopping-list-item-create>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+
+  <div style="padding-top:30px; height: 100%">
+    <app-shopping-list-item-records [hideCompleted]="hideCompleted" [shoppingListId]="shoppingList.id">
+    </app-shopping-list-item-records>
+  </div>
+</div>

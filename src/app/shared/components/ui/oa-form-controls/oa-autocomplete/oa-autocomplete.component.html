@@ -6,7 +6,7 @@
     This field is required
   </mat-error>
 </mat-form-field>
-<mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption="true" [displayWith]="display"
+<mat-autocomplete #auto="matAutocomplete" [autoActiveFirstOption]="autoActiveFirstOption" [displayWith]="display"
   (optionSelected)="selected($event)">
   <mat-option *ngIf="isSearching; else optionsTemplate" disabled="true">
     <em>Searching...</em>

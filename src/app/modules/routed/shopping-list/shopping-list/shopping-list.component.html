@@ -5,11 +5,15 @@
 </mat-card>
 
 
+<mat-card>
+  <mat-card-content>
+    <app-shopping-list-records heading="Favourites" [shoppingLists$]="favShoppingLists$"></app-shopping-list-records>
+  </mat-card-content>
+</mat-card>
 
-<h3 matSubheader>Favourites</h3>
-<app-shopping-list-record *ngFor="let shoppingList of favShoppingLists$ | async  " [shoppingList]="shoppingList">
-</app-shopping-list-record>
 
-<h3 matSubheader>History</h3>
-<app-shopping-list-record *ngFor="let shoppingList of shoppingLists$ | async" [shoppingList]="shoppingList">
-</app-shopping-list-record>
+<mat-card>
+  <mat-card-content>
+    <app-shopping-list-records heading="History" [shoppingLists$]="shoppingLists$"></app-shopping-list-records>
+  </mat-card-content>
+</mat-card>

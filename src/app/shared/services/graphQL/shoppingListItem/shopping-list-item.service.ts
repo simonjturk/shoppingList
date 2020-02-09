@@ -13,9 +13,11 @@ import {
   DeleteShoppingListItemMutationVariables,
   Shopping_List_Items
 } from 'src/generated/graphql';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import gql from 'graphql-tag';
 import { CacheHelperService, CACHE_ACTION } from 'src/app/core/graphql/helpers/cache-helper.service';
+import { CrudStore } from 'src/app/core/store/crud/crud.store';
+import { CRUD_MODE } from 'src/app/shared/enums/crud-mode';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +25,7 @@ import { CacheHelperService, CACHE_ACTION } from 'src/app/core/graphql/helpers/c
 export class ShoppingListItemService {
 
   constructor(
+    private crudStore: CrudStore,
     private gqlService: CreateShoppingListItemGQL,
     private productsService: GetProductsGQL,
     private updateShopingListItemGQL: UpdateShopingListItemGQL,
@@ -68,6 +71,9 @@ export class ShoppingListItemService {
             }]
           }]);
 
+
+        //update our crud store
+        this.crudStore.setShoppingListItem(data.insert_shopping_list_items.returning[0] as Shopping_List_Items, CRUD_MODE.Create);
       }
     });
   }
@@ -93,6 +99,8 @@ export class ShoppingListItemService {
             }]
           }]);
 
+        //update our crud store
+        this.crudStore.setShoppingListItem(data.delete_shopping_list_items.returning[0] as Shopping_List_Items, CRUD_MODE.Delete)
       }
 
     });
@@ -112,8 +120,11 @@ export class ShoppingListItemService {
       id: id,
       changes: changes
     }
-
-    return this.updateShopingListItemGQL.mutate(variables);
+    //update our crud store
+    return this.updateShopingListItemGQL.mutate(variables)
+      .pipe(tap(res => {
+        this.crudStore.setShoppingListItem(res.data.update_shopping_list_items[0], CRUD_MODE.Create)
+      }))
 
   }
 }

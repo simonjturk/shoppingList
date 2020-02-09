@@ -62,6 +62,8 @@ export class OaAutocompleteComponent implements OnInit, ControlValueAccessor, On
   @Input() options: IIdentifiable[];
   @Input() appearence: string = 'standard';
 
+  @Input() autoActiveFirstOption: boolean = false;
+
   @Output() optionSelected: EventEmitter<IIdentifiable> = new EventEmitter()
 
   private _lengthToTriggerSearch = 1;
@@ -115,7 +117,7 @@ export class OaAutocompleteComponent implements OnInit, ControlValueAccessor, On
             this.isSearching = false;
             this.noResults = false;
 
-            this.onChange = fn(null);
+            this.onChange = fn(value);
           }
         } else {
           this.onChange = fn(value);
@@ -164,7 +166,7 @@ export class OaAutocompleteComponent implements OnInit, ControlValueAccessor, On
         : this.inputControl.validator;
       control.setValidators(validators);
       // Update outer ngControl status
-      control.updateValueAndValidity({ emitEvent: false });
+      control.updateValueAndValidity({ emitEvent: true });
     }
 
   }
@@ -212,6 +214,6 @@ export class OaAutocompleteComponent implements OnInit, ControlValueAccessor, On
 
   @Output() onEnterKeyPressed = new EventEmitter();
   enterKeyPressed(obj) {
-    this.onEnterKeyPressed.emit(obj);
+    this.onEnterKeyPressed.emit(this.inputControl.value);
   }
 }
