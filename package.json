@@ -34,6 +34,7 @@
     "@graphql-codegen/typescript-resolvers": "^1.11.2",
     "@ngx-formly/core": "^5.5.8",
     "@ngx-formly/material": "^5.5.8",
+    "@service-work/is-loading": "^3.0.3",
     "@types/lodash": "^4.14.149",
     "apollo-angular": "^1.8.0",
     "apollo-angular-link-http": "^1.9.0",

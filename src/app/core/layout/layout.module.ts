@@ -13,6 +13,7 @@ import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { ContentComponent } from './content/content.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatProgressBarModule } from '@angular/material';
 @NgModule({
   declarations: [NavbarComponent, TemplateComponent, FooterComponent, ContentComponent],
   imports: [
@@ -24,8 +25,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+
+    MatProgressBarModule
   ],
-  exports:[NavbarComponent, TemplateComponent, FlexLayoutModule]
+  exports: [NavbarComponent, TemplateComponent, FlexLayoutModule]
 })
 export class AppLayoutModule { }
