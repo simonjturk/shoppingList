@@ -4,13 +4,14 @@ import { CrudStore } from 'src/app/core/store/crud/crud.store';
 import { CRUD_MODE } from 'src/app/shared/enums';
 import { CacheHelperService, CACHE_ACTION } from 'src/app/core/graphql/helpers/cache-helper.service';
 import { map } from 'rxjs/operators';
+import { IsLoadingService } from '@service-work/is-loading';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor(private createProductGQL: CreateProductGQL, private getProductsService: GetProductsGQL, private crudStore: CrudStore) { }
+  constructor(private createProductGQL: CreateProductGQL, private getProductsService: GetProductsGQL, private crudStore: CrudStore, private isLoadingService: IsLoadingService) { }
 
   createProduct(product: Products_Insert_Input, category: Product_Categories) {
 

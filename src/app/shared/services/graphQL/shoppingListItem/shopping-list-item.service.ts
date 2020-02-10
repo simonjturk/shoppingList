@@ -18,6 +18,7 @@ import gql from 'graphql-tag';
 import { CacheHelperService, CACHE_ACTION } from 'src/app/core/graphql/helpers/cache-helper.service';
 import { CrudStore } from 'src/app/core/store/crud/crud.store';
 import { CRUD_MODE } from 'src/app/shared/enums/crud-mode';
+import { IsLoadingService } from '@service-work/is-loading';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,8 @@ export class ShoppingListItemService {
     private productsService: GetProductsGQL,
     private updateShopingListItemGQL: UpdateShopingListItemGQL,
     private getShopingListItemGQL: GetShoppingListItemsGQL,
-    private deleteShoppingListItemGQL: DeleteShoppingListItemGQL) { }
+    private deleteShoppingListItemGQL: DeleteShoppingListItemGQL,
+    private isLoadingService: IsLoadingService) { }
 
   getShoppingListItems(shoppingListId: string) {
 

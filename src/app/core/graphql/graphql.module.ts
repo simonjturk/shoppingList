@@ -9,11 +9,12 @@ import { from } from 'zen-observable';
 import { AuthService } from '../services/auth/auth.service';
 import { mergeMap, tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { IsLoadingService } from '@service-work/is-loading';
 
 
 const uri = 'https://oa-shopping-list.herokuapp.com/v1/graphql';//'http://localhost:8080/v1/graphql'; // <-- add the URL of the GraphQL server here
 //const uri = 'http://localhost:8080/v1/graphql'; // <-- add the URL of the GraphQL server here
-export function createApollo(httpLink: HttpLink, auth: AuthService) {
+export function createApollo(httpLink: HttpLink, auth: AuthService, isLoadingService: IsLoadingService) {
 
 
   const http = httpLink.create({
@@ -32,12 +33,24 @@ export function createApollo(httpLink: HttpLink, auth: AuthService) {
     }))
   );
 
+  const isLoading = new ApolloLink((operation, forward) => {
+    isLoadingService.add();
+    return forward(operation);
+  });
+  const isLoadingAfter = new ApolloLink((operation, forward) => {
+    return forward(operation).map(response => {
+      if (response) {
+        isLoadingService.remove();
 
+      }
+      return response;
+    });
+  });
 
   //const link = ApolloLink.from([errorLink, http]) 
 
   return {
-    link: ApolloLink.from([authMiddleware, errorLink, http]),  // concat(errorLink,http),//httpLink.create({uri}),
+    link: ApolloLink.from([authMiddleware, errorLink, isLoading, isLoadingAfter, http]),  // concat(errorLink,http),//httpLink.create({uri}),
     cache: new InMemoryCache(),
     defaultOptions: {
       watchQuery: {
@@ -54,7 +67,7 @@ export function createApollo(httpLink: HttpLink, auth: AuthService) {
     {
       provide: APOLLO_OPTIONS,
       useFactory: createApollo,
-      deps: [HttpLink, AuthService],
+      deps: [HttpLink, AuthService, IsLoadingService],
     },
   ],
 })

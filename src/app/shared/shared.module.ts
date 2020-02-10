@@ -19,6 +19,7 @@ import { FormlyExpansionPanelComponent } from './components/ui/formly/formly-wra
 import { CrudBarModule } from './components/ui/crud-bar/crud-bar.module';
 import { OaCardModule } from './components/ui/oa-card/oa-card.module';
 import { OaFormControlsModule } from './components/ui/oa-form-controls/oa-form-controls.module';
+import { IsLoadingModule } from '@service-work/is-loading';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { OaFormControlsModule } from './components/ui/oa-form-controls/oa-form-c
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    IsLoadingModule,
     FormlyModule.forRoot({
       validationMessages: [
         { name: 'required', message: 'This field is required' },
@@ -81,7 +83,8 @@ import { OaFormControlsModule } from './components/ui/oa-form-controls/oa-form-c
     ReactiveFormsModule,
     CrudBarModule,
     OaCardModule,
-    OaFormControlsModule
+    OaFormControlsModule,
+    IsLoadingModule
   ]
 
 })

@@ -1,5 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { IButton } from 'selenium-webdriver';
+import { Observable, Subscription } from 'rxjs';
+import { IsLoadingService } from '@service-work/is-loading';
+
 
 export interface ICrudButtons {
   button: CRUD_BUTTONS
@@ -65,11 +68,13 @@ export class CrudBarComponent implements OnInit {
 
   @Input() disabledSave = false;
 
-  @Output() saved = new EventEmitter();
-  @Output() cancelled = new EventEmitter();
-  @Output() deleted = new EventEmitter();
 
 
+  //@Output() saved = new EventEmitter();
+  //@Output() cancelled = new EventEmitter();
+  //@Output() deleted = new EventEmitter();
+
+  @Output() action = new EventEmitter();
 
   //make our ENUM accessible to the compnent template
   CRUD_BUTTONS_TYPES = CRUD_BUTTONS_TYPES;
@@ -80,7 +85,10 @@ export class CrudBarComponent implements OnInit {
   ngOnInit() {
   }
 
+
   onClick(btn: ICrudButtons) {
+    this.action.emit(btn.button);
+
     switch (btn.button) {
       case CRUD_BUTTONS.save:
         this.onSaved();
@@ -111,13 +119,25 @@ export class CrudBarComponent implements OnInit {
 
 
   onSaved() {
-    this.saved.emit("saved");
+    /*
+      const sub = this.save
+        .subscribe(response => {
+          console.log('Data available.');
+          this.action.emit(CRUD_BUTTONS.save);
+          //this.saved.emit("saved"); //for backward compatibility
+        },
+          err => {
+            console.error(err);
+          });
+
+      const result = this.isLoadingService.add(sub, { key: 'button' });
+ */
   }
   onCancelled() {
-    this.cancelled.emit("cancelled");
+    //this.cancelled.emit("cancelled");
   }
   onDeleted() {
-    this.deleted.emit("cancelled");
+    // this.deleted.emit("cancelled");
   }
 
 

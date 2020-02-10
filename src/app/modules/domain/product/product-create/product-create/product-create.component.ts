@@ -11,6 +11,8 @@ import { takeUntil, map, distinctUntilChanged, skip, finalize, delay } from 'rxj
 import { CrudStore } from 'src/app/core/store/crud/crud.store';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ProductCategoryDialogComponent } from '../../../product-category/components/product-category-dialog/product-category-dialog.component';
+import { CRUD_BUTTONS } from 'src/app/shared/components/ui/crud-bar/crud-bar.component';
+import { IsLoadingService } from '@service-work/is-loading';
 //import { CategoryPopupComponent } from 'src/app/modules/views/popups/modals/category-popup/category-popup.component';
 
 @Component({
@@ -40,7 +42,8 @@ export class ProductCreateComponent implements OnInit, OnChanges, OnDestroy {
     private fb: FormBuilder,
     private productCategoriesService: ProductCategoriesService,
     private productService: ProductService,
-    public categoryDialog: MatDialog) {
+    public categoryDialog: MatDialog,
+    private isLoadingService: IsLoadingService) {
 
     this.buildForm();
 
@@ -63,6 +66,7 @@ export class ProductCreateComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
+  save;
 
   /**
    * Lifecycle hooks
@@ -98,7 +102,7 @@ export class ProductCreateComponent implements OnInit, OnChanges, OnDestroy {
   onSave() {
 
     //disable savce buton
-    this.disableSave = true;
+    //this.disableSave = true;
 
     const newProduct: Products_Insert_Input = {
       name: this.productForm.value.name,
@@ -107,16 +111,15 @@ export class ProductCreateComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     this.productService.createProduct(newProduct, null)
-      .pipe(finalize(() => this.disableSave = false))
       .subscribe(response => {
         console.log('Data available.');
       },
         err => {
           console.error(err);
         });
-
-
-
+  }
+  action(type: CRUD_BUTTONS) {
+    if (type === CRUD_BUTTONS.save) this.onSave();
   }
 
   onDelete() {

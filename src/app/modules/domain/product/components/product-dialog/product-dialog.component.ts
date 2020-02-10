@@ -47,17 +47,12 @@ export class ProductDialogComponent extends UnsubscribeBase implements OnInit {
 
 
   }
-  ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
-    this.onDestroy$.next();
-    this.onDestroy$.complete();
-  }
 
 
   //public methods
   closePopup() {
 
-    this.dialogRef.close();
+    // this.dialogRef.close();
 
   }
 

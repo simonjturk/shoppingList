@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrudStore } from './store/crud/crud.store';
 import { AuthService } from './services/auth/auth.service';
 import { FlexModule } from '@angular/flex-layout';
+import { IsLoadingService } from '@service-work/is-loading';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { FlexModule } from '@angular/flex-layout';
   providers: [
     AuthService,
     CrudStore,
+    IsLoadingService,
     {
       provide: ErrorHandler,
       useClass: ErrorService,

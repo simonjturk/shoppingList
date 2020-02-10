@@ -5,6 +5,7 @@ import { ShoppingListService } from 'src/app/shared/services/graphQL/shoppingLis
 import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { getHeapStatistics } from 'v8';
+import { IsLoadingService } from '@service-work/is-loading';
 
 @Component({
   selector: 'app-shopping-list',
@@ -19,7 +20,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<void> = new Subject<void>();
 
 
-  constructor(private shoppingListService: ShoppingListService, public auth: AuthService) { }
+  constructor(private shoppingListService: ShoppingListService, public auth: AuthService, private isLoadingService: IsLoadingService) { }
 
   // -----------------------------------------------------------------------------------------------------
   // @ Lifecycle hooks
@@ -36,7 +37,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
         });
         */
 
-    this.shoppingLists$ = this.shoppingListService.getShoppingList();
+    this.shoppingLists$ = this.isLoadingService.add(this.shoppingListService.getShoppingList());
     //.valueChanges
     //.pipe(map(l => l.data.shopping_list as Shopping_List[]))
 
