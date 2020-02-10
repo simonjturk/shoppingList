@@ -66,7 +66,7 @@ export class ProductCreateComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
-  save;
+
 
   /**
    * Lifecycle hooks
@@ -110,13 +110,13 @@ export class ProductCreateComponent implements OnInit, OnChanges, OnDestroy {
       category_id: this.productForm.value.productCategoryId
     }
 
-    this.productService.createProduct(newProduct, null)
-      .subscribe(response => {
-        console.log('Data available.');
-      },
-        err => {
-          console.error(err);
-        });
+    this.isLoadingService.add(this.productService.createProduct(newProduct, null), { key: "button" })
+    //  .subscribe(response => {
+    //    console.log('Data available.');
+    //  },
+    //    err => {
+    //      console.error(err);
+    //    });
   }
   action(type: CRUD_BUTTONS) {
     if (type === CRUD_BUTTONS.save) this.onSave();

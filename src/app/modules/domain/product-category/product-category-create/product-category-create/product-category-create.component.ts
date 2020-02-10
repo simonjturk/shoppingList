@@ -6,6 +6,8 @@ import { CRUD_MODE } from 'src/app/shared/enums';
 import { ProductCategoriesService } from 'src/app/shared/services/graphQL/product-categories/product-categories.service';
 import { takeUntil } from 'rxjs/operators';
 import { UnsubscribeBase } from 'src/app/shared/classes/unsubscribe-base';
+import { CRUD_BUTTONS } from 'src/app/shared/components/ui/crud-bar/crud-bar.component';
+import { IsLoadingService } from '@service-work/is-loading';
 
 @Component({
   selector: 'app-product-category-create',
@@ -27,7 +29,8 @@ export class ProductCategoryCreateComponent extends UnsubscribeBase implements O
   private CrudMode: CRUD_MODE;
 
 
-  constructor(private fb: FormBuilder, private productCategoriesService: ProductCategoriesService) {
+  constructor(private fb: FormBuilder, private productCategoriesService: ProductCategoriesService,
+    private isLoadingService: IsLoadingService) {
     super();
   }
 
@@ -52,7 +55,9 @@ export class ProductCategoryCreateComponent extends UnsubscribeBase implements O
 
     }
   }
-
+  action(type: CRUD_BUTTONS) {
+    if (type === CRUD_BUTTONS.save) this.onSave();
+  }
 
   //public methods
   onSave() {
@@ -62,9 +67,9 @@ export class ProductCategoryCreateComponent extends UnsubscribeBase implements O
       colour: this.productCategoryForm.value.colour
 
     }
-    this.productCategoriesService.createProductCategories(newProductCategory)
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe();
+    this.isLoadingService.add(this.productCategoriesService.createProductCategories(newProductCategory), { key: 'button' })
+    // .pipe(takeUntil(this.onDestroy$))
+    // .subscribe();
   }
 
   onDelete() {

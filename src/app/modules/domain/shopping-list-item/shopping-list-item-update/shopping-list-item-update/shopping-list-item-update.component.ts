@@ -5,6 +5,8 @@ import { Subject } from 'rxjs';
 import { ShoppingListItemService } from 'src/app/shared/services/graphQL/shoppingListItem/shopping-list-item.service';
 import { takeUntil } from 'rxjs/operators';
 import { UnsubscribeBase } from 'src/app/shared/classes/unsubscribe-base';
+import { CRUD_BUTTONS } from 'src/app/shared/components/ui/crud-bar/crud-bar.component';
+import { IsLoadingService } from '@service-work/is-loading';
 
 @Component({
   selector: 'app-shopping-list-item-update',
@@ -18,28 +20,35 @@ export class ShoppingListItemUpdateComponent extends UnsubscribeBase implements 
 
 
 
-  constructor(private fb: FormBuilder, private service: ShoppingListItemService) {
+  constructor(private fb: FormBuilder, private service: ShoppingListItemService,
+    private isLoadingService: IsLoadingService) {
     super();
   }
 
+  action(type: CRUD_BUTTONS) {
+    if (type === CRUD_BUTTONS.save) this.save();
+    if (type === CRUD_BUTTONS.delete) this.delete();
+  }
 
-  onSubmit(frm: FormGroup) {
 
-    if (frm.valid) {
-      this.service.updateShoppingListItem(this.item.id, { quantity: frm.value.quantity })
-        .pipe(takeUntil(this.onDestroy$))
-        .subscribe(s => {
-          //TODO this.saved.emit("Item successfully saved");
-        });
+  save() {
+
+    if (this.itemForm.valid) {
+      this.isLoadingService.add(this.service.updateShoppingListItem(this.item.id, { quantity: this.itemForm.value.quantity }), { key: 'button' });
+      // .pipe(takeUntil(this.onDestroy$))
+      //  .subscribe(s => {
+      //TODO this.saved.emit("Item successfully saved");
+      //  });
     }
   }
 
-  delete(frm: FormGroup) {
-    this.service.deleteShoppingListItem(this.item.id)
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe(s => {
-        //TODO this.saved.emit("Item successfully deleted");
-      });
+
+  delete() {
+    this.isLoadingService.add(this.service.deleteShoppingListItem(this.item.id), { key: 'button' });
+    //.pipe(takeUntil(this.onDestroy$))
+    // .subscribe(s => {
+    //TODO this.saved.emit("Item successfully deleted");
+    // });
   }
 
 

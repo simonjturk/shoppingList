@@ -52,7 +52,7 @@ export class ProductDialogComponent extends UnsubscribeBase implements OnInit {
   //public methods
   closePopup() {
 
-    // this.dialogRef.close();
+    this.dialogRef.close();
 
   }
 
