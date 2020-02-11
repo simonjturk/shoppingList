@@ -11,7 +11,10 @@ import { CrudStore } from 'src/app/core/store/crud/crud.store';
 import { CRUD_MODE } from 'src/app/shared/enums';
 
 import { IIdentifiable } from 'src/app/shared/components/ui/oa-form-controls/oa-autocomplete/IIdentifiable';
-import { ProductDialogComponent } from '../../product/components/product-dialog/product-dialog.component';
+
+import { IOComponentData } from 'src/app/shared/components/ui/oa-dialog/oa-dialog/oa-dialog.component';
+import { ProductDialogService } from "src/app/shared/components/ui/oa-dialog/ProductDialogService";
+
 
 @Component({
   selector: 'app-shopping-list-item-create',
@@ -36,7 +39,9 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
 
   private products: Products[] = [];
 
-  constructor(private crudStore: CrudStore, private fb: FormBuilder, private shoppingListItemService: ShoppingListItemService, public dialog: MatDialog) {
+  constructor(private crudStore: CrudStore,
+    private dialogs: ProductDialogService,
+    private fb: FormBuilder, private shoppingListItemService: ShoppingListItemService, public dialog: MatDialog) {
     this.buildForm();
 
     this.products$ = this.itemForm.get('product_id').valueChanges
@@ -164,6 +169,8 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
 
 
   private openNewProductSheet(prodName: string): void {
+
+    /*
     let dialogConfig = new MatDialogConfig();
 
     dialogConfig.data = { name: prodName };
@@ -176,6 +183,19 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
       console.log('The dialog was closed');
 
     });
+*/
+
+    const compData: IOComponentData[] = [
+      {
+        property: "product",
+        value: prodName
+      }
+    ]
+    this.dialogs.openCreateDialog(compData);
+
+
+
+
   }
 
 

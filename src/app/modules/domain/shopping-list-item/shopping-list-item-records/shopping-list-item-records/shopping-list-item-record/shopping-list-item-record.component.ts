@@ -6,7 +6,10 @@ import { MatBottomSheet, MatCheckboxChange, MatDialog } from '@angular/material'
 import { takeUntil } from 'rxjs/operators';
 
 import { UnsubscribeBase } from 'src/app/shared/classes/unsubscribe-base';
-import { ShoppingListItemDialogComponent } from '../../../components/shopping-list-item-dialog/shopping-list-item-dialog.component';
+
+import { IOComponentData } from 'src/app/shared/components/ui/oa-dialog/oa-dialog/oa-dialog.component';
+
+import { ShoppingListItemDialogService } from "src/app/shared/components/ui/oa-dialog/ShoppingListItemDialogService";
 
 @Component({
   selector: 'shopping-list-item-record',
@@ -20,7 +23,8 @@ export class ShoppingListItemRecordComponent extends UnsubscribeBase implements 
 
   checked: boolean = false;
 
-  constructor(private shoppingListItemService: ShoppingListItemService, public dialog: MatDialog) {
+  constructor(private shoppingListItemService: ShoppingListItemService, private dialogs: ShoppingListItemDialogService
+  ) {
     super()
   }
 
@@ -51,15 +55,15 @@ export class ShoppingListItemRecordComponent extends UnsubscribeBase implements 
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(ShoppingListItemDialogComponent, {
-      width: '80%',
-      data: this.item
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    const compData: IOComponentData[] = [
+      {
+        property: "item",
+        value: this.item
+      }
+    ]
+    this.dialogs.openUpdateDialog(compData);
 
-    });
   }
 
 }

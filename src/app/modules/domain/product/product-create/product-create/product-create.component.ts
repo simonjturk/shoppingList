@@ -10,10 +10,10 @@ import { takeUntil, map, distinctUntilChanged, skip, finalize, delay } from 'rxj
 
 import { CrudStore } from 'src/app/core/store/crud/crud.store';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { ProductCategoryDialogComponent } from '../../../product-category/components/product-category-dialog/product-category-dialog.component';
+
 import { CRUD_BUTTONS } from 'src/app/shared/components/ui/crud-bar/crud-bar.component';
 import { IsLoadingService } from '@service-work/is-loading';
-//import { CategoryPopupComponent } from 'src/app/modules/views/popups/modals/category-popup/category-popup.component';
+import { ProductCategoryDialogService } from "src/app/shared/components/ui/oa-dialog/ProductCategoryDialogService";
 
 @Component({
   selector: 'app-product-create',
@@ -43,7 +43,9 @@ export class ProductCreateComponent implements OnInit, OnChanges, OnDestroy {
     private productCategoriesService: ProductCategoriesService,
     private productService: ProductService,
     public categoryDialog: MatDialog,
-    private isLoadingService: IsLoadingService) {
+    private isLoadingService: IsLoadingService,
+    private dialogs: ProductCategoryDialogService
+  ) {
 
     this.buildForm();
 
@@ -129,10 +131,14 @@ export class ProductCreateComponent implements OnInit, OnChanges, OnDestroy {
   openProductCategories() {
     //let whatever component is using that they need to open/create the category
     //this.openProductCategory.emit();
-    let config = new MatDialogConfig();
+    //let config = new MatDialogConfig();
     //config.data = 
 
-    this.categoryDialog.open(ProductCategoryDialogComponent);
+    //this.categoryDialog.open(ProductCategoryDialogComponent);
+
+
+
+    this.dialogs.openCreateDialog();
   }
 
 

@@ -5,8 +5,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
-import { ProductDialogComponent } from '../../product/components/product-dialog/product-dialog.component';
-import { ProductDialogModule } from '../../product/components/product-dialog/product-dialog.module';
+//import { ProductDialogComponent } from '../../product/components/product-dialog/product-dialog.component';
+//import { ProductDialogModule } from '../../product/components/product-dialog/product-dialog.module';
+import { OaDialogModule } from 'src/app/shared/components/ui/oa-dialog/oa-dialog.module';
+import { OaDialogComponent } from 'src/app/shared/components/ui/oa-dialog/oa-dialog/oa-dialog.component';
 
 @NgModule({
   declarations: [ShoppingListItemCreateComponent],
@@ -14,10 +16,11 @@ import { ProductDialogModule } from '../../product/components/product-dialog/pro
     CommonModule,
     SharedModule,
 
-    ProductDialogModule
+    //ProductDialogModule,
+    OaDialogModule
 
   ],
-  entryComponents: [ProductDialogComponent],
+  // entryComponents: [OaDialogComponent],
   exports: [ShoppingListItemCreateComponent]
 })
 export class ShoppingListItemCreateModule { }

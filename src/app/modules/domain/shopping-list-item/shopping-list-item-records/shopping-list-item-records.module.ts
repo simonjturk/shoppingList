@@ -4,8 +4,10 @@ import { ShoppingListItemRecordsComponent } from './shopping-list-item-records/s
 import { ShoppingListItemRecordComponent } from './shopping-list-item-records/shopping-list-item-record/shopping-list-item-record.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-import { ShoppingListItemDialogComponent } from '../components/shopping-list-item-dialog/shopping-list-item-dialog.component';
-import { ShoppingListItemDialogModule } from '../components/shopping-list-item-dialog/shopping-list-item-dialog.module';
+
+import { OaDialogComponent } from 'src/app/shared/components/ui/oa-dialog/oa-dialog/oa-dialog.component';
+import { ShoppingListItemUpdateComponent } from '../shopping-list-item-update/shopping-list-item-update/shopping-list-item-update.component';
+import { OaDialogModule } from 'src/app/shared/components/ui/oa-dialog/oa-dialog.module';
 
 
 
@@ -13,10 +15,10 @@ import { ShoppingListItemDialogModule } from '../components/shopping-list-item-d
   declarations: [ShoppingListItemRecordsComponent, ShoppingListItemRecordComponent],
   imports: [
     CommonModule,
-    SharedModule,
-    ShoppingListItemDialogModule
+    SharedModule, OaDialogModule
+
   ],
-  entryComponents: [ShoppingListItemDialogComponent],
+  //entryComponents: [OaDialogComponent, ShoppingListItemUpdateComponent],
   exports: [ShoppingListItemRecordsComponent]
 })
 export class ShoppingListItemRecordsModule { }

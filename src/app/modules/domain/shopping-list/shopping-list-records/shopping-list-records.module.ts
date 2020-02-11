@@ -13,5 +13,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SharedModule
   ],
   exports: [ShoppingListRecordsComponent]
+
 })
 export class ShoppingListRecordsModule { }

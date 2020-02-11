@@ -1,0 +1,17 @@
+  <div fxFill>
+    <form [formGroup]="shoppingListForm">
+      <div fxLayout="column" fxLayoutAlign="start center">
+        <mat-form-field>
+          <input matInput placeholder="Name" formControlName="name" type="text">
+        </mat-form-field>
+
+
+
+
+        <oa-crud-bar style="width:100%;" [disabledSave]="shoppingListForm.invalid" (action)="action($event)">
+        </oa-crud-bar>
+
+      </div>
+
+    </form>
+  </div>

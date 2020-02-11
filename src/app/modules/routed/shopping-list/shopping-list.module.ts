@@ -22,7 +22,7 @@ import { ShoppingListCreateModule } from '../../domain/shopping-list/shopping-li
     SharedModule,
     ShoppingListRoutingModule,
     ShoppingListCreateModule,
-    ShoppingListItemCreateModule,
+    //ShoppingListItemCreateModule,
 
 
     ShoppingListRecordsModule,
