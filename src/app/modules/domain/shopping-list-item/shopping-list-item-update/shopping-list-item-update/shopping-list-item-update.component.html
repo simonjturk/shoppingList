@@ -30,6 +30,12 @@
           <input matInput placeholder="Quantity" formControlName="quantity" type="number">
         </mat-form-field>
 
+        <oa-autocomplete product-data formControlName="product_id" placeholder="Add Item">
+
+        </oa-autocomplete>
+
+
+
         <oa-crud-bar style="width:100%;" [disabledSave]="itemForm.invalid" (action)="action($event)">
         </oa-crud-bar>
 

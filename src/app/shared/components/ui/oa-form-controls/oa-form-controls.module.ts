@@ -4,11 +4,12 @@ import { OaAutocompleteComponent } from './oa-autocomplete/oa-autocomplete.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatIconModule, MatInputModule } from '@angular/material';
 import { OaControlBaseComponent } from './oa-control-base.component';
+import { AutoCompleteDataOptionsDirective } from './oa-autocomplete/data.directive';
 
 
 
 @NgModule({
-  declarations: [OaAutocompleteComponent, OaControlBaseComponent],
+  declarations: [OaAutocompleteComponent, OaControlBaseComponent, AutoCompleteDataOptionsDirective],
   imports: [
     CommonModule,
     FormsModule,
@@ -17,6 +18,6 @@ import { OaControlBaseComponent } from './oa-control-base.component';
     MatIconModule,
     MatInputModule
   ],
-  exports: [OaAutocompleteComponent]
+  exports: [OaAutocompleteComponent, AutoCompleteDataOptionsDirective]
 })
 export class OaFormControlsModule { }

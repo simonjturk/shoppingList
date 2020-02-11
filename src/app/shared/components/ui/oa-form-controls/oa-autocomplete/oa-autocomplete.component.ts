@@ -25,7 +25,7 @@ import {
 
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 import { IIdentifiable } from './IIdentifiable';
@@ -92,11 +92,14 @@ export class OaAutocompleteComponent implements OnInit, ControlValueAccessor, On
   /**
     * Function to call when the input is touched.
     */
-  onTouched() { }
+  onTouched(value: string) {
+
+
+  }
 
 
 
-  onChange = (delta: any) => { };
+  onChange = (delta: any) => { this.valueBS.next(delta); };
   /**
    * Allows Angular to register a function to call when the inputControl changes.
    * Override the base implementation
@@ -113,14 +116,17 @@ export class OaAutocompleteComponent implements OnInit, ControlValueAccessor, On
              */
             this.changeDetectorRef.detectChanges();
             this.onChange = fn(value.toUpperCase());
+            this.valueBS.next(value.toUpperCase());
           } else {
             this.isSearching = false;
             this.noResults = false;
 
             this.onChange = fn(value);
+            this.valueBS.next(value);
           }
         } else {
           this.onChange = fn(value);
+          this.valueBS.next(value);
         }
       },
     });
@@ -164,7 +170,7 @@ export class OaAutocompleteComponent implements OnInit, ControlValueAccessor, On
       const validators = control.validator
         ? [control.validator, this.inputControl.validator]
         : this.inputControl.validator;
-      control.setValidators(validators);
+      //control.setValidators(validators);
       // Update outer ngControl status
       control.updateValueAndValidity({ emitEvent: true });
     }
@@ -172,17 +178,37 @@ export class OaAutocompleteComponent implements OnInit, ControlValueAccessor, On
   }
   ngOnChanges(changes: SimpleChanges) {
     if (changes.options) {
-      if (this.isSearching) {
-        this.isSearching = false;
 
-        if (!changes.options.firstChange && !changes.options.currentValue.length) {
-          this.noResults = true;
-        } else {
-          this.noResults = false;
-        }
-      }
+      this.optionsChanged(changes.options.firstChange)
+      /*
+            if (this.isSearching) {
+              this.isSearching = false;
+      
+              if (!changes.options.firstChange && !changes.options.currentValue.length) {
+                this.noResults = true;
+              } else {
+                this.noResults = false;
+              }
+            }
+            */
     }
   }
+
+  public optionsChanged(firstChange: boolean = false) {
+    if (this.isSearching) {
+      this.isSearching = false;
+
+      if (!firstChange && !this.options.length) {
+        this.noResults = true;
+      } else {
+        this.noResults = false;
+      }
+    }
+
+  }
+
+
+
   /**
     * Method linked to the mat-autocomplete `[displayWith]` input.
     * This is how result name is printed in the input box.
@@ -216,4 +242,17 @@ export class OaAutocompleteComponent implements OnInit, ControlValueAccessor, On
   enterKeyPressed(obj) {
     this.onEnterKeyPressed.emit(this.inputControl.value);
   }
+
+
+
+  private valueBS: BehaviorSubject<string> = new BehaviorSubject("");
+  value$: Observable<any> = this.valueBS.asObservable();
+
+
+  //setState(nextState: T): void {
+  //  this.stateBS.next(nextState);
+  //}
+
+
+
 }

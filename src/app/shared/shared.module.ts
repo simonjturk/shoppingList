@@ -20,6 +20,7 @@ import { CrudBarModule } from './components/ui/crud-bar/crud-bar.module';
 import { OaCardModule } from './components/ui/oa-card/oa-card.module';
 import { OaFormControlsModule } from './components/ui/oa-form-controls/oa-form-controls.module';
 import { IsLoadingModule } from '@service-work/is-loading';
+import { ProductAutocompleteModule } from './components/ui/product-autocomplete/product-autocomplete.module';
 
 
 @NgModule({
@@ -84,6 +85,7 @@ import { IsLoadingModule } from '@service-work/is-loading';
     CrudBarModule,
     OaCardModule,
     OaFormControlsModule,
+    ProductAutocompleteModule,
     IsLoadingModule
   ]
 

@@ -12,6 +12,7 @@ fragment ShoppingListItemFields on shopping_list_items {
       favourite
     }
     quantity
+    product_id
     complete
     shopping_list_id
     

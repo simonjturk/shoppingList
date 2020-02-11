@@ -2335,7 +2335,7 @@ export type GetShoppingListItemsQuery = (
 
 export type ShoppingListItemFieldsFragment = (
   { __typename?: 'shopping_list_items' }
-  & Pick<Shopping_List_Items, 'id' | 'quantity' | 'complete' | 'shopping_list_id'>
+  & Pick<Shopping_List_Items, 'id' | 'quantity' | 'product_id' | 'complete' | 'shopping_list_id'>
   & { product: (
     { __typename?: 'products' }
     & Pick<Products, 'name' | 'id' | 'description' | 'favourite'>
@@ -2417,6 +2417,7 @@ export const ShoppingListItemFieldsFragmentDoc = gql`
     favourite
   }
   quantity
+  product_id
   complete
   shopping_list_id
 }
