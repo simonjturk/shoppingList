@@ -44,42 +44,6 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
     private fb: FormBuilder, private shoppingListItemService: ShoppingListItemService, public dialog: MatDialog) {
     this.buildForm();
 
-    this.products$ = this.itemForm.get('product_id').valueChanges
-      .pipe(
-        startWith(null),
-        switchMap(name => {
-          if (typeof name === 'string') {
-            return this.shoppingListItemService.getProducts()
-              .pipe(
-                delay(800),
-                map(response => {
-                  const filterValue = name.toLowerCase();
-                  const filtered = response.filter(
-                    item => item.name.toLowerCase().includes(filterValue)
-                  );
-
-                  return filtered.map(p => {
-
-                    return {
-                      id: p.id,
-                      label: p.name
-                    } as IIdentifiable
-                  })
-
-                })
-
-              )
-          }
-          return of([]);
-        })
-      )
-
-
-
-
-
-
-
     //listen out for the completion of the save action of the product that is created so we can then add it to the shopping list (via create item)
     this.crudStore.stateObservable
       .pipe(map(state => state.product))
