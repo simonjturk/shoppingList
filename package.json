@@ -5,8 +5,9 @@
     "ng": "ng",
     "start": "node server.js",
     "start:dev": "run-p start:ng gql:codegen:watch",
+    "start:dev-node": "node server.local.js",
     "start:pwa": "pushd dist/OAShoppingList; python -m SimpleHTTPServer; popd",
-
+    "start:ng": "ng serve",
     "build": "ng build  --aot --prod",
     "test": "ng test",
     "lint": "ng lint",
