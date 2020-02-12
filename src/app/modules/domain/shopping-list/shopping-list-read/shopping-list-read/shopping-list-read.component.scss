@@ -1,7 +1,7 @@
-@import '../../../../../../assets/theme.scss';
+@import '../../../../../../assets//scss/vars';
 
 .background {
-  background-color: mat-color($primary);
+  background-color: mat-color(map-get($theme, primary));
 }
 
 .example-icon {

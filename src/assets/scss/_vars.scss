@@ -1,3 +1,13 @@
+@import '~@angular/material/theming';
+
+$theme-primary: mat-palette($mat-blue, A700, A300, A800);
+$theme-accent: mat-palette($mat-orange, A200, A100, A400);
+$theme-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
+
+
 $primary: map-get($theme, primary);
 $accent: map-get($theme, accent);
 //$light-backround: 

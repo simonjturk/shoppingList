@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OaAutocompleteComponent } from './oa-autocomplete/oa-autocomplete.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocompleteModule, MatIconModule, MatInputModule } from '@angular/material';
+import { MatAutocompleteModule, MatIconModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 import { OaControlBaseComponent } from './oa-control-base.component';
 import { AutoCompleteDataOptionsDirective } from './oa-autocomplete/data.directive';
 
@@ -16,6 +16,7 @@ import { AutoCompleteDataOptionsDirective } from './oa-autocomplete/data.directi
     ReactiveFormsModule,
     MatAutocompleteModule,
     MatIconModule,
+    MatFormFieldModule,
     MatInputModule
   ],
   exports: [OaAutocompleteComponent, AutoCompleteDataOptionsDirective]

@@ -29,7 +29,8 @@
               "src/env.js"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/theme.scss"
             ],
             "scripts": []
           },
