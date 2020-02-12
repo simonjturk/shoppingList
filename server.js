@@ -3,6 +3,12 @@ const path = require('path');
 
 const ngApp = express();
 
+const compression = require('compression')
+const express = require('express')
+
+ngApp.use(compression())
+
+
 ngApp.use(express.static('./dist/OAShoppingList'));
 
 ngApp.get('/*', function (request, response) {
