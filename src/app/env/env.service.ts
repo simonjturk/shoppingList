@@ -1,3 +1,6 @@
+//Blatently ripped off from here:
+//https://www.jvandemo.com/how-to-use-environment-variables-to-configure-your-angular-application-without-a-rebuild/
+
 import { Injectable } from '@angular/core';
 
 @Injectable({
