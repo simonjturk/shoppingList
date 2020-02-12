@@ -31,6 +31,7 @@ export class ShoppingListItemRecordsComponent implements OnInit {
 
   getItemCategories(items: Shopping_List_Items[]): Product_Categories[] {
     const categories = [...new Set(items.map(i => i.product.category))]
+
     return categories;
   }
 
