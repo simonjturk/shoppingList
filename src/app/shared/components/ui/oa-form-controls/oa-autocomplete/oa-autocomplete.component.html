@@ -1,6 +1,6 @@
 <mat-form-field [appearance]="appearence">
   <input matInput type="text" [matAutocomplete]="auto" matAutocompletePosition="below" [formControl]="inputControl"
-    [placeholder]="placeholder" (blur)="onTouched()" (keydown.enter)="enterKeyPressed($event)" />
+    [placeholder]="placeholder" (blur)="onTouched("")" (keydown.enter)="enterKeyPressed($event)" />
 
   <mat-error *ngIf="!inputControl.valid && inputControl.errors?.required">
     This field is required
