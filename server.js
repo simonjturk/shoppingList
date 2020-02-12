@@ -1,10 +1,8 @@
 const express = require('express');
 const path = require('path');
-
+const compression = require('compression')
 const ngApp = express();
 
-const compression = require('compression')
-const express = require('express')
 
 ngApp.use(compression())
 
