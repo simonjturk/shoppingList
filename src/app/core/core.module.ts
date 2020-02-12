@@ -16,6 +16,7 @@ import { CrudStore } from './store/crud/crud.store';
 import { AuthService } from './services/auth/auth.service';
 import { FlexModule } from '@angular/flex-layout';
 import { IsLoadingService } from '@service-work/is-loading';
+import { EnvServiceProvider } from '../env/env.service.provider';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { IsLoadingService } from '@service-work/is-loading';
       provide: ErrorHandler,
       useClass: ErrorService,
     },
+    EnvServiceProvider
   ],
   entryComponents: [IosInstallComponent]
 })

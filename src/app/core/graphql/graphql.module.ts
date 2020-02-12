@@ -10,15 +10,16 @@ import { AuthService } from '../services/auth/auth.service';
 import { mergeMap, tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { IsLoadingService } from '@service-work/is-loading';
+import { EnvService } from 'src/app/env/env.service';
 
 
-const uri = 'https://oa-shopping-list.herokuapp.com/v1/graphql';//'http://localhost:8080/v1/graphql'; // <-- add the URL of the GraphQL server here
+//const uri = 'https://oa-shopping-list.herokuapp.com/v1/graphql';//'http://localhost:8080/v1/graphql'; // <-- add the URL of the GraphQL server here
 //const uri = 'http://localhost:8080/v1/graphql'; // <-- add the URL of the GraphQL server here
-export function createApollo(httpLink: HttpLink, auth: AuthService, isLoadingService: IsLoadingService) {
+export function createApollo(httpLink: HttpLink, auth: AuthService, isLoadingService: IsLoadingService, envService: EnvService) {
 
 
   const http = httpLink.create({
-    uri: uri,
+    uri: envService.apiUrl,
     withCredentials: true
   });
 
@@ -67,7 +68,7 @@ export function createApollo(httpLink: HttpLink, auth: AuthService, isLoadingSer
     {
       provide: APOLLO_OPTIONS,
       useFactory: createApollo,
-      deps: [HttpLink, AuthService, IsLoadingService],
+      deps: [HttpLink, AuthService, IsLoadingService, EnvService],
     },
   ],
 })

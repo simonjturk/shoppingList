@@ -5,6 +5,7 @@ import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from
 import { tap, catchError, concatMap, shareReplay, mergeMap, map, first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { promise } from 'protractor';
+import { EnvService } from 'src/app/env/env.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,10 @@ export class AuthService {
   // Create an observable of Auth0 instance of client
   auth0Client$ = (from(
     createAuth0Client({
-      domain: "oatech.au.auth0.com",
-      client_id: "mhCkLBwrZKCjzShkmyIzOWxemlfWewkN",
+      domain: this.envService.auth0_domain,
+      client_id: this.envService.auth0_client_id,
       redirect_uri: `${window.location.origin}`,
-      audience: 'https://oa-shopping-list.herokuapp.com',
+      audience: this.envService.auth0_audience,
       responseType: 'token id_token',
       scope: 'openid email profile'
     })
@@ -41,7 +42,7 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private envService: EnvService) {
 
     console.log("constructor");
     // On initial load, check authentication state with authorization server
