@@ -137,7 +137,7 @@ export class ProductCreateComponent extends CrudBaseComponent<Products> implemen
   /**
    *  opens the categories dialog for creating new
    */
-  private openProductCategories() {
+  openProductCategories() {
     this.dialogs.openCreateDialog();
   }
 
