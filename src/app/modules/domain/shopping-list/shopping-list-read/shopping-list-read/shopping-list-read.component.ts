@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Shopping_List } from 'src/generated/graphql';
-import { MatSlideToggleChange } from '@angular/material';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-shopping-list-read',

@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, Input, ViewChild, ViewContainerRef, ComponentRef, ComponentFactoryResolver } from '@angular/core';
 import { CrudStore } from 'src/app/core/store/crud/crud.store';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Products } from 'src/generated/graphql';
 import { map, distinctUntilChanged, takeUntil, skip } from 'rxjs/operators';
 import { CRUD_MODE } from 'src/app/shared/enums';

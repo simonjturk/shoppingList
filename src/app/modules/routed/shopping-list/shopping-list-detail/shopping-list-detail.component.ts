@@ -4,7 +4,7 @@ import { map, mergeAll } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ShoppingListService } from 'src/app/shared/services/graphQL/shoppingList/shopping-list.service';
 import { Shopping_List } from 'src/generated/graphql';
-import { MatSlideToggleChange } from '@angular/material';
+
 
 @Component({
   selector: 'app-shopping-list-detail',

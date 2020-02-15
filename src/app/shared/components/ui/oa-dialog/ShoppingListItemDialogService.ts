@@ -2,7 +2,7 @@ import { IOComponentData } from './oa-dialog/oa-dialog.component';
 import { ShoppingListItemUpdateComponent } from 'src/app/modules/domain/shopping-list-item/shopping-list-item-update/shopping-list-item-update/shopping-list-item-update.component';
 import { Injectable } from '@angular/core';
 import { DialogServiceBase } from "./DialogServiceBase";
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable()
 export class ShoppingListItemDialogService extends DialogServiceBase {

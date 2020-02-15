@@ -5,12 +5,9 @@ import { map, startWith, takeUntil, mergeAll, distinctUntilChanged, switchMap, d
 import { ShoppingListItemService } from 'src/app/shared/services/graphQL/shoppingListItem/shopping-list-item.service';
 import { Observable, Subject, of } from 'rxjs';
 import { Products } from 'src/generated/graphql';
-import { MatBottomSheet, MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import { CrudStore } from 'src/app/core/store/crud/crud.store';
-import { CRUD_MODE } from 'src/app/shared/enums';
-
-import { IIdentifiable } from 'src/app/shared/components/ui/oa-form-controls/oa-autocomplete/IIdentifiable';
 
 import { IOComponentData } from 'src/app/shared/components/ui/oa-dialog/oa-dialog/oa-dialog.component';
 import { ProductDialogService } from "src/app/shared/components/ui/oa-dialog/ProductDialogService";

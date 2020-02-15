@@ -1,5 +1,5 @@
 import { IOComponentData, OaDialogComponent } from './oa-dialog/oa-dialog.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 export abstract class DialogServiceBase {
     constructor(private dialog: MatDialog) { }
     abstract openCreateDialog(compData?: IOComponentData[]);

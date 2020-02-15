@@ -1,6 +1,9 @@
 <form [formGroup]="form">
   <div fxLayout="row" fxLayoutAlign="start center">
-    <formly-form fxFlex [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
+    <mat-form-field class="example-full-width">
+      <mat-label>Shopping List</mat-label>
+      <input matInput placeholder="Enter new shopping list" formControlName="name">
+    </mat-form-field>
     <button (click)="saveAndNavigate()" fxFlex="10" mat-icon-button color="primary" type="submit"
       aria-label="Create list">
       <mat-icon>add_circle</mat-icon>

@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CrudBarComponent } from './crud-bar.component';
-import { MatIcon, MatIconModule, MatButtonModule } from '@angular/material';
+
 import { FlexModule } from '@angular/flex-layout';
-import { SharedModule } from 'src/app/shared/shared.module';
+
 import { IsLoadingModule } from '@service-work/is-loading';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 
 

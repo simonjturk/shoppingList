@@ -2,7 +2,7 @@ import { IOComponentData } from './oa-dialog/oa-dialog.component';
 import { Injectable } from '@angular/core';
 import { ProductCategoryCreateComponent } from 'src/app/modules/domain/product-category/product-category-create/product-category-create/product-category-create.component';
 import { DialogServiceBase } from "./DialogServiceBase";
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Injectable()

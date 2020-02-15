@@ -2,7 +2,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ShoppingListItemService } from 'src/app/shared/services/graphQL/shoppingListItem/shopping-list-item.service';
 import { Shopping_List_Items, Product_Categories } from 'src/generated/graphql';
-import { MatSlideToggleChange } from '@angular/material';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-shopping-list-item-records',

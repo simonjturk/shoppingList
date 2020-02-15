@@ -1,18 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Shopping_List_Items, Shopping_List_Items_Set_Input, Shopping_List_Set_Input } from 'src/generated/graphql';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
+
 import { ShoppingListItemService } from 'src/app/shared/services/graphQL/shoppingListItem/shopping-list-item.service';
-import { takeUntil } from 'rxjs/operators';
-import { UnsubscribeBase } from 'src/app/shared/classes/unsubscribe-base';
-import { CRUD_BUTTONS } from 'src/app/shared/components/ui/crud-bar/crud-bar.component';
+
 import { IsLoadingService } from '@service-work/is-loading';
-import { MatAutocompleteTrigger } from '@angular/material';
-import { OaAutocompleteComponent } from 'src/app/shared/components/ui/oa-form-controls/oa-autocomplete/oa-autocomplete.component';
 import { IIdentifiable } from 'src/app/shared/components/ui/oa-form-controls/oa-autocomplete/IIdentifiable';
 import { CrudBarService } from 'src/app/shared/components/ui/crud-bar/crud-bar.service';
 import { CrudBaseComponent } from 'src/app/shared/classes/crud-base.component';
-import { selectURI } from 'apollo-link-http-common';
+
 import { CRUD_MODE } from 'src/app/shared/enums';
 
 @Component({

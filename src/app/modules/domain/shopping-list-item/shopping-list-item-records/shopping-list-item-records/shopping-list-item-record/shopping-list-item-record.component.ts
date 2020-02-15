@@ -2,7 +2,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Shopping_List_Items } from 'src/generated/graphql';
 import { Subject } from 'rxjs';
 import { ShoppingListItemService } from 'src/app/shared/services/graphQL/shoppingListItem/shopping-list-item.service';
-import { MatBottomSheet, MatCheckboxChange, MatDialog } from '@angular/material';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { takeUntil } from 'rxjs/operators';
 
 import { UnsubscribeBase } from 'src/app/shared/classes/unsubscribe-base';

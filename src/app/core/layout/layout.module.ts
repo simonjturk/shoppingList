@@ -13,7 +13,8 @@ import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { ContentComponent } from './content/content.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatProgressBarModule } from '@angular/material';
+import { MatProgressBarModule } from '@angular/material/progress-bar'
+
 @NgModule({
   declarations: [NavbarComponent, TemplateComponent, FooterComponent, ContentComponent],
   imports: [

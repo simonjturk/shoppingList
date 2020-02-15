@@ -2,7 +2,7 @@ import { IOComponentData } from './oa-dialog/oa-dialog.component';
 import { Injectable } from '@angular/core';
 import { ProductCreateComponent } from 'src/app/modules/domain/product/product-create/product-create/product-create.component';
 import { DialogServiceBase } from "./DialogServiceBase";
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 @Injectable()
 export class ProductDialogService extends DialogServiceBase {
     constructor(dialog: MatDialog) {

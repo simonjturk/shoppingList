@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
-import { Subject, Observable } from 'rxjs';
-import { takeUntil, map } from 'rxjs/operators';
+
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Route, Router } from '@angular/router';
 import { ShoppingListService } from 'src/app/shared/services/graphQL/shoppingList/shopping-list.service';
 import { CrudBaseComponent } from 'src/app/shared/classes/crud-base.component';
@@ -21,6 +21,7 @@ export class ShoppingListCreateComponent extends CrudBaseComponent<Shopping_List
 
   constructor(
     private router: Router,
+    private fb: FormBuilder,
     isLoadingService: IsLoadingService,
     shoppingListService: ShoppingListService,
     crudBarService: CrudBarService
@@ -30,25 +31,10 @@ export class ShoppingListCreateComponent extends CrudBaseComponent<Shopping_List
   }
 
   ngOnInit() {
+    this.buildForm();
   }
 
-  form = new FormGroup({});
-  model: any = {};
-  options: FormlyFormOptions = {};
-  fields: FormlyFieldConfig[] = [
-    {
-      key: 'listName',
-      type: 'input',
-      templateOptions: {
-        label: 'List Name',
-        placeholder: 'Name your shopping list',
-        addonLeft: {
-          class: 'fa fa-dashboard',
-        },
-        required: true,
-      },
-    },
-  ];
+  form: FormGroup;
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
@@ -75,6 +61,17 @@ export class ShoppingListCreateComponent extends CrudBaseComponent<Shopping_List
   }
 
   public buildDataObject() {
-    return { name: this.model.listName } as Shopping_List
+    return { name: this.form.value.name } as Shopping_List
+  }
+
+
+  private buildForm() {
+
+    this.form = this.fb.group(
+      {
+        name: [''],
+
+      }
+    )
   }
 }
