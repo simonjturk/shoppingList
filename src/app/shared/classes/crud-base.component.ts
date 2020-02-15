@@ -54,12 +54,14 @@ export abstract class CrudBaseComponent<T> extends UnsubscribeBase implements On
     /**
      * saves the object to the graph by calling the save method of the already set dataService
      *
+     * execute
      * @memberof CrudBaseComponent
      */
-    save(): Observable<T> | Observable<T[]> | null {
+    save(execute: boolean = true): Observable<T> | Observable<T[]> | null {
         this.isLoadingService.add({ key: "button" });
+
         //we determin the correct method to call based on the type of CRUD operation this is as defined n the constructor
-        return this.dataService[this.crudMode](this.buildDataObject())
+        const obs = this.dataService[this.crudMode](this.buildDataObject())
             .pipe(map(res => {
 
                 this.isLoadingService.remove({ key: "button" })
@@ -67,6 +69,8 @@ export abstract class CrudBaseComponent<T> extends UnsubscribeBase implements On
 
                 return res;
             }));
+
+        return execute ? obs.subscribe() : obs;
     }
     public cancel() {
         this.crudEvent.emit(CRUD_BUTTONS.save);
@@ -91,7 +95,7 @@ export abstract class CrudBaseComponent<T> extends UnsubscribeBase implements On
      */
     private onCrudBarClicked(type: CRUD_BUTTONS) {
         if (type === CRUD_BUTTONS.save) this.save();
-        if (type === CRUD_BUTTONS.save) this.save();
+        if (type === CRUD_BUTTONS.delete) this.delete();
     }
 
 
