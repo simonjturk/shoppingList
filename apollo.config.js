@@ -13,8 +13,7 @@ module.exports = {
       url: 'https://oa-shopping-list.herokuapp.com/v1/graphql', // defaults to http://localhost:4000
       headers: {
         // optional
-        "x-hasura-admin-secret": "gobler69",
-        "": ""
+        "x-hasura-admin-secret": "gobler69"
       }
 
     }
