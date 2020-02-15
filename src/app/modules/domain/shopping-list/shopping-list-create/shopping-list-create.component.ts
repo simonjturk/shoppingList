@@ -43,13 +43,14 @@ export class ShoppingListCreateComponent extends CrudBaseComponent<Shopping_List
 
 
   /**
+   * 
    * calls the base save method, gets the result and then route to the new shopping List
    *
    * @memberof ShoppingListCreateComponent
    */
   public saveAndNavigate() {
 
-    const baseSave = super.save() as Observable<Shopping_List[]>
+    const baseSave = super.save(false) as Observable<Shopping_List[]>
 
     baseSave.pipe(map(res => {
       const list = res.pop();
