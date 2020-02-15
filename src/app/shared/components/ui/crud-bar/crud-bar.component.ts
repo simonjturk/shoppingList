@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { IButton } from 'selenium-webdriver';
 import { Observable, Subscription } from 'rxjs';
 import { IsLoadingService } from '@service-work/is-loading';
+import { CrudBarService } from './crud-bar.service';
 
 
 export interface ICrudButtons {
@@ -34,6 +35,7 @@ export enum CRUD_BUTTONS_TYPES {
   styleUrls: ['./crud-bar.component.scss']
 })
 export class CrudBarComponent implements OnInit {
+  @Input() crudServiceId: string;
 
   @Input() buttons: ICrudButtons[] = [
     {
@@ -80,7 +82,7 @@ export class CrudBarComponent implements OnInit {
   CRUD_BUTTONS_TYPES = CRUD_BUTTONS_TYPES;
 
 
-  constructor() { }
+  constructor(private crudBarService: CrudBarService) { }
 
   ngOnInit() {
   }
@@ -88,6 +90,8 @@ export class CrudBarComponent implements OnInit {
 
   onClick(btn: ICrudButtons) {
     this.action.emit(btn.button);
+    this.crudBarService.setButtonClick(btn.button);
+
 
     switch (btn.button) {
       case CRUD_BUTTONS.save:

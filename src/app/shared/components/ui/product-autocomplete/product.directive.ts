@@ -23,7 +23,7 @@ export class AutoCompleteProductDataDirective {
             switchMap(name => {
                 if (typeof name === 'string') {
 
-                    return this.productService.getProducts()
+                    return this.productService.readAll()
                         .pipe(map(products => {
                             const filterValue = name.toLowerCase();
                             const filtered = products.filter(

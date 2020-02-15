@@ -62,7 +62,7 @@ export class ShoppingListRecordComponent extends UnsubscribeBase implements OnIn
   }
 
   deleteShoppingList() {
-    this.shoppingListService.deleteShoppingList(this.shoppingList.id).pipe(takeUntil(this.onDestroy$))
+    this.shoppingListService.delete(this.shoppingList.id).pipe(takeUntil(this.onDestroy$))
       .subscribe(sl => {
 
       })
@@ -73,7 +73,7 @@ export class ShoppingListRecordComponent extends UnsubscribeBase implements OnIn
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(sl => {
         //TODO should check for errors etc
-        this.router.navigate(['shopping-list', sl.data.insert_shopping_list.returning[0].id])
+        this.router.navigate(['shopping-list', sl.id])
       })
   }
 

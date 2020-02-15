@@ -24,7 +24,7 @@ export class ShoppingListItemRecordsComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (this.shoppingListId) {
       this.shoppingListItems$ =
-        this.shoppingListItemService.getShoppingListItems(this.shoppingListId);
+        this.shoppingListItemService.search({ shoppingListId: this.shoppingListId });
     }
 
   }

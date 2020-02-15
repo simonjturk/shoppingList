@@ -14,13 +14,16 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CRUD_BUTTONS } from 'src/app/shared/components/ui/crud-bar/crud-bar.component';
 import { IsLoadingService } from '@service-work/is-loading';
 import { ProductCategoryDialogService } from "src/app/shared/components/ui/oa-dialog/ProductCategoryDialogService";
+import { CrudBarService } from 'src/app/shared/components/ui/crud-bar/crud-bar.service';
+import { CrudBaseComponent } from 'src/app/shared/classes/crud-base.component';
 
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html',
   styleUrls: ['./product-create.component.scss']
 })
-export class ProductCreateComponent implements OnInit, OnChanges, OnDestroy {
+export class ProductCreateComponent extends CrudBaseComponent<Products> implements OnInit, OnChanges, OnDestroy {
+
   onDestroy$ = new Subject<void>();
 
   @Input() product: Products = null;
@@ -33,19 +36,23 @@ export class ProductCreateComponent implements OnInit, OnChanges, OnDestroy {
 
   categories$: Observable<Product_Categories[]>
 
+  //PW: kd6.eeB1^(vLMU_WWrg2xYE8VRv*aN3,N
 
-  // Private members
-  CrudMode: CRUD_MODE;
+
 
   constructor(
     private crudStore: CrudStore,
     private fb: FormBuilder,
     private productCategoriesService: ProductCategoriesService,
-    private productService: ProductService,
+
     public categoryDialog: MatDialog,
-    private isLoadingService: IsLoadingService,
-    private dialogs: ProductCategoryDialogService
+    private dialogs: ProductCategoryDialogService,
+
+    productService: ProductService,
+    isLoadingService: IsLoadingService,
+    crudBarService: CrudBarService
   ) {
+    super(CRUD_MODE.Create, isLoadingService, crudBarService, productService)
 
     this.buildForm();
 
@@ -76,70 +83,49 @@ export class ProductCreateComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit() {
 
-    this.categories$ = this.productCategoriesService.getAllCategories();
+    //set categories observable for the form list
+    this.categories$ = this.productCategoriesService.readAll();
 
+    super.ngOnInit();
 
   }
 
   ngOnChanges() {
     if (this.product) {
-      if (this.product.id) {
-        this.CrudMode = CRUD_MODE.Update
-      } else {
-        this.CrudMode = CRUD_MODE.Create
-      }
-
-      this.productForm.controls.name.setValue(this.product.name);
-
-
+      this.setFormValues(this.product.name);
     }
+
+    //call super changes event
+    super.ngOnChanges();
   }
+
+
 
   ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
-    this.onDestroy$.next();
-    this.onDestroy$.complete();
+
+    super.ngOnDestroy();
   }
 
-  onSave() {
-
-    //disable savce buton
-    //this.disableSave = true;
-
+  /**
+   *overwrite the abstract method to set the object for product creation
+   *
+   * @returns
+   * @memberof ProductCreateComponent
+   */
+  public buildDataObject() {
     const newProduct: Products_Insert_Input = {
       name: this.productForm.value.name,
       description: this.productForm.value.description,
       category_id: this.productForm.value.productCategoryId
     }
-
-    this.isLoadingService.add(this.productService.createProduct(newProduct, null), { key: "button" })
-    //  .subscribe(response => {
-    //    console.log('Data available.');
-    //  },
-    //    err => {
-    //      console.error(err);
-    //    });
-  }
-  action(type: CRUD_BUTTONS) {
-    if (type === CRUD_BUTTONS.save) this.onSave();
+    return newProduct;
   }
 
-  onDelete() {
-
-  }
-
-  openProductCategories() {
-    //let whatever component is using that they need to open/create the category
-    //this.openProductCategory.emit();
-    //let config = new MatDialogConfig();
-    //config.data = 
-
-    //this.categoryDialog.open(ProductCategoryDialogComponent);
 
 
 
-    this.dialogs.openCreateDialog();
-  }
+
+
 
 
   /**
@@ -147,12 +133,37 @@ export class ProductCreateComponent implements OnInit, OnChanges, OnDestroy {
    * private methods
    */
 
+
+  /**
+   *  opens the categories dialog for creating new
+   */
+  private openProductCategories() {
+    this.dialogs.openCreateDialog();
+  }
+
+
+  /**
+   * Builds our form
+   */
   private buildForm() {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       description: [''],
       productCategoryId: ['', Validators.required]
     })
+  }
+
+
+  /**
+   *sets up our form values, for a create it is only the product name as it was entered elsewhere.
+   *
+   * @private
+   * @param {string} productName
+   * @memberof ProductCreateComponent
+   */
+  private setFormValues(productName: string) {
+    this.productForm.controls.name.setValue(productName);
+
   }
 
 }

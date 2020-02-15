@@ -46,9 +46,10 @@ export class ShoppingListUpdateComponent extends UnsubscribeBase implements OnIn
 
   save() {
     const changes: Shopping_List_Set_Input = {
-      name: this.shoppingListForm.value.name
+      name: this.shoppingListForm.value.name,
+      id: this.shoppingList.id
     }
-    this.isLoadingService.add(this.service.updateShoppingList(this.shoppingList.id, changes), { key: "button" })
+    this.isLoadingService.add(this.service.update(changes), { key: "button" })
 
   }
 }

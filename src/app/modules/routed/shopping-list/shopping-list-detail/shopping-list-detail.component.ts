@@ -27,7 +27,7 @@ export class ShoppingListDetailComponent implements OnInit {
     this.shoppingList$ = this.activatedRoute.paramMap
       .pipe(map((params: ParamMap) => params.get('id')))
       .pipe(map(id => {
-        return this.shoppingListService.getShoppingListById(id)
+        return this.shoppingListService.readSingle(id)
       }), mergeAll())
   }
 

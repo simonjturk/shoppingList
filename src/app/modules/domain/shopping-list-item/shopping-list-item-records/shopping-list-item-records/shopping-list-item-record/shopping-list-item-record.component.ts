@@ -30,7 +30,7 @@ export class ShoppingListItemRecordComponent extends UnsubscribeBase implements 
 
   checkChanged(event: MatCheckboxChange) {
 
-    this.shoppingListItemService.updateShoppingListItem(this.item.id, { complete: event.checked })
+    this.shoppingListItemService.update({ id: this.item.id, complete: event.checked })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe();
   }

@@ -13,6 +13,7 @@ import { ShoppingListItemDialogService } from "./ShoppingListItemDialogService";
 import { ProductDialogService } from "./ProductDialogService";
 import { ProductCategoryDialogService } from "./ProductCategoryDialogService";
 import { ShoppingListItemUpdateModule } from 'src/app/modules/domain/shopping-list-item/shopping-list-item-update/shopping-list-item-update.module';
+import { CrudBarModule } from '../crud-bar/crud-bar.module';
 
 
 
@@ -25,7 +26,8 @@ import { ShoppingListItemUpdateModule } from 'src/app/modules/domain/shopping-li
     ShoppingListUpdateModule,
     ProductCreateModule,
     ProductCategoryCreateModule,
-    ShoppingListItemUpdateModule
+    ShoppingListItemUpdateModule,
+    CrudBarModule
   ],
   exports: [OaDialogComponent],
   entryComponents: [ShoppingListItemUpdateComponent, ProductCreateComponent, ProductCategoryCreateComponent, OaDialogComponent]

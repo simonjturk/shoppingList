@@ -14,6 +14,7 @@ import { IIdentifiable } from 'src/app/shared/components/ui/oa-form-controls/oa-
 
 import { IOComponentData } from 'src/app/shared/components/ui/oa-dialog/oa-dialog/oa-dialog.component';
 import { ProductDialogService } from "src/app/shared/components/ui/oa-dialog/ProductDialogService";
+import { ProductService } from 'src/app/shared/services/graphQL/products/product.service';
 
 
 @Component({
@@ -41,7 +42,12 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
 
   constructor(private crudStore: CrudStore,
     private dialogs: ProductDialogService,
-    private fb: FormBuilder, private shoppingListItemService: ShoppingListItemService, public dialog: MatDialog) {
+    private fb: FormBuilder,
+    private shoppingListItemService: ShoppingListItemService,
+    private productService: ProductService,
+    public dialog: MatDialog) {
+
+
     this.buildForm();
 
     //listen out for the completion of the save action of the product that is created so we can then add it to the shopping list (via create item)
@@ -58,7 +64,7 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
   ngOnInit() {
     //this.buildForm();
     //load our products
-    this.shoppingListItemService.getProducts()
+    this.productService.readAll()
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(p => {
         this.products = p as Products[];
@@ -109,7 +115,10 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
 
   private createListItem(productId: string) {
 
-    this.shoppingListItemService.createShoppingListItem(this.shoppingListId, productId, 1)
+
+
+
+    this.shoppingListItemService.create({ product_id: productId, shopping_list_id: this.shoppingListId })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(x => {
         this.itemForm.controls.product_id.setValue('Milk');
@@ -148,11 +157,14 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
 
     });
 */
+    const product = {
+      name: prodName
+    }
 
     const compData: IOComponentData[] = [
       {
         property: "product",
-        value: prodName
+        value: product
       }
     ]
     this.dialogs.openCreateDialog(compData);
@@ -233,8 +245,6 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
   
   */
 
-  getProducts() {
-    return this.shoppingListItemService.getProducts();
-  }
+
 
 }

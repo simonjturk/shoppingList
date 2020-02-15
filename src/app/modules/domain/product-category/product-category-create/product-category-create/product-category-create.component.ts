@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Product_Categories, Product_Categories_Insert_Input } from 'src/generated/graphql';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -8,30 +8,28 @@ import { takeUntil } from 'rxjs/operators';
 import { UnsubscribeBase } from 'src/app/shared/classes/unsubscribe-base';
 import { CRUD_BUTTONS } from 'src/app/shared/components/ui/crud-bar/crud-bar.component';
 import { IsLoadingService } from '@service-work/is-loading';
+import { CrudBarService } from 'src/app/shared/components/ui/crud-bar/crud-bar.service';
+import { CrudBaseComponent } from 'src/app/shared/classes/crud-base.component';
 
 @Component({
   selector: 'app-product-category-create',
   templateUrl: './product-category-create.component.html',
   styleUrls: ['./product-category-create.component.scss']
 })
-export class ProductCategoryCreateComponent extends UnsubscribeBase implements OnInit {
+export class ProductCategoryCreateComponent extends CrudBaseComponent<Product_Categories> implements OnInit {
+
 
   @Input() category: Product_Categories = null;
 
   productCategoryForm: FormGroup;
 
-
-  /**
-   * 
-   * Private members
-   */
-
-  private CrudMode: CRUD_MODE;
-
-
-  constructor(private fb: FormBuilder, private productCategoriesService: ProductCategoriesService,
-    private isLoadingService: IsLoadingService) {
-    super();
+  constructor(
+    private fb: FormBuilder,
+    productCategoriesService: ProductCategoriesService,
+    isLoadingService: IsLoadingService,
+    crudBarService: CrudBarService
+  ) {
+    super(CRUD_MODE.Create, isLoadingService, crudBarService, productCategoriesService);
   }
 
   /**
@@ -40,44 +38,14 @@ export class ProductCategoryCreateComponent extends UnsubscribeBase implements O
 
   ngOnInit() {
     this.buildForm();
+    super.ngOnInit()
 
   }
   ngOnChanges() {
     if (this.category) {
-      if (this.category.id) {
-        this.CrudMode = CRUD_MODE.Update
-      } else {
-        this.CrudMode = CRUD_MODE.Create
-      }
-
       this.productCategoryForm.controls.name.setValue(this.category.name);
-
-
     }
   }
-  action(type: CRUD_BUTTONS) {
-    if (type === CRUD_BUTTONS.save) this.onSave();
-  }
-
-  //public methods
-  onSave() {
-
-    const newProductCategory: Product_Categories_Insert_Input = {
-      name: this.productCategoryForm.value.name,
-      colour: this.productCategoryForm.value.colour
-
-    }
-    this.isLoadingService.add(this.productCategoriesService.createProductCategories(newProductCategory), { key: 'button' })
-    // .pipe(takeUntil(this.onDestroy$))
-    // .subscribe();
-  }
-
-  onDelete() {
-
-  }
-
-
-
 
   /** 
    * Private methods
@@ -87,6 +55,16 @@ export class ProductCategoryCreateComponent extends UnsubscribeBase implements O
       name: ['', Validators.required],
       colour: ['']
     });
+  }
+
+  public buildDataObject() {
+    const newProductCategory: Product_Categories_Insert_Input = {
+      name: this.productCategoryForm.value.name,
+      colour: this.productCategoryForm.value.colour
+
+    }
+
+    return newProductCategory;
   }
 
 }

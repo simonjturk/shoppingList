@@ -37,7 +37,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
         });
         */
 
-    this.shoppingLists$ = this.isLoadingService.add(this.shoppingListService.getShoppingList());
+    this.shoppingLists$ = this.isLoadingService.add(this.shoppingListService.readAll());
     //.valueChanges
     //.pipe(map(l => l.data.shopping_list as Shopping_List[]))
 
