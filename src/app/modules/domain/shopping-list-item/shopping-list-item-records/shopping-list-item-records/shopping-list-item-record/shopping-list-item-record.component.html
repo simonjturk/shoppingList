@@ -1,14 +1,27 @@
 <div style="height: 30px;padding-left: 5px;" fxLayout="row" fxLayoutAlign="start center">
 
-  <mat-checkbox (change)="checkChanged($event)" [(ngModel)]="checked"></mat-checkbox>
-  <div class="item" (click)="onItemClick()" fxFlex>
-    <div *ngIf="checked" class="item-completed">
-      {{item.product.name}}<span *ngIf="item.quantity > 1">({{item.quantity}})</span>
-    </div>
-    <div *ngIf="!checked">
-      {{item.product.name}} <span *ngIf="item.quantity > 1">({{item.quantity}})</span>
-    </div>
-    <mat-divider></mat-divider>
+  <div fxFlex>
+    <mat-checkbox fxFlex (change)="checkChanged($event)" [(ngModel)]="checked">
+      <div class="item" fxFlex>
+        <div *ngIf="checked" class="item-completed">
+          {{item.product.name}}<span *ngIf="item.quantity > 1">({{item.quantity}})</span>
+        </div>
+        <div *ngIf="!checked">
+          {{item.product.name}} <span *ngIf="item.quantity > 1">({{item.quantity}})</span>
+        </div>
+
+      </div>
+
+    </mat-checkbox>
+
   </div>
+  <div fxFlex="80px">
+    <button fxFlex="100px" (click)="openDialog()" mat-icon-button color="primary">
+      <mat-icon style="font-size: 14px;">edit</mat-icon>
+    </button>
+
+  </div>
+
+
 
 </div>
