@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ShoppingListItemService } from 'src/app/shared/services/graphQL/shoppingListItem/shopping-list-item.service';
-import { Shopping_List_Items, Product_Categories } from 'src/generated/graphql';
+import { Shopping_List_Items, Product_Categories, Shopping_List_Items_Set_Input } from 'src/generated/graphql';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-shopping-list-item-records',
@@ -15,6 +16,9 @@ export class ShoppingListItemRecordsComponent implements OnInit {
   shoppingListItems$: Observable<any[]>
 
   @Input() hideCompleted: boolean = false;
+
+
+  checked = false;
 
   constructor(private shoppingListItemService: ShoppingListItemService) { }
 
@@ -53,6 +57,16 @@ export class ShoppingListItemRecordsComponent implements OnInit {
     this.hideCompleted = event.checked;
 
   }
+  toggleChanged(value: MatCheckboxChange) {
 
+    const vars: Shopping_List_Items_Set_Input = {
+      complete: value.checked
+    }
+
+    this.shoppingListItemService.updateAllInList(this.shoppingListId, vars)
+      .subscribe();
+
+
+  }
 
 }

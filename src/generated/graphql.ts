@@ -2364,6 +2364,24 @@ export type UpdateShopingListItemMutation = (
   )> }
 );
 
+export type UpdateShopingListItemsMutationVariables = {
+  shoppingListId?: Maybe<Scalars['uuid']>,
+  changes?: Maybe<Shopping_List_Items_Set_Input>
+};
+
+
+export type UpdateShopingListItemsMutation = (
+  { __typename: 'mutation_root' }
+  & { update_shopping_list_items: Maybe<(
+    { __typename?: 'shopping_list_items_mutation_response' }
+    & Pick<Shopping_List_Items_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename?: 'shopping_list_items' }
+      & ShoppingListItemFieldsFragment
+    )> }
+  )> }
+);
+
 export const CategoryFieldsFragmentDoc = gql`
     fragment CategoryFields on product_categories {
   id
@@ -2676,5 +2694,24 @@ export const UpdateShopingListItemDocument = gql`
   })
   export class UpdateShopingListItemGQL extends Apollo.Mutation<UpdateShopingListItemMutation, UpdateShopingListItemMutationVariables> {
     document = UpdateShopingListItemDocument;
+    
+  }
+export const UpdateShopingListItemsDocument = gql`
+    mutation UpdateShopingListItems($shoppingListId: uuid, $changes: shopping_list_items_set_input) {
+  __typename
+  update_shopping_list_items(_set: $changes, where: {shopping_list_id: {_eq: $shoppingListId}}) {
+    affected_rows
+    returning {
+      ...ShoppingListItemFields
+    }
+  }
+}
+    ${ShoppingListItemFieldsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UpdateShopingListItemsGQL extends Apollo.Mutation<UpdateShopingListItemsMutation, UpdateShopingListItemsMutationVariables> {
+    document = UpdateShopingListItemsDocument;
     
   }

@@ -8,3 +8,13 @@ mutation UpdateShopingListItem($id: uuid, $changes: shopping_list_items_set_inpu
     }
   }
 }
+
+mutation UpdateShopingListItems($shoppingListId: uuid, $changes: shopping_list_items_set_input) {
+  __typename
+  update_shopping_list_items(_set: $changes, where: {shopping_list_id: {_eq: $shoppingListId}}) {
+    affected_rows
+    returning {
+      ...ShoppingListItemFields
+    }
+  }
+}

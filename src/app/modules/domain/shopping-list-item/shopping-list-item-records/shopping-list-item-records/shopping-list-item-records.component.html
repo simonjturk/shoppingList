@@ -1,4 +1,9 @@
-<div *ngIf="(shoppingListItems$ | async) as shoppingListItems" fxLayout="column" fxLayoutAlign="start center">
+<div *ngIf="(shoppingListItems$ | async) as shoppingListItems" fxLayout="column" fxLayoutAlign="start start">
+
+
+  <mat-checkbox style="padding-left: 15px;" [(ngModel)]="checked" (change)="toggleChanged($event)">Toggle Completed
+  </mat-checkbox>
+
   <div class="card" *ngFor="let category of getItemCategories(shoppingListItems)" style="width:100%">
     <oa-card *ngIf=" !hideCompleted || getCountItemsByCategory(shoppingListItems,category.id).remaining > 0"
       [header]="category.name" [headerColor]="category.colour">

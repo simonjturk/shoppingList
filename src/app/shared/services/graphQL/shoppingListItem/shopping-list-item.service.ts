@@ -13,7 +13,9 @@ import {
   DeleteShoppingListItemMutationVariables,
   Shopping_List_Items,
   Shopping_List_Items_Insert_Input,
-  UpdateShopingListItemMutation
+  UpdateShopingListItemMutation,
+  UpdateShopingListItemsGQL,
+  UpdateShopingListItemsMutationVariables
 } from 'src/generated/graphql';
 import { map, tap } from 'rxjs/operators';
 import gql from 'graphql-tag';
@@ -36,6 +38,7 @@ export class ShoppingListItemService extends DataService<Shopping_List_Items> {
     private crudStore: CrudStore,
     private gqlService: CreateShoppingListItemGQL,
     private updateShopingListItemGQL: UpdateShopingListItemGQL,
+    private updateShopingListItemsGQL: UpdateShopingListItemsGQL,
     private getShopingListItemGQL: GetShoppingListItemsGQL,
     private deleteShoppingListItemGQL: DeleteShoppingListItemGQL,
   ) {
@@ -131,9 +134,28 @@ export class ShoppingListItemService extends DataService<Shopping_List_Items> {
     return this.updateShopingListItemGQL.mutate(mutationVars)
       //.pipe(map(res => res.data.update_shopping_list_items.returning as Shopping_List_Items[]))
       .pipe(tap(res => {
-        this.crudStore.setShoppingListItem(res.data.update_shopping_list_items[0], CRUD_MODE.Create)
+        this.crudStore.setShoppingListItem(res.data.update_shopping_list_items[0], CRUD_MODE.Update)
       }), map(res => res.data.update_shopping_list_items.returning as Shopping_List_Items[]))
   }
+  updateAllInList(shoppingListId: string, updateObject: Shopping_List_Items_Set_Input): Observable<Shopping_List_Items[]> {
 
+    const mutationVars: UpdateShopingListItemsMutationVariables = {
+      shoppingListId: shoppingListId,
+      changes: updateObject
+
+    }
+
+    //update our crud store
+    return this.updateShopingListItemsGQL.mutate(mutationVars)
+      //.pipe(map(res => res.data.update_shopping_list_items.returning as Shopping_List_Items[]))
+      .pipe(tap(res => {
+
+
+        //loop all the returned data and update our store
+        (res.data.update_shopping_list_items.returning as Shopping_List_Items[])
+          .forEach(item => this.crudStore.setShoppingListItem(item, CRUD_MODE.Update));
+
+      }), map(res => res.data.update_shopping_list_items.returning as Shopping_List_Items[]))
+  }
 
 }
