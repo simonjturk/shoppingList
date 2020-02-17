@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { IsLoadingService } from '@service-work/is-loading';
 import { filter } from 'rxjs/operators';
+import { UpdateService } from './core/services/update/update.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,7 +17,7 @@ export class AppComponent implements OnInit {
 
 
   constructor(
-    private toast: MatSnackBar,
+    private toast: MatSnackBar, private update: UpdateService
   ) {
 
 

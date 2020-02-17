@@ -17,6 +17,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [],
@@ -48,7 +49,7 @@ import { MatSliderModule } from '@angular/material/slider';
     MatSidenavModule,
     MatSliderModule,
     MatSlideToggleModule,
-    //MatSnackBarModule,
+    MatSnackBarModule,
     //MatSortModule,
     //MatStepperModule,
     //MatTableModule,
@@ -85,7 +86,7 @@ import { MatSliderModule } from '@angular/material/slider';
     MatSidenavModule,
     MatSliderModule,
     MatSlideToggleModule,
-    //MatSnackBarModule,
+    MatSnackBarModule,
     //MatSortModule,
     //MatStepperModule,
     //MatTableModule,

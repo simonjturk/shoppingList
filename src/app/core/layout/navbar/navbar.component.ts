@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from '../../services/auth/auth.service';
+import { UpdateService } from '../../services/update/update.service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +19,7 @@ export class NavbarComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, public auth: AuthService) { }
+  constructor(private breakpointObserver: BreakpointObserver, public auth: AuthService, public updateService: UpdateService) { }
 
 
   ngOnInit(): void {

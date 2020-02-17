@@ -3,9 +3,16 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <a mat-list-item href="#">
+        <mat-icon aria-label="Side nav toggle icon">person</mat-icon> Profile
+      </a>
+      <a mat-list-item href="#">
+        <mat-icon aria-label="Side nav toggle icon">share</mat-icon>Sharing
+      </a>
+      <mat-divider></mat-divider>
+      <a mat-list-item (click)="updateService.checkForUpdates()">
+        <mat-icon aria-label="Side nav toggle icon">refresh</mat-icon>Check for updates
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="app-background">

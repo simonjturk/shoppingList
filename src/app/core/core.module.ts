@@ -17,6 +17,7 @@ import { AuthService } from './services/auth/auth.service';
 import { FlexModule } from '@angular/flex-layout';
 import { IsLoadingService } from '@service-work/is-loading';
 import { EnvServiceProvider } from '../env/env.service.provider';
+import { UpdateService } from './services/update/update.service';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { EnvServiceProvider } from '../env/env.service.provider';
       provide: ErrorHandler,
       useClass: ErrorService,
     },
-    EnvServiceProvider
+    EnvServiceProvider,
+    UpdateService
   ],
   entryComponents: [IosInstallComponent]
 })
