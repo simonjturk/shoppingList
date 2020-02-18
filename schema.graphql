@@ -964,8 +964,14 @@ columns and relationships of "shared_lists"
 type shared_lists {
   created_at: timestamptz!
   id: uuid!
+
+  """An object relationship"""
+  shopping_list: shopping_list!
   shopping_list_id: uuid!
   updated_at: timestamptz!
+
+  """An object relationship"""
+  user: users!
   user_id: String!
 }
 
@@ -1012,8 +1018,10 @@ input shared_lists_bool_exp {
   _or: [shared_lists_bool_exp]
   created_at: timestamptz_comparison_exp
   id: uuid_comparison_exp
+  shopping_list: shopping_list_bool_exp
   shopping_list_id: uuid_comparison_exp
   updated_at: timestamptz_comparison_exp
+  user: users_bool_exp
   user_id: String_comparison_exp
 }
 
@@ -1031,8 +1039,10 @@ input type for inserting data into table "shared_lists"
 input shared_lists_insert_input {
   created_at: timestamptz
   id: uuid
+  shopping_list: shopping_list_obj_rel_insert_input
   shopping_list_id: uuid
   updated_at: timestamptz
+  user: users_obj_rel_insert_input
   user_id: String
 }
 
@@ -1102,8 +1112,10 @@ ordering options when selecting data from "shared_lists"
 input shared_lists_order_by {
   created_at: order_by
   id: order_by
+  shopping_list: shopping_list_order_by
   shopping_list_id: order_by
   updated_at: order_by
+  user: users_order_by
   user_id: order_by
 }
 

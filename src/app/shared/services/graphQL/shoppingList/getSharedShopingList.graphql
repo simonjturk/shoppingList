@@ -1,0 +1,10 @@
+#import "./shopping-list.fragment.graphql"
+query GetSharedShoppingLists {
+  shared_lists {
+    shopping_list_id
+    id
+    shopping_list {
+     ...ShoppingListFields
+    }
+  }
+}

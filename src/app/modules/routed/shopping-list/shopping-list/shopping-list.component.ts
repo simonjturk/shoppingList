@@ -15,7 +15,7 @@ import { IsLoadingService } from '@service-work/is-loading';
 export class ShoppingListComponent implements OnInit, OnDestroy {
   shoppingLists$;//:Observable<Shopping_List[]>;
   favShoppingLists$;//:Observable<Shopping_List[]>;
-
+  sharedShoppingLists$;
   // Private
   private _unsubscribeAll: Subject<void> = new Subject<void>();
 
@@ -28,22 +28,12 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    /*
-        this.shoppingListService.watch()
-        .valueChanges
-        .pipe(takeUntil(this._unsubscribeAll))
-        .subscribe(lists=>{
-          this.shoppingLists = lists.data.shopping_list as Shopping_List[];
-        });
-        */
-
     this.shoppingLists$ = this.isLoadingService.add(this.shoppingListService.readAll());
-    //.valueChanges
-    //.pipe(map(l => l.data.shopping_list as Shopping_List[]))
 
     this.favShoppingLists$ = this.shoppingListService.getFavouriteShoppingList();
-    //  .valueChanges
-    // .pipe(map(l => l.data.shopping_list as Shopping_List[]))
+
+    this.sharedShoppingLists$ = this.shoppingListService.getSharedShoppingLists()
+      .pipe(map(res => res.map(sl => sl.shopping_list)));
 
 
     this.getToken();

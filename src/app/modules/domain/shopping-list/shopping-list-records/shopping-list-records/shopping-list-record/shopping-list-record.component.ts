@@ -77,4 +77,9 @@ export class ShoppingListRecordComponent extends UnsubscribeBase implements OnIn
       })
   }
 
+  shareShoppingList(){
+
+    
+  }
+
 }

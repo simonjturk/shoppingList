@@ -16,3 +16,10 @@
     <app-shopping-list-records heading="History" [shoppingLists$]="shoppingLists$"></app-shopping-list-records>
   </mat-card-content>
 </mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <app-shopping-list-records heading="Shared with you" [shoppingLists$]="sharedShoppingLists$">
+    </app-shopping-list-records>
+  </mat-card-content>
+</mat-card>

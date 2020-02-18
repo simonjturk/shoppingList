@@ -815,8 +815,12 @@ export type Shared_Lists = {
    __typename?: 'shared_lists',
   created_at: Scalars['timestamptz'],
   id: Scalars['uuid'],
+  /** An object relationship */
+  shopping_list: Shopping_List,
   shopping_list_id: Scalars['uuid'],
   updated_at: Scalars['timestamptz'],
+  /** An object relationship */
+  user: Users,
   user_id: Scalars['String'],
 };
 
@@ -862,8 +866,10 @@ export type Shared_Lists_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Shared_Lists_Bool_Exp>>>,
   created_at?: Maybe<Timestamptz_Comparison_Exp>,
   id?: Maybe<Uuid_Comparison_Exp>,
+  shopping_list?: Maybe<Shopping_List_Bool_Exp>,
   shopping_list_id?: Maybe<Uuid_Comparison_Exp>,
   updated_at?: Maybe<Timestamptz_Comparison_Exp>,
+  user?: Maybe<Users_Bool_Exp>,
   user_id?: Maybe<String_Comparison_Exp>,
 };
 
@@ -877,8 +883,10 @@ export enum Shared_Lists_Constraint {
 export type Shared_Lists_Insert_Input = {
   created_at?: Maybe<Scalars['timestamptz']>,
   id?: Maybe<Scalars['uuid']>,
+  shopping_list?: Maybe<Shopping_List_Obj_Rel_Insert_Input>,
   shopping_list_id?: Maybe<Scalars['uuid']>,
   updated_at?: Maybe<Scalars['timestamptz']>,
+  user?: Maybe<Users_Obj_Rel_Insert_Input>,
   user_id?: Maybe<Scalars['String']>,
 };
 
@@ -938,8 +946,10 @@ export type Shared_Lists_On_Conflict = {
 export type Shared_Lists_Order_By = {
   created_at?: Maybe<Order_By>,
   id?: Maybe<Order_By>,
+  shopping_list?: Maybe<Shopping_List_Order_By>,
   shopping_list_id?: Maybe<Order_By>,
   updated_at?: Maybe<Order_By>,
+  user?: Maybe<Users_Order_By>,
   user_id?: Maybe<Order_By>,
 };
 
@@ -2261,6 +2271,21 @@ export type DeleteShoppingListMutation = (
   )> }
 );
 
+export type GetSharedShoppingListsQueryVariables = {};
+
+
+export type GetSharedShoppingListsQuery = (
+  { __typename?: 'query_root' }
+  & { shared_lists: Array<(
+    { __typename?: 'shared_lists' }
+    & Pick<Shared_Lists, 'shopping_list_id' | 'id'>
+    & { shopping_list: (
+      { __typename?: 'shopping_list' }
+      & ShoppingListFieldsFragment
+    ) }
+  )> }
+);
+
 export type GetShoppingListsQueryVariables = {};
 
 
@@ -2634,6 +2659,25 @@ export const DeleteShoppingListDocument = gql`
   })
   export class DeleteShoppingListGQL extends Apollo.Mutation<DeleteShoppingListMutation, DeleteShoppingListMutationVariables> {
     document = DeleteShoppingListDocument;
+    
+  }
+export const GetSharedShoppingListsDocument = gql`
+    query GetSharedShoppingLists {
+  shared_lists {
+    shopping_list_id
+    id
+    shopping_list {
+      ...ShoppingListFields
+    }
+  }
+}
+    ${ShoppingListFieldsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetSharedShoppingListsGQL extends Apollo.Query<GetSharedShoppingListsQuery, GetSharedShoppingListsQueryVariables> {
+    document = GetSharedShoppingListsDocument;
     
   }
 export const GetShoppingListsDocument = gql`

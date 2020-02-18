@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CreateShoppingListGQL, CreateShoppingListMutationVariables, GetShoppingListByIdGQL, GetShoppingListsDocument, GetShoppingListsGQL, UpdateShoppingListGQL, GetFavouriteShoppingListGQL, UpdateShoppingListMutationVariables, GetShoppingListsQuery, GetFavouriteShoppingListDocument, Shopping_List, Shopping_List_Set_Input, Shopping_List_Insert_Input, Shopping_List_Items_Insert_Input, DeleteShoppingListGQL } from 'src/generated/graphql';
+import { CreateShoppingListGQL, GetSharedShoppingListsGQL, CreateShoppingListMutationVariables, GetShoppingListByIdGQL, GetShoppingListsDocument, GetShoppingListsGQL, UpdateShoppingListGQL, GetFavouriteShoppingListGQL, UpdateShoppingListMutationVariables, GetShoppingListsQuery, GetFavouriteShoppingListDocument, Shopping_List, Shopping_List_Set_Input, Shopping_List_Insert_Input, Shopping_List_Items_Insert_Input, DeleteShoppingListGQL, Shared_Lists } from 'src/generated/graphql';
 import { map } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { GraphQLError } from 'graphql';
@@ -36,7 +36,8 @@ export class ShoppingListService extends DataService<Shopping_List> {
     private updateShoppingListGQL: UpdateShoppingListGQL,
     private getFavouriteShoppingListGQL: GetFavouriteShoppingListGQL,
     private getShoppingListByIdGQL: GetShoppingListByIdGQL,
-    private deleteShoppingListGQL: DeleteShoppingListGQL) {
+    private deleteShoppingListGQL: DeleteShoppingListGQL,
+    private getSharedShoppingListsGQL: GetSharedShoppingListsGQL) {
 
     super();
     //Set our user id for all calls.  Maybe could inject this automagically latersome sort of middleware?
@@ -127,12 +128,7 @@ export class ShoppingListService extends DataService<Shopping_List> {
   }
 
 
-  getFavouriteShoppingList() {
-    //throw new GraphQLError("Test GRaphQL Error");
-    return this.getFavouriteShoppingListGQL.watch()
-      .valueChanges
-      .pipe(map(res => res.data.shopping_list));
-  }
+
 
   toggleFavourite(id: string, favourite: boolean) {
 
@@ -202,7 +198,20 @@ export class ShoppingListService extends DataService<Shopping_List> {
 
   }
 
-  //PRivate methods
+  getFavouriteShoppingList() {
+    //throw new GraphQLError("Test GRaphQL Error");
+    return this.getFavouriteShoppingListGQL.watch()
+      .valueChanges
+      .pipe(map(res => res.data.shopping_list));
+  }
+
+  getSharedShoppingLists(): Observable<Shared_Lists[]> {
+
+    return this.getSharedShoppingListsGQL.watch()
+      .valueChanges
+      .pipe(map(res => res.data.shared_lists as Shared_Lists[]))
+
+  }
 
 
 
