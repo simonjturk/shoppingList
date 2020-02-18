@@ -29,9 +29,15 @@ export class ShoppingListRoutesService extends UnsubscribeBase {
   }
 
   setRoute(shoppingListId: string) {
-    this.listLoaded.subscribe(x => {
-      this.shoppingList.findIndex(x => x.id === shoppingListId);
-    })
+    if (this.currentIndex) {
+      this.currentIndex = this.shoppingList.findIndex(x => x.id === shoppingListId);
+    } else {
+      this.listLoaded.subscribe(x => {
+        this.currentIndex = this.shoppingList.findIndex(x => x.id === shoppingListId);
+      })
+    }
+
+
 
   }
 
@@ -57,5 +63,11 @@ export class ShoppingListRoutesService extends UnsubscribeBase {
     return this.currentIndex === 0;
   }
 
+  get count(): number {
+    return this.shoppingList.length;
+  }
+  get activeIndex(): number {
+    return this.currentIndex;
+  }
 
 }

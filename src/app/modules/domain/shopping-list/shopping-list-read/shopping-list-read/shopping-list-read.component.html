@@ -1,4 +1,13 @@
 <div *ngIf="shoppingList$ | async as shoppingList">
+
+  <div class="dot-wrapper" *ngIf="shoppingListRoutesService?.shoppingList" fxLayout="row" fxLayoutAlign="center center"
+    fxLayoutGap="5px">
+    <span
+      [ngClass]="{'dot':index!==shoppingListRoutesService.activeIndex, 'active':index===shoppingListRoutesService.activeIndex}"
+      *ngFor="let shoppingList of shoppingListRoutesService.shoppingList; let index = index">
+    </span>
+  </div>
+
   <mat-toolbar>
     <mat-toolbar-row>
       <span>{{shoppingList.name}}</span>

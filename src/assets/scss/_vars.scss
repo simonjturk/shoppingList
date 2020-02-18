@@ -19,5 +19,8 @@ $disabled: map-get($theme, disabled);
 $background: map-get($theme, background);
 $text: map-get($foreground, text);
 $card: map-get($background, card);
+$toolbar: map-get($background, app-bar);
+
+
 
 $border: map-get($foreground, divider);
