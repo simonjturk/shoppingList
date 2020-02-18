@@ -45,6 +45,7 @@ export type Int_Comparison_Exp = {
 /** mutation root */
 export type Mutation_Root = {
    __typename?: 'mutation_root',
+  insertShoppingListRoutes?: Maybe<Shopping_List_Routes>,
   /** delete data from the table: "product_categories" */
   delete_product_categories?: Maybe<Product_Categories_Mutation_Response>,
   /** delete data from the table: "products" */
@@ -81,6 +82,12 @@ export type Mutation_Root = {
   update_shopping_list_items?: Maybe<Shopping_List_Items_Mutation_Response>,
   /** update data of the table: "users" */
   update_users?: Maybe<Users_Mutation_Response>,
+};
+
+
+/** mutation root */
+export type Mutation_RootInsertShoppingListRoutesArgs = {
+  routes: Shopping_List_Routes_Input
 };
 
 
@@ -608,6 +615,7 @@ export enum Products_Update_Column {
 /** query root */
 export type Query_Root = {
    __typename?: 'query_root',
+  shoppingListRoutes?: Maybe<Array<Maybe<Shopping_List_Routes>>>,
   /** fetch data from the table: "product_categories" */
   product_categories: Array<Product_Categories>,
   /** fetch aggregated fields from the table: "product_categories" */
@@ -1469,6 +1477,19 @@ export type Shopping_List_Order_By = {
   user_id?: Maybe<Order_By>,
 };
 
+export type Shopping_List_Routes = {
+   __typename?: 'shopping_list_routes',
+  currentShoppingList: Scalars['String'],
+  nextShoppingList: Scalars['String'],
+  previousShoppingList: Scalars['String'],
+};
+
+export type Shopping_List_Routes_Input = {
+  currentShoppingList: Scalars['String'],
+  nextShoppingList: Scalars['String'],
+  previousShoppingList: Scalars['String'],
+};
+
 /** select columns of table "shopping_list" */
 export enum Shopping_List_Select_Column {
   /** column name */
@@ -2109,6 +2130,30 @@ export type Uuid_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['uuid']>>,
 };
 
+export type CreateShoppinghListStateMutationVariables = {
+  state: Shopping_List_Routes_Input
+};
+
+
+export type CreateShoppinghListStateMutation = (
+  { __typename: 'mutation_root' }
+  & { insertShoppingListRoutes: Maybe<(
+    { __typename?: 'shopping_list_routes' }
+    & Pick<Shopping_List_Routes, 'currentShoppingList' | 'nextShoppingList' | 'previousShoppingList'>
+  )> }
+);
+
+export type GetShoppingListStateQueryVariables = {};
+
+
+export type GetShoppingListStateQuery = (
+  { __typename: 'query_root' }
+  & { shoppingListRoutes: Maybe<Array<Maybe<(
+    { __typename?: 'shopping_list_routes' }
+    & Pick<Shopping_List_Routes, 'currentShoppingList' | 'nextShoppingList' | 'previousShoppingList'>
+  )>>> }
+);
+
 export type CategoryFieldsFragment = (
   { __typename?: 'product_categories' }
   & Pick<Product_Categories, 'id' | 'name' | 'colour'>
@@ -2440,6 +2485,42 @@ export const ShoppingListItemFieldsFragmentDoc = gql`
   shopping_list_id
 }
     `;
+export const CreateShoppinghListStateDocument = gql`
+    mutation CreateShoppinghListState($state: shopping_list_routes_input!) {
+  __typename
+  insertShoppingListRoutes(routes: $state) {
+    currentShoppingList
+    nextShoppingList
+    previousShoppingList
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateShoppinghListStateGQL extends Apollo.Mutation<CreateShoppinghListStateMutation, CreateShoppinghListStateMutationVariables> {
+    document = CreateShoppinghListStateDocument;
+    
+  }
+export const GetShoppingListStateDocument = gql`
+    query GetShoppingListState @client {
+  __typename
+  shoppingListRoutes {
+    currentShoppingList
+    nextShoppingList
+    previousShoppingList
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetShoppingListStateGQL extends Apollo.Query<GetShoppingListStateQuery, GetShoppingListStateQueryVariables> {
+    document = GetShoppingListStateDocument;
+    
+  }
 export const CreateProductCategoriesDocument = gql`
     mutation CreateProductCategories($args: [product_categories_insert_input!]!) {
   __typename

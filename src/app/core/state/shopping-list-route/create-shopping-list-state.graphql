@@ -1,0 +1,8 @@
+mutation CreateShoppinghListState($state: shopping_list_routes_input!) {
+  __typename
+  insertShoppingListRoutes(routes: $state) {
+    currentShoppingList
+    nextShoppingList
+    previousShoppingList
+  }
+}

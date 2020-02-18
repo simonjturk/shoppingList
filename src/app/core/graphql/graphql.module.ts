@@ -53,6 +53,8 @@ export function createApollo(httpLink: HttpLink, auth: AuthService, isLoadingSer
   return {
     link: ApolloLink.from([authMiddleware, errorLink, isLoading, isLoadingAfter, http]),  // concat(errorLink,http),//httpLink.create({uri}),
     cache: new InMemoryCache(),
+    //resolvers,
+    //typeDefs,
     defaultOptions: {
       watchQuery: {
         errorPolicy: 'all'

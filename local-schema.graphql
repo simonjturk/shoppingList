@@ -1,0 +1,25 @@
+
+  schema {
+  query: query_root
+  mutation: mutation_root
+  }
+  
+  type shopping_list_routes {
+    currentShoppingList: String!
+    nextShoppingList: String!
+    previousShoppingList: String!
+  }
+  input shopping_list_routes_input {
+    currentShoppingList: String!
+    nextShoppingList: String!
+    previousShoppingList: String!
+  }
+
+  type mutation_root {
+    insertShoppingListRoutes(routes:shopping_list_routes_input!):shopping_list_routes
+    
+  }
+
+  type query_root {
+    shoppingListRoutes: [shopping_list_routes]
+  }

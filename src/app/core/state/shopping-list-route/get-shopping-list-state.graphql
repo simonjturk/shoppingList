@@ -1,0 +1,8 @@
+query GetShoppingListState @client {
+  __typename
+  shoppingListRoutes {
+    currentShoppingList
+    nextShoppingList
+    previousShoppingList
+  } 
+} 

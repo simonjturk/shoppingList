@@ -1,1 +1,3 @@
-<app-shopping-list-read [shoppingList$]="shoppingList$"></app-shopping-list-read>
+<div (swiperight)="onSwipePrevious($event)" (swipeleft)="onSwipeNext($event)">
+  <app-shopping-list-read [shoppingList$]="shoppingList$"></app-shopping-list-read>
+</div>

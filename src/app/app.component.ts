@@ -6,6 +6,7 @@ import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationErr
 import { IsLoadingService } from '@service-work/is-loading';
 import { filter } from 'rxjs/operators';
 import { UpdateService } from './core/services/update/update.service';
+import { ShoppingListRoutesService } from './core/state/shopping-list-route/shopping-list-routes.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,7 +18,7 @@ export class AppComponent implements OnInit {
 
 
   constructor(
-    private toast: MatSnackBar, private update: UpdateService
+    private toast: MatSnackBar, private update: UpdateService, shoppingListRoutesService: ShoppingListRoutesService
   ) {
 
 

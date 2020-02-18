@@ -10,7 +10,7 @@ import { IosInstallComponent } from './components/ios-install/ios-install.compon
 import { MatIconModule } from '@angular/material/icon';
 import { GraphQLModule } from './graphql/graphql.module';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrudStore } from './store/crud/crud.store';
 import { AuthService } from './services/auth/auth.service';
@@ -18,6 +18,8 @@ import { FlexModule } from '@angular/flex-layout';
 import { IsLoadingService } from '@service-work/is-loading';
 import { EnvServiceProvider } from '../env/env.service.provider';
 import { UpdateService } from './services/update/update.service';
+import { ShoppingListRoutesService } from './state/shopping-list-route/shopping-list-routes.service';
+import { HammerConfig } from './hammer.config';
 
 
 @NgModule({
@@ -33,7 +35,7 @@ import { UpdateService } from './services/update/update.service';
     FlexModule,
     GraphQLModule
   ],
-  exports: [CoreRoutingModule, AppLayoutModule],
+  exports: [CoreRoutingModule, AppLayoutModule, BrowserAnimationsModule],
   providers: [
     AuthService,
     CrudStore,
@@ -42,8 +44,13 @@ import { UpdateService } from './services/update/update.service';
       provide: ErrorHandler,
       useClass: ErrorService,
     },
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerConfig
+    },
     EnvServiceProvider,
-    UpdateService
+    UpdateService,
+    ShoppingListRoutesService
   ],
   entryComponents: [IosInstallComponent]
 })
