@@ -1,5 +1,5 @@
 <div fxLayout="row">
-
+  <!--
   <div fxFlex="50px">
     <div fxFlexFill fxLayoutAlign="start center">
       <button mat-icon-button aria-label="expand shopping list" (click)="expanded = !expanded">
@@ -8,10 +8,12 @@
       </button>
     </div>
   </div>
+  -->
   <div fxFlex>
     <div fxFill>
       <div fxFlexFill fxLayoutAlign="start center">
-        {{shoppingList.name}}
+        <span style="padding-left:10px; cursor: pointer; width: 100%"><a
+            (click)="goShoppingList(shoppingList.id)">{{shoppingList.name}}</a> </span>
       </div>
     </div>
   </div>
@@ -21,12 +23,6 @@
         <mat-icon class="primary-text" *ngIf="shoppingList.favourite">favorite</mat-icon>
         <mat-icon class="primary-text" *ngIf="!shoppingList.favourite">favorite_border</mat-icon>
       </button>
-
-      <button (click)="goShoppingList(shoppingList.id)" mat-icon-button color="primary">
-        <mat-icon>list_alt</mat-icon>
-      </button>
-
-
       <button mat-icon-button color="primary" [matMenuTriggerFor]="menu" aria-label="more options">
         <mat-icon>more_vert</mat-icon>
       </button>
