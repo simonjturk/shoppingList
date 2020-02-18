@@ -3,9 +3,9 @@
 
 
 
-query GetShoppingLists {
+query GetShoppingLists($userId:String)  {
   __typename
-  shopping_list {
+  shopping_list(where: {user_id: {_eq: $userId}}) {
     ...ShoppingListFields
   }
 }
@@ -18,9 +18,9 @@ query GetShoppingListById ($id:uuid) {
 }
 
 
-query GetFavouriteShoppingList {
+query GetFavouriteShoppingList($userId:String) {
   __typename
-  shopping_list(where: {favourite: {_eq: true}}) {
+  shopping_list(where: {favourite: {_eq: true}, _and: {user_id: {_eq: $userId}}}) {
     ...ShoppingListFields
   }
 }

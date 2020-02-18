@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CreateShoppingListGQL, GetSharedShoppingListsGQL, CreateShoppingListMutationVariables, GetShoppingListByIdGQL, GetShoppingListsDocument, GetShoppingListsGQL, UpdateShoppingListGQL, GetFavouriteShoppingListGQL, UpdateShoppingListMutationVariables, GetShoppingListsQuery, GetFavouriteShoppingListDocument, Shopping_List, Shopping_List_Set_Input, Shopping_List_Insert_Input, Shopping_List_Items_Insert_Input, DeleteShoppingListGQL, Shared_Lists } from 'src/generated/graphql';
+import { CreateShoppingListGQL, GetSharedShoppingListsGQL, CreateShoppingListMutationVariables, GetShoppingListByIdGQL, GetShoppingListsDocument, GetShoppingListsGQL, UpdateShoppingListGQL, GetFavouriteShoppingListGQL, UpdateShoppingListMutationVariables, GetShoppingListsQuery, GetFavouriteShoppingListDocument, Shopping_List, Shopping_List_Set_Input, Shopping_List_Insert_Input, Shopping_List_Items_Insert_Input, DeleteShoppingListGQL, Shared_Lists, GetShoppingListsQueryVariables } from 'src/generated/graphql';
 import { map } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { GraphQLError } from 'graphql';
@@ -113,8 +113,11 @@ export class ShoppingListService extends DataService<Shopping_List> {
   readAll() {
     //throw new GraphQLError("Test GRaphQL Error");
 
+    const vars: GetShoppingListsQueryVariables = {
+      userId: this.user_id
+    }
 
-    return this.getShoppingListsGQL.watch()
+    return this.getShoppingListsGQL.watch(vars)
       .valueChanges
       .pipe(map(res => res.data.shopping_list as Shopping_List[]));
 
@@ -199,15 +202,18 @@ export class ShoppingListService extends DataService<Shopping_List> {
   }
 
   getFavouriteShoppingList() {
+    const vars: GetShoppingListsQueryVariables = {
+      userId: this.user_id
+    }
     //throw new GraphQLError("Test GRaphQL Error");
-    return this.getFavouriteShoppingListGQL.watch()
+    return this.getFavouriteShoppingListGQL.watch(vars)
       .valueChanges
       .pipe(map(res => res.data.shopping_list));
   }
 
   getSharedShoppingLists(): Observable<Shared_Lists[]> {
 
-    return this.getSharedShoppingListsGQL.watch()
+    return this.getSharedShoppingListsGQL.watch(null, { fetchPolicy: 'no-cache' })
       .valueChanges
       .pipe(map(res => res.data.shared_lists as Shared_Lists[]))
 

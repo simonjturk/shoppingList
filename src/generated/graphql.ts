@@ -2286,7 +2286,9 @@ export type GetSharedShoppingListsQuery = (
   )> }
 );
 
-export type GetShoppingListsQueryVariables = {};
+export type GetShoppingListsQueryVariables = {
+  userId?: Maybe<Scalars['String']>
+};
 
 
 export type GetShoppingListsQuery = (
@@ -2310,7 +2312,9 @@ export type GetShoppingListByIdQuery = (
   )> }
 );
 
-export type GetFavouriteShoppingListQueryVariables = {};
+export type GetFavouriteShoppingListQueryVariables = {
+  userId?: Maybe<Scalars['String']>
+};
 
 
 export type GetFavouriteShoppingListQuery = (
@@ -2681,9 +2685,9 @@ export const GetSharedShoppingListsDocument = gql`
     
   }
 export const GetShoppingListsDocument = gql`
-    query GetShoppingLists {
+    query GetShoppingLists($userId: String) {
   __typename
-  shopping_list {
+  shopping_list(where: {user_id: {_eq: $userId}}) {
     ...ShoppingListFields
   }
 }
@@ -2713,9 +2717,9 @@ export const GetShoppingListByIdDocument = gql`
     
   }
 export const GetFavouriteShoppingListDocument = gql`
-    query GetFavouriteShoppingList {
+    query GetFavouriteShoppingList($userId: String) {
   __typename
-  shopping_list(where: {favourite: {_eq: true}}) {
+  shopping_list(where: {favourite: {_eq: true}, _and: {user_id: {_eq: $userId}}}) {
     ...ShoppingListFields
   }
 }
