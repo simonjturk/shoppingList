@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { CreateShoppingListGQL, GetSharedShoppingListsGQL, CreateShoppingListMutationVariables, GetShoppingListByIdGQL, GetShoppingListsDocument, GetShoppingListsGQL, UpdateShoppingListGQL, GetFavouriteShoppingListGQL, UpdateShoppingListMutationVariables, GetShoppingListsQuery, GetFavouriteShoppingListDocument, Shopping_List, Shopping_List_Set_Input, Shopping_List_Insert_Input, Shopping_List_Items_Insert_Input, DeleteShoppingListGQL, Shared_Lists, GetShoppingListsQueryVariables } from 'src/generated/graphql';
-import { map } from 'rxjs/operators';
-import { HttpHeaders } from '@angular/common/http';
-import { GraphQLError } from 'graphql';
-import { DataProxy } from 'apollo-cache';
-import { headersToString } from 'selenium-webdriver/http';
+import { map, switchMap } from 'rxjs/operators';
 import { CacheHelperService, CACHE_ACTION } from 'src/app/core/graphql/helpers/cache-helper.service';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { DataService } from '../../data/DataService';
 import { Observable } from 'rxjs';
+import { ShoppingListItemService } from '../shoppingListItem/shopping-list-item.service';
 
 
 
@@ -30,14 +27,16 @@ export class ShoppingListService extends DataService<Shopping_List> {
   private user_id: string;
 
   constructor(
-    private auth: AuthService,
+    auth: AuthService,
     private gqlService: CreateShoppingListGQL,
     private getShoppingListsGQL: GetShoppingListsGQL,
     private updateShoppingListGQL: UpdateShoppingListGQL,
     private getFavouriteShoppingListGQL: GetFavouriteShoppingListGQL,
     private getShoppingListByIdGQL: GetShoppingListByIdGQL,
     private deleteShoppingListGQL: DeleteShoppingListGQL,
-    private getSharedShoppingListsGQL: GetSharedShoppingListsGQL) {
+    private getSharedShoppingListsGQL: GetSharedShoppingListsGQL,
+    private shoppingListItemService: ShoppingListItemService
+  ) {
 
     super();
     //Set our user id for all calls.  Maybe could inject this automagically latersome sort of middleware?
@@ -193,21 +192,49 @@ export class ShoppingListService extends DataService<Shopping_List> {
 
   cloneShoppingList(shoppingList: Shopping_List) {
 
-    let items = shoppingList.items.map((x) => {
-      return { product_id: x.product.id } as Shopping_List_Items_Insert_Input;
-    });
+    //get the latest version of our shopping list
+    //const latestShoppingList  = 
+    return this.shoppingListItemService.search({ shoppingListId: shoppingList.id })
+      .pipe(
+        map(res => res),
+        switchMap(items => {
+          const sl: Shopping_List_Insert_Input = {
+            name: `Copy of ${shoppingList.name}`,
+            items: {
+
+              data: items.map((x) => {
+                return { product_id: x.product.id } as Shopping_List_Items_Insert_Input;
+              })
+            }
+          }
+
+          return this.create(sl).pipe(map(res => res.pop()));
+        }));
+
+    /*
+    .subscribe(latestShoppingList =>{
+      let items = latestShoppingList.items.map((x) => {
+        return { product_id: x.product.id } as Shopping_List_Items_Insert_Input;
+      });
 
 
+    })
 
-    const sl: Shopping_List_Insert_Input = {
-      name: `Copy of ${shoppingList.name}`,
-      items: {
 
-        data: items
-      }
+     const sl: Shopping_List_Insert_Input = {
+    name: `Copy of ${shoppingList.name}`,
+    items: {
+
+      data: items
     }
+  }
+  
+*/
+
+
+
     //return nserted shopping list
-    return this.create(sl).pipe(map(res => res.pop()));
+    //return this.create(sl).pipe(map(res => res.pop()));
   }
 
 
