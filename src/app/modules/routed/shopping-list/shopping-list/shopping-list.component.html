@@ -4,23 +4,46 @@
   </mat-card-content>
 </mat-card>
 
-<mat-card>
-  <mat-card-content>
-    <app-shopping-list-records heading="Favourites" [shoppingLists$]="favShoppingLists$"></app-shopping-list-records>
-  </mat-card-content>
-</mat-card>
+<mat-card class="m-8">
+  <mat-card-title class="primary-text">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <mat-icon>favorite</mat-icon>
+      <span class="px-4">Favourites</span>
+    </div>
 
-
-<mat-card>
+  </mat-card-title>
   <mat-card-content>
-    <app-shopping-list-records heading="My Shopping Lists" [shoppingLists$]="shoppingLists$">
+    <app-shopping-list-records icon="favorite" [shoppingLists$]="favShoppingLists$">
     </app-shopping-list-records>
   </mat-card-content>
 </mat-card>
 
-<mat-card>
+
+<mat-card class="m-8">
+  <mat-card-title class="primary-text">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <mat-icon>view_list</mat-icon>
+      <span class="px-4">My shopping lists</span>
+    </div>
+
+  </mat-card-title>
   <mat-card-content>
-    <app-shopping-list-records heading="Shared with me" [shoppingLists$]="sharedShoppingLists$">
+
+    <app-shopping-list-records icon="view_list" [shoppingLists$]="shoppingLists$">
+    </app-shopping-list-records>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="m-8">
+  <mat-card-title class="primary-text">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <mat-icon>share</mat-icon>
+      <span class="px-4">Shared with me</span>
+    </div>
+
+  </mat-card-title>
+  <mat-card-content>
+    <app-shopping-list-records icon="share" [shoppingLists$]="sharedShoppingLists$">
     </app-shopping-list-records>
   </mat-card-content>
 </mat-card>

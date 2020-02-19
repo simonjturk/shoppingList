@@ -1,5 +1,11 @@
 <div *ngIf="shoppingLists$ | async as shoppingLists">
-  <h3 matSubheader>{{heading}}</h3>
+  <div *ngIf="heading" fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon *ngIf="icon">{{icon}}</mat-icon>
+    <h3 matSubheader>
+      {{heading}}
+    </h3>
+  </div>
+
   <div *ngFor="let shoppingList of shoppingLists  let last = last">
     <shopping-list-record [shoppingList]=" shoppingList">
     </shopping-list-record>

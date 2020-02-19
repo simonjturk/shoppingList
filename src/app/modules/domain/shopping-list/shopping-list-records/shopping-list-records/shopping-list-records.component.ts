@@ -9,7 +9,8 @@ import { Shopping_List } from 'src/generated/graphql';
 })
 export class ShoppingListRecordsComponent implements OnInit {
 
-  @Input() heading: string = "Shopping List"
+  @Input() heading: string = null;
+  @Input() icon: string = null
   @Input() shoppingLists$: Observable<Shopping_List[]>;
 
   constructor() { }
