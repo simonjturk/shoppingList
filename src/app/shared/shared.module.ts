@@ -19,9 +19,9 @@ import { ProductAutocompleteModule } from './components/ui/product-autocomplete/
 @NgModule({
   declarations: [ArrayFilterPipe],
   providers: [
-    ArrayHelpersService,
-    ShoppingListService,
-    ShoppingListItemService
+    //ArrayHelpersService,
+    //ShoppingListService,
+    //ShoppingListItemService
   ],
   imports: [
     CommonModule,

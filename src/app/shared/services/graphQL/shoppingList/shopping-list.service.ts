@@ -65,7 +65,11 @@ export class ShoppingListService extends DataService<Shopping_List> {
           {
             type: CACHE_ACTION.INSERT,
             queryDocument: GetShoppingListsDocument,
-            variables: null
+            variables: [{
+              variableName: "userId",
+              value: this.user_id
+
+            }]
           }]);
       }
     }).pipe(map(res => res.data.insert_shopping_list.returning as Shopping_List[]));
@@ -83,7 +87,11 @@ export class ShoppingListService extends DataService<Shopping_List> {
           {
             type: CACHE_ACTION.DELETE,
             queryDocument: GetShoppingListsDocument,
-            variables: null
+            variables: [{
+              variableName: "userId",
+              value: this.user_id
+
+            }]
           },
           {
             type: CACHE_ACTION.DELETE,
@@ -92,6 +100,10 @@ export class ShoppingListService extends DataService<Shopping_List> {
               {
                 variableName: "favourite",
                 value: true
+              },
+              {
+                variableName: "userId",
+                value: this.user_id
               }
             ]
           }]);
@@ -152,7 +164,10 @@ export class ShoppingListService extends DataService<Shopping_List> {
           {
             type: favourite ? CACHE_ACTION.INSERT : CACHE_ACTION.DELETE,
             queryDocument: GetFavouriteShoppingListDocument,
-            variables: null
+            variables: [{
+              variableName: "userId",
+              value: this.user_id
+            }]
           }]);
       }
 

@@ -17,7 +17,7 @@ export const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('../modules/routed/home/home.module').then(m => m.HomeModule),
-    canActivate: [HomeGuard]
+    //canActivate: [HomeGuard]
   },
   {
     path: 'shopping-list',
