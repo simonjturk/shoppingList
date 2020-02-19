@@ -5,7 +5,9 @@ import { DialogServiceBase } from "./DialogServiceBase";
 import { MatDialog } from '@angular/material/dialog';
 
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ProductCategoryDialogService extends DialogServiceBase {
     constructor(dialog: MatDialog) {
         super(dialog)

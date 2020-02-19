@@ -48,7 +48,7 @@ export class OaDialogComponent implements OnInit {
       this.data.componentData.forEach(d => this.componentRef.instance[d.property] = d.value);
     }
 
-    //set Output vars
+    //subscribe to the crud event of the component
     this.componentRef.instance.crudEvent.subscribe(data => {
       this.handleComponentCrudEvent(data);
     });

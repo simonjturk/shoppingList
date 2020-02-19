@@ -42,7 +42,7 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private shoppingListItemService: ShoppingListItemService,
     private productService: ProductService,
-    public dialog: MatDialog) {
+  ) {
 
 
     this.buildForm();

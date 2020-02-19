@@ -14,12 +14,14 @@ import { ProductDialogService } from "./ProductDialogService";
 import { ProductCategoryDialogService } from "./ProductCategoryDialogService";
 import { ShoppingListItemUpdateModule } from 'src/app/modules/domain/shopping-list-item/shopping-list-item-update/shopping-list-item-update.module';
 import { CrudBarModule } from '../crud-bar/crud-bar.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ShoppingListUpdateComponent } from 'src/app/modules/domain/shopping-list/shopping-list-update/shopping-list-update/shopping-list-update.component';
 
 
 
 @NgModule({
   declarations: [OaDialogComponent],
-  providers: [ShoppingListItemDialogService, ProductCategoryDialogService, ProductDialogService],
+  //providers: [ShoppingListItemDialogService, ProductCategoryDialogService, ProductDialogService],
   imports: [
     CommonModule,
     SharedModule,
@@ -27,9 +29,10 @@ import { CrudBarModule } from '../crud-bar/crud-bar.module';
     ProductCreateModule,
     ProductCategoryCreateModule,
     ShoppingListItemUpdateModule,
+    ShoppingListUpdateModule,
     CrudBarModule
   ],
   exports: [OaDialogComponent],
-  entryComponents: [ShoppingListItemUpdateComponent, ProductCreateComponent, ProductCategoryCreateComponent, OaDialogComponent]
+  entryComponents: [ShoppingListItemUpdateComponent, ShoppingListUpdateComponent, ProductCreateComponent, ProductCategoryCreateComponent, OaDialogComponent]
 })
 export class OaDialogModule { }

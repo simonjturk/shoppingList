@@ -6,6 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 import { ShoppingListItemRecordsModule } from '../../shopping-list-item/shopping-list-item-records/shopping-list-item-records.module';
 import { ShoppingListItemCreateModule } from '../../shopping-list-item/shopping-list-item-create/shopping-list-item-create.module';
+import { OaDialogModule } from 'src/app/shared/components/ui/oa-dialog/oa-dialog.module';
 
 
 
@@ -15,7 +16,8 @@ import { ShoppingListItemCreateModule } from '../../shopping-list-item/shopping-
     CommonModule,
     SharedModule,
     ShoppingListItemCreateModule,
-    ShoppingListItemRecordsModule
+    ShoppingListItemRecordsModule,
+    OaDialogModule
   ],
   exports: [ShoppingListReadComponent]
 })
