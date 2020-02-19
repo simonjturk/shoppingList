@@ -64,7 +64,9 @@ export class ShoppingListCreateComponent extends CrudBaseComponent<Shopping_List
   public buildDataObject() {
     return { name: this.form.value.name } as Shopping_List
   }
-
+  get id() {
+    return null;
+  }
 
   private buildForm() {
 

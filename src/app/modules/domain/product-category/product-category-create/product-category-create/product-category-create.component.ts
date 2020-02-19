@@ -66,5 +66,7 @@ export class ProductCategoryCreateComponent extends CrudBaseComponent<Product_Ca
 
     return newProductCategory;
   }
-
+  get id() {
+    return this.category.id;
+  }
 }

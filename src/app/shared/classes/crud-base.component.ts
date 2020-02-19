@@ -61,6 +61,7 @@ export abstract class CrudBaseComponent<T> extends UnsubscribeBase implements On
         this.isLoadingService.add({ key: "button" });
 
         //we determin the correct method to call based on the type of CRUD operation this is as defined n the constructor
+        //as it could be Save-Update, or Save-Create
         const obs = this.dataService[this.crudMode](this.buildDataObject())
             .pipe(map(res => {
 
@@ -75,10 +76,21 @@ export abstract class CrudBaseComponent<T> extends UnsubscribeBase implements On
     public cancel() {
         this.crudEvent.emit(CRUD_BUTTONS.save);
     }
-    public delete() {
-        this.crudEvent.emit(CRUD_BUTTONS.save);
-    }
+    public delete(execute: boolean = true) {
+        this.isLoadingService.add({ key: "button" });
 
+        //we can set the method to Delete here
+        const obs = this.dataService[CRUD_MODE.Delete](this.id)
+            .pipe(map(res => {
+
+                this.isLoadingService.remove({ key: "button" })
+                this.crudEvent.emit(CRUD_BUTTONS.save);
+
+                return res;
+            }));
+
+        return execute ? obs.subscribe() : obs;
+    }
 
 
     /**
@@ -88,7 +100,7 @@ export abstract class CrudBaseComponent<T> extends UnsubscribeBase implements On
      * @memberof CrudBaseComponent
      */
     public abstract buildDataObject()
-
+    public abstract get id()
 
     /**
      * Event handler for the crud bar being clicked.  will call appropriate methods based on button being clicked

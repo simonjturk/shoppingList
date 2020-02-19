@@ -120,7 +120,9 @@ export class ProductCreateComponent extends CrudBaseComponent<Products> implemen
     }
     return newProduct;
   }
-
+  get id() {
+    return this.product.id;
+  }
 
 
 

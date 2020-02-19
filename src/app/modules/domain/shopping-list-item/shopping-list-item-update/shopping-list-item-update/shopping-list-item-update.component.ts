@@ -69,6 +69,9 @@ export class ShoppingListItemUpdateComponent extends CrudBaseComponent<Shopping_
     return itemData;
   }
 
+  get id() {
+    return this.item.id;
+  }
 
   /** 
    * Private methods
