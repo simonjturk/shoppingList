@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 
 
   constructor(
-    private toast: MatSnackBar, private update: UpdateService, shoppingListRoutesService: ShoppingListRoutesService
+    private toast: MatSnackBar,// private update: UpdateService, shoppingListRoutesService: ShoppingListRoutesService
   ) {
 
 
