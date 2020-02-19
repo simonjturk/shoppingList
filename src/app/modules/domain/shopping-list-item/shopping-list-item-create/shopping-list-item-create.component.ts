@@ -118,7 +118,7 @@ export class ShoppingListItemCreateComponent implements OnInit, OnDestroy {
     this.shoppingListItemService.create({ product_id: productId, shopping_list_id: this.shoppingListId })
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(x => {
-        this.itemForm.controls.product_id.setValue('Milk');
+        this.itemForm.controls.product_id.setValue('');
       })
 
 

@@ -11,6 +11,7 @@ import {
   forwardRef,
   Output,
   EventEmitter,
+  ViewChild,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -30,6 +31,7 @@ import { debounceTime } from 'rxjs/operators';
 
 import { IIdentifiable } from './IIdentifiable';
 import { OaControlBaseComponent } from '../oa-control-base.component';
+import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 
 
 /**
@@ -66,7 +68,11 @@ export class OaAutocompleteComponent implements OnInit, ControlValueAccessor, On
 
   @Output() optionSelected: EventEmitter<IIdentifiable> = new EventEmitter()
 
-  private _lengthToTriggerSearch = 1;
+  @ViewChild("matAutocomplete") autoComplete: MatAutocomplete
+
+  @ViewChild(MatAutocompleteTrigger) autocompleteTrigger: MatAutocompleteTrigger;
+
+  private _lengthToTriggerSearch = 3;
   // Inner form control to link input text changes to mat autocomplete
   inputControl = new FormControl('', this.validators);
 
@@ -121,12 +127,16 @@ export class OaAutocompleteComponent implements OnInit, ControlValueAccessor, On
             this.isSearching = false;
             this.noResults = false;
 
-            this.onChange = fn(value);
-            this.valueBS.next(value);
+            this.onChange = fn("");
+            this.valueBS.next("");
+
+            this.autocompleteTrigger.closePanel();
           }
         } else {
-          this.onChange = fn(value);
-          this.valueBS.next(value);
+          this.onChange = fn("");
+          this.valueBS.next("");
+
+          this.autocompleteTrigger.closePanel();
         }
       },
     });

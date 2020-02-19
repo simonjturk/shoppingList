@@ -21,7 +21,7 @@ export class AutoCompleteProductDataDirective {
         this.host.value$.pipe(
             startWith(null),
             switchMap(name => {
-                if (typeof name === 'string') {
+                if (typeof name === 'string' && name.length > 0) {
 
                     return this.productService.readAll()
                         .pipe(map(products => {
@@ -38,7 +38,7 @@ export class AutoCompleteProductDataDirective {
                             })
                         }))
                 }
-                return [];
+                return of([])
             })
         ).subscribe(filtered => {
             this.host.options = filtered
